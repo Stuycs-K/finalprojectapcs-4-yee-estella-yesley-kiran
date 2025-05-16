@@ -21,7 +21,7 @@ Estella Yee, Kiran Yesley
  link to the online game: https://freepacman.org/
 
 2. CROSSY ROAD
-- This game is based off the Crossy Road Arcade Game and will ultimately answer the unanswered life question: what happens when the chicken crosses the road?
+- This game is based off the Crossy Road Arcade Game ( https://crossy-road.com/ ) and will ultimately answer the unanswered life question: what happens when the chicken crosses the road?
 - It will have several game modes: single player, dual player, slippery mode(?)
 - Because of the limitations of processing (unless other software is allowed) we will likely make this a 2d version of Crossy Road 
 
