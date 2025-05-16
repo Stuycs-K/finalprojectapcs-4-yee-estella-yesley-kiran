@@ -21,6 +21,20 @@ Estella Yee, Kiran Yesley
  link to the online game: https://freepacman.org/
 
 2. CROSSY ROAD
+- This game is based off the Crossy Road Arcade Game and will ultimately answer the unanswered life question: what happens when the chicken crosses the road?
+- It will have several game modes: single player, dual player, slippery mode(?)
+- Because of the limitations of processing (unless other software is allowed) we will likely make this a 2d version of Crossy Road 
 
+Potential Challenges:
+- Making the infinite loop of obstacles (logs across the river and cars ) 
+- Implementing the hawk that catches the chicken/duck after a certain amount of time
 
 3. DONKEY KONG
+- This gamed is based off the simple 2d platformer game Donkey Kong : https://freekong.org/
+- This will have the ladder feature and a score/high score feature as well 
+- unless we have time this will likely not include the start animation 
+
+Potential Challenges:
+- creating platformer physics (for the people and the barrels) -- especially since its on a slant
+- creating animations for mario (jumping and climbing) and donkey kong (rolling the barrel)
+
