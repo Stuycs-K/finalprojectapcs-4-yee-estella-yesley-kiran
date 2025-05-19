@@ -41,5 +41,17 @@ UML Diagrams and descriptions of key algorithms, classes, and how things fit tog
 
 How you are breaking down the project and who is responsible for which parts.
 
-A timeline with expected completion dates of parts of the project. (CHANGE THIS!!!!!)
+## JOBS 
+Kiran's Responsibilities: 
+- Game 
+- Point classes 
+
+Estella's Responsibilities:
+- Game 
+- Character, Ghosts, and Pacman classes 
+
+## TIMELINE 
+A timeline with expected completion dates of parts of the project. 
+- Wednesday, 05/21 Complete Protoype 
+- 
 
