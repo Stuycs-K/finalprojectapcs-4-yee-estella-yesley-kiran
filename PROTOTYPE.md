@@ -9,6 +9,7 @@ The Double YY Campaign (Might change later)
 ### Brief Project Description: 
 PACMAN
 link to the online game: https://freepacman.org/
+
 We will be recreating the classic Pacman game! Pacman is a fortune teller shaped character whose goal is to nagivate a maze consuming dots (points) and avoiding ghosts. Pacman can eat power pellets, which temporarily make the ghosts vulnerable and allow Pac-Man to eat them for more points. Fruits also give Pac-man more points when consumed. 
 
 ### Expanded Description 
