@@ -36,7 +36,7 @@ Extra Features:
 
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together.
 
-
+![Alt text](UML.jpg?raw=true "Title" ) 
     
 # Intended pacing:
 
