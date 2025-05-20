@@ -29,7 +29,8 @@ Extra Features:
 - Start and End screen, and replay screen 
 - High Score 
 - Choose your avatar 
-- Stacking of point values per ghosts/different fruits 
+- Stacking of point values per ghosts/different fruits
+- differnet speeds for vulnerable and regular mode for ghosts  
      
 # Project Design
 
@@ -44,7 +45,7 @@ How you are breaking down the project and who is responsible for which parts.
 ## JOBS 
 Kiran's Responsibilities: 
 - Game 
-- Point classes 
+- Point classes and extra features
 
 Estella's Responsibilities:
 - Game 
