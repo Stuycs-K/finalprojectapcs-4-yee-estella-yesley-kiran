@@ -7,20 +7,16 @@ class Pointfield{
   private static final int WALL = -1;
   
   public Pointfield(int height, int width){
-    for(int row = 0; row < height; row++){
-      for(int col =0; col < width; col++){
-        //create maze
-        //create other values as well!
-      }
-    }
+    carveMaze(1,1);
   }
   
   public Point[][] getField(){
     return field; 
   }
   
-   public void carveMaze(int row, int col){
-    map[row][col] = WALL; 
+  public void carveMaze(int row, int col){
+    Point a = new Point(row,col, WALL);
+    field[row][col] = a; 
 
     ArrayList<int[]> dir = new ArrayList<int[]>(); 
     dir.add(new int[] {1, 0}); 
@@ -40,11 +36,11 @@ class Pointfield{
     }
   }
   
-   public boolean canCarve(int row, int col) {
-    if (row < 1 || row >= map.length-1 || col < 1 || col >= map[0].length-1){
+  public boolean canCarve(int row, int col) {
+    if (row < 1 || row >= field.length-1 || col < 1 || col >= field[0].length-1){
       return false; 
     }
-    if (map[row][col] != SPACE){
+    if (field[row][col].getValue() == WALL){
       return false; 
     }
     int neighbors = 0; 
@@ -52,13 +48,13 @@ class Pointfield{
     for (int step = 0; step < 4; step ++){
       int nextRow = row + dir[step][0]; 
       int nextCol = col + dir[step][1]; 
-      if (nextRow > 0 && nextRow < map.length - 1 && nextCol > 0 && nextCol < map[0].length - 1) {
-        if (map[nextRow][nextCol] == TREE){
+      if (nextRow > 0 && nextRow < field.length - 1 && nextCol > 0 && nextCol < field[0].length - 1) {
+        if (field[nextRow][nextCol].getValue() == WALL){
           neighbors ++; 
         }
       }
     }
     return (neighbors < 2); 
-  }
+ }
   
 }

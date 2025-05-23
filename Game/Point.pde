@@ -32,4 +32,5 @@ class Point{
      return eaten; 
   }
   
+  
 }
