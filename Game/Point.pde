@@ -25,7 +25,7 @@ class Point{
   }
   
   public int getValue(){
-    
+    return value; 
   }
   
   public boolean geteaten(){

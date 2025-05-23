@@ -7,7 +7,7 @@ void setup(){
   size(1000, 1000); 
   ROWS = 100; 
   COLS = 100; 
-  map = new Pointfield(ROW, COLS); 
+  map = new Pointfield(ROWS, COLS); 
   SQUARESIZE = width / COLS; 
 }  
 
