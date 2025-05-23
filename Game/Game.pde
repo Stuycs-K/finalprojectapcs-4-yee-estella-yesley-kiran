@@ -13,7 +13,7 @@ void setup(){
 
 void draw(){
   background(0); 
-  
+  drawSquares(map);
 }
 
 /* Draw the walls, points, etc 
@@ -36,6 +36,7 @@ void drawSquares(Pointfield map){
   }
 }
 
+// Check for ^ v < > keys and move Pacman accordingly 
 void keyPressed(){
   
 }
