@@ -13,4 +13,7 @@ Expanded description including how much time was spent on task.
 - Started writing the basic Game methods including: setup, draw, drawSquares, keyPressed--30 minutes 
 - Coached Kiran through her tasks--Ongoing
 
-### 2024-01-03 - Brief description
+### 2024-05/23 - Brief description
+- Imported Mazecarver algorithm to the field class - 30 minutes 
+- Struggled with visualizing how our game is going to work - 40 minutes
+- Decided that we will be making a custom map 
