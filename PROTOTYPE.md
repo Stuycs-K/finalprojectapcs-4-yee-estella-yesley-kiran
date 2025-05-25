@@ -18,7 +18,9 @@ A description of your technical design. This should include:
 
 ### Features 
 Critical Features: 
-- Randomly Generated Maze that is different every time 
+- ~Randomly Generated Maze that is different every time~
+- Custom Map 
+    - wraparound feature 
 - Controllable Pacman 
 - Pathfinding ghosts 
     - Regular mode & Vulnerable mode 
