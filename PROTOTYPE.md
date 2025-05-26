@@ -36,9 +36,13 @@ Extra Features:
      
 # Project Design
 
-UML Diagrams and descriptions of key algorithms, classes, and how things fit together.
+UML Diagrams and descriptions of key algorithms, classes, and how things fit together:
 
 ![Alt text](UML.jpg?raw=true "Title" ) 
+
+MAP diagram plan:
+
+![Alt text](map-1.jpg?raw=true "Title" ) 
     
 # Intended pacing:
 
