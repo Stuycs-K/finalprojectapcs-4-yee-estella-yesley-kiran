@@ -1,9 +1,9 @@
 int[][] map; 
-int SQUARESIZE; 
+int SQUARESIZE = 25; 
 
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
-  size(1000, 1000); 
+  size(19*25, 17*25);
   map = new int[][]{
   {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
   {-1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1, -1},
@@ -23,9 +23,6 @@ void setup(){
   {-1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1},
   {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
     };    
-  
-  SQUARESIZE = height / map.length; 
-
 }  
 
 void draw(){
@@ -40,7 +37,7 @@ For later:
 */ 
 void drawSquares(int[][] map){
   for (int rows = 0; rows < map.length; rows ++){
-    for (int cols = 0; cols < map.length; cols ++){
+    for (int cols = 0; cols < map[0].length; cols ++){
       if(map[rows][cols] < 0){
         fill (0, 0, 255); 
         rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
