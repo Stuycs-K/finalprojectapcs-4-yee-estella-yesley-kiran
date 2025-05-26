@@ -24,7 +24,7 @@ For later:
 void drawSquares(Pointfield map){
   for (int rows = 0; rows < ROWS; rows ++){
     for (int cols = 0; cols < COLS; cols ++){
-      if(map.field[rows][cols].getValue() < 0){
+      if(map.field[rows][cols] < 0){
         fill (0, 0, 255); 
         rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
       }

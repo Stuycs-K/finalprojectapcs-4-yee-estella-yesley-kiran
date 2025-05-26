@@ -32,5 +32,9 @@ class Point{
      return eaten; 
   }
   
+  public String toString(){
+    return "" + Xval + " , " + Yval + " , " + value;
+    
+  }
   
 }
