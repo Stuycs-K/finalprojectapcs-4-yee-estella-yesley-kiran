@@ -3,13 +3,13 @@ class Characters{
   int Yloc;
   PImage Image; 
   
-  Character(int startX, int startY, PImage val){
+  Characters(int startX, int startY, PImage img){
       Xloc = startX;
       Yloc = startY;
-      Image = val;
+      Image = img;
   }
   
-  int move(int dx, int dy){
+ void move(int dx, int dy){
     Xloc += dx;
     Yloc += dy;
   }

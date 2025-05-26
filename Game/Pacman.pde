@@ -1,9 +1,9 @@
 class Pacman extends Characters{
   int lives = 3;
   
-  Pacman(int startx, int starty, PImage val){
-    super(startx, starty, val);
-    Pimage value = loadImage("PACMAN.png");
+  Pacman(int startx, int starty, PImage img){
+    super(startx, starty, img);
+    PImage value = loadImage("PACMAN.png");
     Image = value; 
   }
   
@@ -14,6 +14,5 @@ class Pacman extends Characters{
   int getLives(){
     return lives;
   }
-  
   
 }

@@ -3,6 +3,8 @@ int SQUARESIZE = 25;
 ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
 
+Ghost
+
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
   size(21*25, 21*25);
@@ -29,6 +31,10 @@ void setup(){
   {-1,  1, -1,  1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1},
   {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
     };    
+    
+  genNodes(); 
+  connectNodes(); 
+  
 }  
 
 //creating nodes and stuff:
@@ -36,7 +42,7 @@ boolean isWalkable(int r, int c){
   return r >= 0 && r <map.length && c < map[0].length && c >= 0 && map[r][c] == 0;
 }
 
-void generateNodes(){
+void genNodes(){
   nodeGrid = new Node[map.length][ map[0].length];
   
   for( int r = 0; r < map.length; r++){
@@ -62,7 +68,7 @@ void connectNodes(){
     int r = n.getRow();
     int c = n.getCol();
     
-    //UP
+    // up
     for (int i = r - 1; i >= 0; i--) {
       if (map[i][c] == 1) break;
       if (nodeGrid[i][c] != null) {
@@ -71,7 +77,7 @@ void connectNodes(){
       }
     }
 
-    // DOWNN
+    // down
     for (int i = r + 1; i < map.length; i++) {
       if (map[i][c] == 1) break;
       if (nodeGrid[i][c] != null) {
@@ -80,7 +86,7 @@ void connectNodes(){
       }
     }
 
-    // LEFFT
+    // left
     for (int j = c - 1; j >= 0; j--) {
       if (map[r][j] == 1) break;
       if (nodeGrid[r][j] != null) {
@@ -89,7 +95,7 @@ void connectNodes(){
       }
     }
 
-    // RIGHT
+    // right
     for (int j = c + 1; j < map[0].length; j++) {
       if (map[r][j] == 1) break;
       if (nodeGrid[r][j] != null) {
