@@ -1,14 +1,31 @@
-Pointfield map; 
-int ROWS; 
-int COLS; 
+int[][] map; 
 int SQUARESIZE; 
 
+// setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
   size(1000, 1000); 
-  ROWS = 100; 
-  COLS = 100; 
-  map = new Pointfield(ROWS, COLS); 
-  SQUARESIZE = width / COLS; 
+  map = new int[][]{
+  {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+  {-1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1, -1},
+  {-1,  1, -1, -1, -1,  1,  1, -1,  1, -1,  1, -1,  1,  1, -1, -1, -1,  1, -1},
+  {-1,  1,  1,  1, -1,  1,  1,  1,  1, -1,  1,  1,  1,  1, -1,  1,  1,  1, -1},
+  {-1, -1, -1,  1, -1, -1, -1, -1,  0, -1,  0, -1, -1, -1, -1,  1, -1, -1, -1},
+  {-1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1, -1},
+  {-1,  1, -1, -1, -1,  1, -1, -1, -1,  1, -1, -1, -1,  1, -1, -1, -1,  1, -1},
+  {-1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1, -1},
+  {-1, -1, -1, -1, -1, -1,  1, -1, -1,  0, -1, -1,  1, -1, -1, -1, -1, -1, -1},
+  {-1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1, -1},
+  {-1,  1, -1, -1, -1,  1, -1, -1, -1, -1, -1, -1, -1,  1, -1, -1, -1,  1, -1},
+  {-1,  1,  1,  1,  1,  1, -1,  1,  1,  0,  1,  1, -1,  1,  1,  1,  1,  1, -1},
+  {-1, -1, -1, -1, -1,  1, -1, -1, -1,  0, -1, -1, -1,  1, -1, -1, -1, -1, -1},
+  {-1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1, -1},
+  {-1,  1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  1, -1},
+  {-1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1},
+  {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
+    };    
+  
+  SQUARESIZE = height / map.length; 
+
 }  
 
 void draw(){
@@ -21,10 +38,10 @@ For later:
  - add in different pixels for each fruit/point 
  - make this actually look good 
 */ 
-void drawSquares(Pointfield map){
-  for (int rows = 0; rows < ROWS; rows ++){
-    for (int cols = 0; cols < COLS; cols ++){
-      if(map.field[rows][cols].getValue() < 0){
+void drawSquares(int[][] map){
+  for (int rows = 0; rows < map.length; rows ++){
+    for (int cols = 0; cols < map.length; cols ++){
+      if(map[rows][cols] < 0){
         fill (0, 0, 255); 
         rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
       }
