@@ -5,8 +5,8 @@ int SQUARESIZE;
 
 void setup(){
   size(1000, 1000); 
-  ROWS = 100; 
-  COLS = 100; 
+  ROWS = 25; 
+  COLS = 25; 
   map = new Pointfield(ROWS, COLS); 
   SQUARESIZE = width / COLS; 
 }  
@@ -24,13 +24,13 @@ For later:
 void drawSquares(Pointfield map){
   for (int rows = 0; rows < ROWS; rows ++){
     for (int cols = 0; cols < COLS; cols ++){
-      if(map.field[rows][cols] < 0){
+      if(map.field[rows][cols] >= 0){
         fill (0, 0, 255); 
         rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
       }
       else {
         fill (255); 
-        circle(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE/4); 
+        circle(cols * SQUARESIZE + SQUARESIZE/2, rows * SQUARESIZE + SQUARESIZE/2, SQUARESIZE/4); 
       }
     }
   }
