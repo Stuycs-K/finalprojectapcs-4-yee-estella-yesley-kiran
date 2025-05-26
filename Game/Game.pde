@@ -72,7 +72,7 @@ void connectNodes(){
     }
 
     // DOWNN
-    for (int i = r + 1; i < maze.length; i++) {
+    for (int i = r + 1; i < map.length; i++) {
       if (map[i][c] == 1) break;
       if (nodeGrid[i][c] != null) {
         n.addNeighbor(nodeGrid[i][c]);
@@ -90,12 +90,13 @@ void connectNodes(){
     }
 
     // RIGHT
-    for (int j = c + 1; j < maze[0].length; j++) {
+    for (int j = c + 1; j < map[0].length; j++) {
       if (map[r][j] == 1) break;
       if (nodeGrid[r][j] != null) {
         n.addNeighbor(nodeGrid[r][j]);
         break;
-    
+      }
+    }
   }
 }
 
