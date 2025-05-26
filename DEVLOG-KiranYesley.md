@@ -15,3 +15,4 @@ This document must be updated daily every time you finish a work session.
 
 ## 2025-05-26
 - Wrote the node class
+- created the node generation and edge generation 

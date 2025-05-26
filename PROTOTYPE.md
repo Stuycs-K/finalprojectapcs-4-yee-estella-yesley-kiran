@@ -33,6 +33,7 @@ Extra Features:
 - Choose your avatar 
 - Stacking of point values per ghosts/different fruits
 - differnet speeds for vulnerable and regular mode for ghosts  
+- make custom looking walls
      
 # Project Design
 
@@ -60,8 +61,8 @@ Estella's Responsibilities:
 ## TIMELINE 
 A timeline with expected completion dates of parts of the project. 
 - Wednesday, 05/21 Complete Protoype 
-- Monday, 05/25 Complete any drawings and art needed, start all classes
-- Wednesday, 05/27 Complete basic versions of all classes except Game 
+- Monday, 05/25 Complete basic versions of all classes except Game 
+- Wednesday, 05/27 Complete any drawings and art needed, start all classes
 - Friday, 05/30 Complete Game 
 - Monday 06/02 add all extra features not added yet
 - Friday 06/06 fix any bugs (hopefully none exist) and turn in
