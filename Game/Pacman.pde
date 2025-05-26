@@ -3,8 +3,6 @@ class Pacman extends Characters{
   
   Pacman(int startx, int starty, PImage img){
     super(startx, starty, img);
-    PImage value = loadImage("PACMAN.png");
-    Image = value; 
   }
   
   void LifeReduction(){

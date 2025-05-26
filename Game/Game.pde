@@ -3,7 +3,8 @@ int SQUARESIZE = 25;
 ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
 
-Ghost
+Ghost[] ghosts = new Ghost[4]; 
+Pacman main; 
 
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
@@ -35,6 +36,10 @@ void setup(){
   genNodes(); 
   connectNodes(); 
   
+  PImage redghost = loadImage("GhostRed.png");
+  ghosts[0] = new Ghost(11, 9, redghost); 
+  PImage pacimg = loadImage("PACMAN.png");
+  main = new Pacman(11,11,pacimg); 
 }  
 
 //creating nodes and stuff:
