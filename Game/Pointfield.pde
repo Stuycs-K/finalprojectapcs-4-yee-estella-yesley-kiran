@@ -1,3 +1,5 @@
+import java.util.*;
+
 class Pointfield{
   private int[][]field;
   private static final int FRUIT = 100;
@@ -7,6 +9,7 @@ class Pointfield{
   private static final int WALL = -1;
   
   public Pointfield(int height, int width){
+<<<<<<< HEAD
     field = new int[][]{
   {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
   {-1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1, -1,  1,  1,  1,  1,  1,  1, -1},
@@ -26,6 +29,11 @@ class Pointfield{
   {-1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1},
   {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1}
     };     
+=======
+    field = new int[height][width];
+    // for(int row = 0; 
+    carveMaze(1,1);
+>>>>>>> bc759d44390fc627b24cbd6dc4860c7d2aebb44c
   }
   
   public int[][] getField(){
@@ -33,8 +41,12 @@ class Pointfield{
   }
 /*
   public void carveMaze(int row, int col){
-    Point a = new Point(row,col, WALL);
-    field[row][col] = a; 
+    // Point a = new Point(row,col, WALL);
+    field[row][col] = WALL; 
+    System.out.println(field[row][col]);
+    //System.out.println(Arrays.toString(field));
+
+    
 
     ArrayList<int[]> dir = new ArrayList<int[]>(); 
     dir.add(new int[] {1, 0}); 
@@ -58,7 +70,7 @@ class Pointfield{
     if (row < 1 || row >= field.length-1 || col < 1 || col >= field[0].length-1){
       return false; 
     }
-    if (field[row][col].getValue() == WALL){
+    if (field[row][col] == WALL){
       return false; 
     }
     int neighbors = 0; 
@@ -67,7 +79,7 @@ class Pointfield{
       int nextRow = row + dir[step][0]; 
       int nextCol = col + dir[step][1]; 
       if (nextRow > 0 && nextRow < field.length - 1 && nextCol > 0 && nextCol < field[0].length - 1) {
-        if (field[nextRow][nextCol].getValue() == WALL){
+        if (field[nextRow][nextCol] == WALL){
           neighbors ++; 
         }
       }
