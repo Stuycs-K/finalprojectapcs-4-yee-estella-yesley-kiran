@@ -19,7 +19,7 @@ class Characters{
     return ans;
   }
   
-  void displayChar(){
+  void display(){
     image(Image, Xloc, Yloc);
   }
 }

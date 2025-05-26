@@ -3,7 +3,7 @@ int SQUARESIZE = 25;
 ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
 
-Ghost[] ghosts = new Ghost[4]; 
+Ghost[] ghosts = new Ghost[1]; // change to 4 later
 Pacman main; 
 
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
@@ -36,10 +36,10 @@ void setup(){
   genNodes(); 
   connectNodes(); 
   
-  PImage redghost = loadImage("GhostRed.png");
-  ghosts[0] = new Ghost(11, 9, redghost); 
+  PImage redghost = loadImage("RedGhost.png");
+  ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost); 
   PImage pacimg = loadImage("PACMAN.png");
-  main = new Pacman(11,11,pacimg); 
+  main = new Pacman(11 * SQUARESIZE, 11 * SQUARESIZE,pacimg); 
 }  
 
 //creating nodes and stuff:
@@ -115,6 +115,10 @@ void connectNodes(){
 void draw(){
   background(0); 
   drawSquares(map);
+  main.display(); 
+  for (Ghost g : ghosts){
+    g.display(); 
+  }
 }
 
 /* Draw the walls, points, etc 
@@ -141,5 +145,12 @@ void drawSquares(int[][] map){
 
 // Check for ^ v < > keys and move Pacman accordingly 
 void keyPressed(){
-  
+  if (key == CODED) {
+    if (keyCode == UP) {
+      fillVal = 255;
+    } else if (keyCode == DOWN) {
+      fillVal = 0;
+    } 
+  } else {
+    fillVal = 126;
 }
