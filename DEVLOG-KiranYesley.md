@@ -10,5 +10,8 @@ This document must be updated daily every time you finish a work session.
 - Started working on Pointfield class -- roughly 10 minues; 
 - coached Estella through her tasks -- ongoing
 
-### 2024-01-03 - Brief description
-Expanded description including how much time was spent on task.
+### 2025-05-25
+- Rethought nodes and edges idea and created new UML - roughly 20 minutes 
+
+## 2025-05-26
+- Wrote the node class
