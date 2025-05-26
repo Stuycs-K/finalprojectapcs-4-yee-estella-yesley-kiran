@@ -147,10 +147,13 @@ void drawSquares(int[][] map){
 void keyPressed(){
   if (key == CODED) {
     if (keyCode == UP) {
-      fillVal = 255;
+      main.move(0, -1);
     } else if (keyCode == DOWN) {
-      fillVal = 0;
-    } 
-  } else {
-    fillVal = 126;
+      main.move(0, 1);
+    } else if (keyCode == RIGHT) {
+      main.move(1, 0); 
+    } else {
+      main.move(-1, 0); 
+    }
+  }
 }

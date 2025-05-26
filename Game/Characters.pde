@@ -10,8 +10,8 @@ class Characters{
   }
   
  void move(int dx, int dy){
-    Xloc += dx;
-    Yloc += dy;
+    Xloc += dx * 5;
+    Yloc += dy * 5;
   }
   
   int[] currLocation(){
