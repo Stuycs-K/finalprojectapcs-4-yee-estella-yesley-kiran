@@ -5,6 +5,7 @@ class Characters{
   boolean moving;
   Node[][] nodegrid;
   int SQUARESIZE = 25;
+  Node currNode; 
   
   Characters(int startX, int startY, PImage img, Node[][] grid){
       Xloc = startX;
@@ -12,11 +13,15 @@ class Characters{
       Image = img;
       moving = false;
       nodegrid =grid;
+      currNode = nodegrid[startX / SQUARESIZE][ startY / SQUARESIZE];
   }
   
  void move(int dx, int dy){
-    Xloc += dx * 5;
-    Yloc += dy * 5;
+    Xloc += dx * 3;
+    Yloc += dy * 3;
+    int appX = Xloc / SQUARESIZE;
+    int appY = Yloc / SQUARESIZE;
+    currNode = nodegrid[appX][appY];
   }
   
   int[] currLocation(){

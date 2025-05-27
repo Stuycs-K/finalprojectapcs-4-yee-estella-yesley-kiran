@@ -19,3 +19,7 @@ This document must be updated daily every time you finish a work session.
 - created the character, pacman, and ghost classes - roughly 30 minutes 
 - created images for a red ghost and pacman - roughly 15 minutes 
 
+## 2025-05-27
+- rewrote the node generation and edge generation to fit new idea - 15 minutes 
+- created the logic for pacman moving through the maze ( code is iffy) - 40 minutes
+- created a clear way of visuallizing our nodes for debugging purposes - 15 minutes

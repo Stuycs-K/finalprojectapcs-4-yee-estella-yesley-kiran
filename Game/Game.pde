@@ -40,12 +40,12 @@ void setup(){
   PImage redghost = loadImage("RedGhost.png");
   ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
   PImage pacimg = loadImage("PACMAN.png");
-  main = new Pacman(11 * SQUARESIZE, 11 * SQUARESIZE,pacimg, nodeGrid); 
+  main = new Pacman(10 * SQUARESIZE, 13 * SQUARESIZE,pacimg, nodeGrid); 
 }  
 
 //creating nodes and stuff:
 boolean isWalkable(int r, int c){
-  return r >= 0 && r <map.length && c < map[0].length && c >= 0 && map[r][c] == 0;
+  return r >= 0 && r <map.length && c < map[0].length && c >= 0 && map[r][c] >= 0;
 }
 
 void genNodes(){
@@ -56,6 +56,7 @@ void genNodes(){
       if( map[r][c] >= 0){
         Node n = new Node(r,c);
         nodes.add(n);
+        nodeGrid[r][c] = n;
         /* 
         int exits = 0;
         if(isWalkable(r-1, c)) exits++; // up
@@ -80,7 +81,7 @@ void connectNodes(){
     int[][] dir = { {0, 1} , {0, -1} , {1,0} , {-1, 0}};
     //up 
     for( int i = 0 ; i < dir.length; i++){
-      if(nodeGrid[r + dir[i][0] ][c + dir[0][i]] != null) n.addNeighbor( nodeGrid[r + dir[i][0] ][c + dir[0][i]]);
+      if(isWalkable(r + dir[i][0],c + dir[i][1] )) n.addNeighbor( nodeGrid[r + dir[i][0] ][c + dir[i][1]]);
     }
     
     
@@ -129,11 +130,17 @@ void connectNodes(){
 void draw(){
   background(0); 
   drawSquares(map);
+  for(Node n: nodes){
+    n.displayNodes();
+    n.displayEdges();
+  }
   
+  main.PacMove();
   main.display(); 
   for (Ghost g : ghosts){
     g.display(); 
   }
+  
 }
 
 /* Draw the walls, points, etc 
@@ -160,15 +167,15 @@ void drawSquares(int[][] map){
 
 // Check for ^ v < > keys and move Pacman accordingly 
 void keyPressed(){
-  if (key == CODED) 
+  if (key == CODED){
     if (keyCode == UP) {
-      main.move(0, -1);
+      main.PacMove("up");
     } else if (keyCode == DOWN) {
-      main.move(0, 1);
+      main.PacMove("down");
     } else if (keyCode == RIGHT) {
-      main.move(1, 0); 
+      main.PacMove("right");
     } else {
-      main.move(-1, 0); 
+      main.PacMove("left"); 
     }
   }
 }
