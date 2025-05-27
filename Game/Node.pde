@@ -2,26 +2,35 @@ class Node{
   private int row;
   private int col;
   private ArrayList<Node> neighbors = new ArrayList<Node>();
+  int value = 0; 
   
-  Node(int r, int c){
+  Node(int r, int c, int val){
     row = r;
-    col =c;
+    col = c;
+    value = val; 
   }
   
-  void addNeighbor(Node n){
+  public void addNeighbor(Node n){
     neighbors.add(n);
   }
   
-  int getRow(){
+  public int getRow(){
    return row; 
   }
   
-  int getCol(){
+  public int getCol(){
     return col;
   }
   
-  ArrayList<Node> getNeighbors(){
+  public ArrayList<Node> getNeighbors(){
     return neighbors;
   }
   
+  public void setValue(int val){
+    value = val; 
+  }
+  
+  public int getValue(){
+    return value; 
+  }
 }

@@ -2,9 +2,10 @@ int[][] map;
 int SQUARESIZE = 25; 
 ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
-
 Ghost[] ghosts = new Ghost[1]; // change to 4 later
 Pacman main; 
+int totalPoints = 0; 
+int highScore = totalPoints; 
 
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
@@ -39,7 +40,7 @@ void setup(){
   PImage redghost = loadImage("RedGhost.png");
   ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost); 
   PImage pacimg = loadImage("PACMAN.png");
-  main = new Pacman(11 * SQUARESIZE, 11 * SQUARESIZE,pacimg); 
+  main = new Pacman(10 * SQUARESIZE, 14 * SQUARESIZE,pacimg); 
 }  
 
 //creating nodes and stuff:
@@ -111,6 +112,16 @@ void connectNodes(){
   }
 }
 
+// POINT SYSTEM 
+void calcPoints(){
+  
+}
+
+void displayPoints(){
+  stroke(0); 
+  System.out.println("High Score: " + highScore); 
+  System.out.println("Current Score: " + totalPoints); 
+}
 
 void draw(){
   background(0); 
@@ -119,6 +130,7 @@ void draw(){
   for (Ghost g : ghosts){
     g.display(); 
   }
+  displayPoints(); 
 }
 
 /* Draw the walls, points, etc 
