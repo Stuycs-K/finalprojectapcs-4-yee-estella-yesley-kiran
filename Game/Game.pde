@@ -40,7 +40,7 @@ void setup(){
   PImage redghost = loadImage("RedGhost.png");
   ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
   PImage pacimg = loadImage("PACMAN.png");
-  main = new Pacman(11 * SQUARESIZE, 11 * SQUARESIZE,pacimg, nodeGrid); 
+  main = new Pacman(11 * SQUARESIZE, 11 * SQUARESIZE, pacimg, nodeGrid); 
 }  
 
 //creating nodes and stuff:
@@ -54,7 +54,7 @@ void genNodes(){
   for( int r = 0; r < map.length; r++){
     for(int c = 0; c < map[0].length; c++){
       if( map[r][c] >= 0){
-        Node n = new Node(r,c);
+        Node n = new Node(r, c, map[r][c]);
         nodes.add(n);
         /* 
         int exits = 0;
