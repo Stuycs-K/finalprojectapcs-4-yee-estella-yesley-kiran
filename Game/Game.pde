@@ -38,9 +38,9 @@ void setup(){
   connectNodes(); 
   
   PImage redghost = loadImage("RedGhost.png");
-  ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost); 
+  ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
   PImage pacimg = loadImage("PACMAN.png");
-  main = new Pacman(10 * SQUARESIZE, 14 * SQUARESIZE,pacimg); 
+  main = new Pacman(11 * SQUARESIZE, 11 * SQUARESIZE,pacimg, nodeGrid); 
 }  
 
 //creating nodes and stuff:
@@ -53,7 +53,10 @@ void genNodes(){
   
   for( int r = 0; r < map.length; r++){
     for(int c = 0; c < map[0].length; c++){
-      if( map[r][c] == 0){
+      if( map[r][c] >= 0){
+        Node n = new Node(r,c);
+        nodes.add(n);
+        /* 
         int exits = 0;
         if(isWalkable(r-1, c)) exits++; // up
         if(isWalkable(r+1, c)) exits++; //down
@@ -63,7 +66,8 @@ void genNodes(){
         if (exits != 2 || (isWalkable(r-1, c) && isWalkable(r+1, c)) || (isWalkable(r, c-1) && isWalkable(r, c+1))){
           Node n = new Node(r,c);
           nodes.add(n);
-        }
+        } 
+        */
       }
     }
   }
@@ -73,7 +77,15 @@ void connectNodes(){
   for(Node n: nodes){
     int r = n.getRow();
     int c = n.getCol();
+    int[][] dir = { {0, 1} , {0, -1} , {1,0} , {-1, 0}};
+    //up 
+    for( int i = 0 ; i < dir.length; i++){
+      if(nodeGrid[r + dir[i][0] ][c + dir[0][i]] != null) n.addNeighbor( nodeGrid[r + dir[i][0] ][c + dir[0][i]]);
+    }
     
+    
+    
+    /*
     // up
     for (int i = r - 1; i >= 0; i--) {
       if (map[i][c] == 1) break;
@@ -109,6 +121,7 @@ void connectNodes(){
         break;
       }
     }
+    */
   }
 }
 
@@ -126,6 +139,7 @@ void displayPoints(){
 void draw(){
   background(0); 
   drawSquares(map);
+  
   main.display(); 
   for (Ghost g : ghosts){
     g.display(); 
@@ -157,7 +171,7 @@ void drawSquares(int[][] map){
 
 // Check for ^ v < > keys and move Pacman accordingly 
 void keyPressed(){
-  if (key == CODED) {
+  if (key == CODED){
     if (keyCode == UP) {
       main.move(0, -1);
     } else if (keyCode == DOWN) {
