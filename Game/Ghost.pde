@@ -2,8 +2,8 @@ class Ghost extends Characters{
   boolean alive =true;
   boolean vulnerable = false;
   
-   Ghost(int startx, int starty, PImage img){
-     super(startx, starty, img);
+   Ghost(int startx, int starty, PImage img, Node[][] grid){
+     super(startx, starty, img,grid);
    }
    
    void setVulnerable(){
