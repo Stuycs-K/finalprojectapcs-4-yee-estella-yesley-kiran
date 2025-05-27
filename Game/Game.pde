@@ -40,7 +40,7 @@ void setup(){
   PImage redghost = loadImage("RedGhost.png");
   ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
   PImage pacimg = loadImage("PACMAN.png");
-  main = new Pacman(11 * SQUARESIZE, 11 * SQUARESIZE, pacimg, nodeGrid); 
+  main = new Pacman(10 * SQUARESIZE, 14 * SQUARESIZE, pacimg, nodeGrid); 
 }  
 
 //creating nodes and stuff:
@@ -80,7 +80,11 @@ void connectNodes(){
     int[][] dir = { {0, 1} , {0, -1} , {1,0} , {-1, 0}};
     //up 
     for( int i = 0 ; i < dir.length; i++){
-      if(nodeGrid[r + dir[i][0] ][c + dir[0][i]] != null) n.addNeighbor( nodeGrid[r + dir[i][0] ][c + dir[0][i]]);
+      int newr = r + dir[i][0];
+      int newc = c + dir[i][1]; 
+      if(newr < nodeGrid.length && newr >= 0 && newc < nodeGrid[0].length && newc >= 0 && nodeGrid[newr][newc] != null){
+        n.addNeighbor(nodeGrid[r + dir[i][0] ][c + dir[0][i]]);
+      }
     }
     
     
