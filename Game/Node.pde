@@ -46,4 +46,8 @@ class Node{
     return value; 
   }
   
+  public String toString(){
+    return "" + row + ", " + col + " , " + value;
+  }
+  
 }

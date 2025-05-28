@@ -35,7 +35,7 @@ void setup(){
     };    
     
   genNodes(); 
-  //connectNodes(); 
+  connectNodes(); 
   
   PImage redghost = loadImage("RedGhost.png");
   ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
@@ -205,7 +205,7 @@ public void keyPressed(){
       main.PacMove("down");
     } else if (keyCode == RIGHT) {
       main.PacMove("right");
-    } else {
+    } else if (keyCode == LEFT){
       main.PacMove("left"); 
     }
   }
