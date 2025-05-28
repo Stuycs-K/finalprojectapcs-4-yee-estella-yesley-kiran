@@ -143,8 +143,6 @@ public void connectNodes(){
         break;
       }
     }
-  }
-}
 */
 
 // POINT SYSTEM 
