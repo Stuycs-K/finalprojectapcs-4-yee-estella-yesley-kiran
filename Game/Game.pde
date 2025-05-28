@@ -35,7 +35,7 @@ void setup(){
     };    
     
   genNodes(); 
-  //connectNodes(); 
+  connectNodes(); 
   
   PImage redghost = loadImage("RedGhost.png");
   ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
