@@ -35,7 +35,7 @@ void setup(){
     };    
     
   genNodes(); 
-  connectNodes(); 
+  //connectNodes(); 
   
   PImage redghost = loadImage("RedGhost.png");
   ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
@@ -49,14 +49,15 @@ boolean isWalkable(int r, int c){
 }
 
 void genNodes(){
-  nodeGrid = new Node[map.length][ map[0].length];
-  
+  nodeGrid = new Node[map.length][map[0].length];
   for( int r = 0; r < map.length; r++){
     for(int c = 0; c < map[0].length; c++){
-      if( map[r][c] >= 0){
+      if(map[r][c] >= 0){
         Node n = new Node(r, c, map[r][c]);
+        // add each neighbor
         nodes.add(n);
         nodeGrid[r][c] = n;
+        // addNeighborhood(n); 
         /* 
         int exits = 0;
         if(isWalkable(r-1, c)) exits++; // up
@@ -74,19 +75,39 @@ void genNodes(){
   }
 }
 
-void connectNodes(){
+/*
+public void addNeighborhood(Node n){
+  int r = n.getRow(); 
+  int c = n.getCol(); 
+  int[][] dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}; 
+  for (int i = 0; i < dir.length; i ++){
+    int newr = r + dir[i][0]; 
+    int newc = c + dir[i][1]; 
+    if (isWalkable(newr, newc)){
+      n.addNeighbor(nodeGrid[newr][newc]); 
+    }
+  }
+}
+*/
+
+public void connectNodes(){
   for(Node n: nodes){
     int r = n.getRow();
     int c = n.getCol();
     int[][] dir = { {0, 1} , {0, -1} , {1,0} , {-1, 0}};
     //up 
     for( int i = 0 ; i < dir.length; i++){
-      if(isWalkable(r + dir[i][0],c + dir[i][1] )) n.addNeighbor( nodeGrid[r + dir[i][0] ][c + dir[i][1]]);
-    }
+      int newr = r + dir[i][0]; 
+      int newc = c + dir[i][1]; 
+      if(isWalkable(newr, newc)){
+        n.addNeighbor(nodeGrid[newr][newc]);
+      }
+    }  
+  }
+}
     
+/*
     
-    
-    /*
     // up
     for (int i = r - 1; i >= 0; i--) {
       if (map[i][c] == 1) break;
@@ -122,22 +143,22 @@ void connectNodes(){
         break;
       }
     }
-    */
   }
 }
+*/
 
 // POINT SYSTEM 
-void calcPoints(){
+public void calcPoints(){
   
 }
 
-void displayPoints(){
+public void displayPoints(){
   stroke(0); 
   System.out.println("High Score: " + highScore); 
   System.out.println("Current Score: " + totalPoints); 
 }
 
-void draw(){
+public void draw(){
   background(0); 
   drawSquares(map);
   for(Node n: nodes){
@@ -176,7 +197,7 @@ void drawSquares(int[][] map){
 }
 
 // Check for ^ v < > keys and move Pacman accordingly 
-void keyPressed(){
+public void keyPressed(){
   if (key == CODED){
     if (keyCode == UP) {
       main.PacMove("up");
