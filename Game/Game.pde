@@ -143,6 +143,8 @@ public void connectNodes(){
         break;
       }
     }
+  }
+}
 */
 
 // POINT SYSTEM 
@@ -165,6 +167,7 @@ public void draw(){
   }
   
   main.PacMove();
+  System.out.println(main);
   main.display(); 
   for (Ghost g : ghosts){
     g.display(); 
