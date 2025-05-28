@@ -3,11 +3,13 @@ class Node{
   private int col;
   private ArrayList<Node> neighbors = new ArrayList<Node>();
   int value = 0; 
+  boolean eaten;
   
   Node(int r, int c, int val){
     row = r;
     col = c;
     value = val; 
+    eaten = false;
   }
   
   public void addNeighbor(Node n){
@@ -38,12 +40,21 @@ class Node{
     }
   }
   
+
   public void setValue(int val){
     value = val; 
   }
   
   public int getValue(){
     return value; 
+  }
+  
+  public boolean getEaten(){
+    return eaten;
+  }
+  
+  public void beEaten(){
+    eaten = true;
   }
   
   public String toString(){

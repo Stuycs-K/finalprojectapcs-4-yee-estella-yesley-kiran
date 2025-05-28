@@ -161,10 +161,10 @@ public void displayPoints(){
 public void draw(){
   background(0); 
   drawSquares(map);
-  for(Node n: nodes){
-    n.displayNodes();
-    n.displayEdges();
-  }
+ // for(Node n: nodes){
+  //  n.displayNodes();
+  //  n.displayEdges();
+  //}
   
   main.PacMove();
   System.out.println(main);
@@ -173,6 +173,8 @@ public void draw(){
     g.display(); 
   }
   displayPoints(); 
+  
+  totalPoints = main.getScore();
 }
 
 /* Draw the walls, points, etc 
@@ -190,8 +192,11 @@ void drawSquares(int[][] map){
       else {
         fill (255);
         if (map[rows][cols] == 1){
+          Node current = nodeGrid[rows][cols];
+          if(!current.getEaten())
           circle(cols * SQUARESIZE + SQUARESIZE/2, rows * SQUARESIZE + SQUARESIZE/2, SQUARESIZE/4); 
         }
+        
       }
     }
   }

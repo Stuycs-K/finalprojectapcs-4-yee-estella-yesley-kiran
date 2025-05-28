@@ -23,3 +23,7 @@ This document must be updated daily every time you finish a work session.
 - rewrote the node generation and edge generation to fit new idea - 15 minutes 
 - created the logic for pacman moving through the maze ( code is iffy) - 40 minutes
 - created a clear way of visuallizing our nodes for debugging purposes - 15 minutes
+
+## 2025-05-28
+- created a almost working pacman movement (underestimates both left and up by exactly one)
+- added point disappearing boolean and point system for basic points;

@@ -4,6 +4,7 @@ class Pacman extends Characters{
   boolean down = false;
   boolean right = false;
   boolean left = false; 
+  int score = 0;
   
   Pacman(int startx, int starty, PImage img, Node[][] grid){
     super(startx, starty, img,grid);
@@ -47,6 +48,12 @@ class Pacman extends Characters{
       }
       else right = false;
     }
+    //eating nodes
+    
+     if(!currNode.getEaten()){
+       currNode.beEaten();
+       score++;
+     }
   }
   
   void PacMove(String val){
@@ -83,6 +90,10 @@ class Pacman extends Characters{
         }
       }
     }
+  }
+  
+  public int getScore(){
+    return score; 
   }
   
 }
