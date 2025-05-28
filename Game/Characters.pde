@@ -17,11 +17,16 @@ class Characters{
   }
   
  void move(int dx, int dy){
+<<<<<<< HEAD
     Xloc += dx * 1;
     Yloc += dy * 1;
+=======
+>>>>>>> 3cb5512094bb7c9130c79bf4c348f15aa634ee1b
     int appX = Xloc / SQUARESIZE;
     int appY = Yloc / SQUARESIZE;
-    currNode = nodegrid[appX][appY];
+    Xloc += dx * 3;
+    Yloc += dy * 3;
+    currNode = nodegrid[appY][appX];
   }
   
   int[] currLocation(){
