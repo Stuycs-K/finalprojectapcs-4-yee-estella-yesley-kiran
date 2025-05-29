@@ -25,14 +25,13 @@ class Characters{
   
  // Incremenet int by row and colum, why divide by squaresize 
  void move(int dx, int dy){
-    Xloc += dx * 3;
-    Yloc += dy * 3;
-    //int appX = Xloc / SQUARESIZE;
-    //int appY = Yloc / SQUARESIZE;
-    //currNode = nodegrid[appY][appX];
+    Xloc += dx * SQUARESIZE;
+    Yloc += dy * SQUARESIZE;
     row = Yloc / SQUARESIZE ; 
     col = Xloc / SQUARESIZE ; 
     currNode = nodegrid[row][col]; 
+    println("Xloc:", Xloc, "Yloc:", Yloc, "row:", row, "col:", col);
+
   }
   
   int[] currLocation(){
