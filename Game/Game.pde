@@ -9,7 +9,7 @@ int highScore = totalPoints;
 
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
-  size(21*25, 21*25);
+  size(21*25, 21*25 + 75);
   map = new int[][]{
   {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
   {-1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1},
@@ -156,9 +156,12 @@ public void calcPoints(){
 }
 
 public void displayPoints(){
-  stroke(0); 
-  System.out.println("High Score: " + highScore); 
-  System.out.println("Current Score: " + totalPoints); 
+  fill(255,255,255);
+  textSize(25);
+  text("High Score: " + highScore, (21 * 25) /3 , (21 * 25) + 30);
+  text( "Current Score: " + totalPoints , (21 * 25) /3 , (21 * 25) +55);
+  //System.out.println("High Score: " + highScore); 
+  //System.out.println("Current Score: " + totalPoints); 
 }
 
 public void draw(){
@@ -179,6 +182,8 @@ public void draw(){
   }
   displayPoints(); 
   totalPoints = main.getScore();
+  if (highScore < totalPoints) highScore = totalPoints;
+  displayPoints();
   
 }
 
