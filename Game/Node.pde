@@ -1,13 +1,17 @@
 class Node{
-  private int row;
-  private int col;
+  private int x;
+  private int y;
+  private int r; 
+  private int c; 
   private ArrayList<Node> neighbors = new ArrayList<Node>();
   int value = 0; 
   boolean eaten;
   
-  Node(int r, int c, int val){
-    row = r;
-    col = c;
+  Node(int row, int col, int val){
+    x = col* SQUARESIZE + SQUARESIZE/2;
+    y = row * SQUARESIZE + SQUARESIZE/2;
+    r = row; 
+    c = col; 
     value = val; 
     eaten = false;
   }
@@ -16,12 +20,20 @@ class Node{
     neighbors.add(n);
   }
   
+  public int getX(){
+   return y; 
+  }
+  
+  public int getY(){
+    return x;
+  }
+  
   public int getRow(){
-   return row; 
+    return r;
   }
   
   public int getCol(){
-    return col;
+    return c; 
   }
   
   public ArrayList<Node> getNeighbors(){
@@ -30,13 +42,13 @@ class Node{
   
   void displayNodes(){
     fill(255,0,0);
-    circle(col * SQUARESIZE + SQUARESIZE/2, row * SQUARESIZE + SQUARESIZE/2, SQUARESIZE/4); 
+    circle(x, y, SQUARESIZE/4); 
   }
   
   void displayEdges(){
     stroke(0,200,0);
     for(Node n: neighbors){
-      line(col * SQUARESIZE + SQUARESIZE/2, row * SQUARESIZE + SQUARESIZE/2 , n.col * SQUARESIZE + SQUARESIZE/2 , n.row * SQUARESIZE + SQUARESIZE/2);
+      line(x, y, n.x, n.y);
     }
   }
   
@@ -57,8 +69,8 @@ class Node{
     eaten = true;
   }
   
-  public String toString(){
-    return "" + row + ", " + col + " , " + value;
-  }
+  //public String toString(){
+  //  return "" + row + ", " + col + " , " + value;
+  //}
   
 }

@@ -37,13 +37,10 @@ void setup(){
   genNodes(); 
   connectNodes(); 
   
-  //ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
   PImage redghost = loadImage("RedGhost.png");
-  ghosts[0] = new Ghost(11, 9, redghost, nodeGrid);    
-  // main = new Pacman(10 * SQUARESIZE, 13 * SQUARESIZE,pacimg, nodeGrid); 
-  PImage pacman = loadImage("PacRight.png");       
-  main = new Pacman(13, 10, pacman, nodeGrid); 
-  
+  ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
+  PImage pacimg = loadImage("PACMAN.png");
+  main = new Pacman(10 * SQUARESIZE, 13 * SQUARESIZE,pacimg, nodeGrid); 
 }  
 
 //creating nodes and stuff:
@@ -95,13 +92,13 @@ public void addNeighborhood(Node n){
 
 public void connectNodes(){
   for(Node n: nodes){
-    int col = n.getX()/SQUARESIZE; 
-    int row = n.getY()/SQUARESIZE; 
+    int r = n.getRow();
+    int c = n.getCol();
     int[][] dir = { {0, 1} , {0, -1} , {1,0} , {-1, 0}};
     //up 
     for( int i = 0 ; i < dir.length; i++){
-      int newr = row + dir[i][0]; 
-      int newc = col + dir[i][1]; 
+      int newr = r + dir[i][0]; 
+      int newc = c + dir[i][1]; 
       if(isWalkable(newr, newc)){
         n.addNeighbor(nodeGrid[newr][newc]);
       }
@@ -164,7 +161,7 @@ public void displayPoints(){
 public void draw(){
   background(0); 
   drawSquares(map);
- // for(Node n: nodes){
+  //for(Node n: nodes){
   //  n.displayNodes();
   //  n.displayEdges();
   //}
@@ -172,14 +169,12 @@ public void draw(){
   main.PacMove();
   System.out.println(main);
   main.display(); 
-  
-  // main.display(); 
   for (Ghost g : ghosts){
     g.display(); 
   }
   displayPoints(); 
-  totalPoints = main.getScore();
   
+  totalPoints = main.getScore();
 }
 
 /* Draw the walls, points, etc 

@@ -25,30 +25,36 @@ class Characters{
   
  // Incremenet int by row and colum, why divide by squaresize 
  void move(int dx, int dy){
-    Xloc += dx * SQUARESIZE;
-    Yloc += dy * SQUARESIZE;
-    row = Yloc / SQUARESIZE ; 
-    col = Xloc / SQUARESIZE ; 
-    currNode = nodegrid[row][col]; 
+    Xloc += dx * SQUARESIZE/5.0;
+    Yloc += dy * SQUARESIZE/5.0;
+    row = (int) (Yloc / SQUARESIZE) ; 
+    col = (int) (Xloc / SQUARESIZE) ; 
+    Node newNode = nodegrid[row][col]; 
+    if (Yloc <= newNode.getY() + 5 && Yloc >= newNode.getY() - 5 && Xloc <= newNode.getX() + 5 && Xloc >= newNode.getX() - 5){
+       currNode = newNode; 
+    }
+    
     println("Xloc:", Xloc, "Yloc:", Yloc, "row:", row, "col:", col);
 
   }
   
-  int[] currLocation(){
-    int[] ans = {Xloc, Yloc};
+  float[] currLocation(){
+    float[] ans = {Xloc, Yloc};
     return ans;
   }
   
-  int getX(){
+  float getX(){
     return Xloc;
   }
   
-  int getY(){
+  float getY(){
     return Yloc; 
   }
   
   void display(){
     image(Image, Xloc, Yloc);
+    fill(255); 
+    text("x: " + Xloc + "y: " + Yloc, Xloc, Yloc); 
   }
   
   boolean getMove(){
