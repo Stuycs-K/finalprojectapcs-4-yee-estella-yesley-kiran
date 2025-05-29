@@ -22,3 +22,13 @@ Expanded description including how much time was spent on task.
 - I generated a small practice map based on the google Pacman, just to see if our wall/points would work 
 - I drew a custom map (look out for the K and E :D)
 - I tediously input every value for wall/point/blank space in our 2D map array to make our beautiful map
+
+### 2025-05-27 
+- I added in the point system in the node class 
+- I tried for a third time to understand how the nodes and edges worked 
+- I tried to help Kiran write the nodes and edges but failed, because it's kind of confusing 
+- Sighed a lot. 
+
+### 2025-05-28 
+- Tried to fix the issue where pacman doesn't right the up and left direction all the way (probably spent hours trying to figure this out but couldn't...)
+- Added in the rotating image feature. 
