@@ -6,9 +6,14 @@ class Pacman extends Characters{
   boolean left = false; 
   int score = 0;
   
+  PImage pacUp, pacDown, pacRight, pacLeft; 
+  
   Pacman(int startx, int starty, PImage img, Node[][] grid){
     super(startx, starty, img,grid);
- 
+     pacRight = loadImage("PacRight.png");       
+     pacLeft = loadImage("PacLeft.png");      
+     pacUp = loadImage("PacUp.png");   
+     pacDown = loadImage("PacDown.png");
   }
   
   void LifeReduction(){
