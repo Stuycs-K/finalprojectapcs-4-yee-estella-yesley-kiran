@@ -3,7 +3,7 @@ class Ghost extends Characters{
   boolean vulnerable = false;
   
    Ghost(int startx, int starty, PImage img, Node[][] grid){
-     super(startx, starty, img,grid);
+     super(startx, starty, img, grid);
    }
    
    void setVulnerable(){

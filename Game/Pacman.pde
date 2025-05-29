@@ -8,6 +8,7 @@ class Pacman extends Characters{
   
   Pacman(int startx, int starty, PImage img, Node[][] grid){
     super(startx, starty, img,grid);
+ 
   }
   
   void LifeReduction(){
@@ -18,8 +19,9 @@ class Pacman extends Characters{
     return lives;
   }
   
-  void rotate90(){
+  void setImage(PImage img){
     //PImage result =  ill do this later
+    Image = img; 
   }
   
   // wait isn't the point of the arraylist of neighbors so we don't have to check each time? It just continuously moves through or wtv...
@@ -27,24 +29,28 @@ class Pacman extends Characters{
     if (up){
       if(nodegrid[currNode.getRow() - 1][currNode.getCol() ] != null){
         move(0, -1);
+        Image = pacUp; 
       }
       else up = false;
     }
     if (down){
       if( nodegrid[currNode.getRow() + 1][currNode.getCol()] != null){
         move(0, 1);
+        Image = pacDown;
       }
       else down = false;
     }
     if (left){
       if(nodegrid[currNode.getRow()][currNode.getCol() - 1] != null){
         move(-1, 0);
+        Image = pacLeft; 
       }
       else left = false;
     }
     if (right){
       if(nodegrid[currNode.getRow()][currNode.getCol() + 1 ] != null){
         move(1, 0);
+        Image = pacRight; 
       }
       else right = false;
     }

@@ -7,6 +7,10 @@ Pacman main;
 int totalPoints = 0; 
 int highScore = totalPoints; 
 
+// IMAGES 
+PImage redghost = loadImage("RedGhost.png");
+PImage pacUp, pacDown, pacRight, pacLeft;  
+
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
   size(21*25, 21*25);
@@ -37,12 +41,15 @@ void setup(){
   genNodes(); 
   connectNodes(); 
   
-  PImage redghost = loadImage("RedGhost.png");
   //ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
-  ghosts[0] = new Ghost(11, 9, redghost, nodeGrid); 
-  PImage pacimg = loadImage("PACMAN.png");
+  ghosts[0] = new Ghost(11, 9, redghost, nodeGrid);    
   // main = new Pacman(10 * SQUARESIZE, 13 * SQUARESIZE,pacimg, nodeGrid); 
-  main = new Pacman(13, 10, pacimg, nodeGrid); 
+   pacRight = loadImage("PacRight.png");       
+   pacLeft = loadImage("PacLeft.png");      
+   pacUp = loadImage("PacUp.png");   
+   pacDown = loadImage("PacDown.png");
+  main = new Pacman(13, 10, pacRight, nodeGrid); 
+  
 }  
 
 //creating nodes and stuff:
@@ -170,13 +177,14 @@ public void draw(){
   
   main.PacMove();
   System.out.println(main);
-  main.display(); 
+  
+  // main.display(); 
   for (Ghost g : ghosts){
     g.display(); 
   }
   displayPoints(); 
-  
   totalPoints = main.getScore();
+  
 }
 
 /* Draw the walls, points, etc 
