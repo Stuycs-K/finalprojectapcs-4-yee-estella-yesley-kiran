@@ -38,9 +38,11 @@ void setup(){
   connectNodes(); 
   
   PImage redghost = loadImage("RedGhost.png");
-  ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
+  //ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
+  ghosts[0] = new Ghost(11, 9, redghost, nodeGrid); 
   PImage pacimg = loadImage("PACMAN.png");
-  main = new Pacman(10 * SQUARESIZE, 13 * SQUARESIZE,pacimg, nodeGrid); 
+  // main = new Pacman(10 * SQUARESIZE, 13 * SQUARESIZE,pacimg, nodeGrid); 
+  main = new Pacman(13, 10, pacimg, nodeGrid); 
 }  
 
 //creating nodes and stuff:
