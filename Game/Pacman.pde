@@ -61,7 +61,7 @@ class Pacman extends Characters{
     }
     //eating nodes
     
-     if(!currNode.getEaten()){
+     if(!currNode.getEaten() && currNode.getValue() == 1){
        currNode.beEaten();
        score++;
      }
