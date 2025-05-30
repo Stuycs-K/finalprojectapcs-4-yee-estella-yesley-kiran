@@ -1,17 +1,15 @@
 class Node{
-  private int x;
-  private int y;
-  private int r; 
-  private int c; 
+  float x, y;
+  int row, col; 
   private ArrayList<Node> neighbors = new ArrayList<Node>();
   int value = 0; 
   boolean eaten;
   
-  Node(int row, int col, int val){
+  Node(int r, int c,  int val){
     x = col* SQUARESIZE + SQUARESIZE/2;
     y = row * SQUARESIZE + SQUARESIZE/2;
-    r = row; 
-    c = col; 
+    row = r; 
+    col = c; 
     value = val; 
     eaten = false;
   }

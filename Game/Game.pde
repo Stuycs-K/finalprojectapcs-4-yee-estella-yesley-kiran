@@ -4,6 +4,9 @@ ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
 Ghost[] ghosts = new Ghost[1]; // change to 4 later
 Pacman main; 
+Node posNode; 
+PVector position; 
+
 int totalPoints = 0; 
 int highScore = totalPoints; 
 
@@ -37,12 +40,12 @@ void setup(){
   genNodes(); 
   connectNodes(); 
   
-  //ghosts[0] = new Ghost(9 * SQUARESIZE, 11 * SQUARESIZE, redghost, nodeGrid); 
-  PImage redghost = loadImage("RedGhost.png");
-  ghosts[0] = new Ghost(11, 9, redghost, nodeGrid);    
   // main = new Pacman(10 * SQUARESIZE, 13 * SQUARESIZE,pacimg, nodeGrid); 
   PImage pacman = loadImage("PacRight.png");       
   main = new Pacman(13, 10, pacman, nodeGrid); 
+  position = new PVector(main.row, main.col); 
+  PImage redghost = loadImage("RedGhost.png");
+  ghosts[0] = new Ghost(11, 9, position, redghost, nodeGrid);    
   
 }  
 
@@ -108,47 +111,6 @@ public void connectNodes(){
     }  
   }
 }
-    
-/*
-    
-    // up
-    for (int i = r - 1; i >= 0; i--) {
-      if (map[i][c] == 1) break;
-      if (nodeGrid[i][c] != null) {
-        n.addNeighbor(nodeGrid[i][c]);
-        break;
-      }
-    }
-
-    // down
-    for (int i = r + 1; i < map.length; i++) {
-      if (map[i][c] == 1) break;
-      if (nodeGrid[i][c] != null) {
-        n.addNeighbor(nodeGrid[i][c]);
-        break;
-      }
-    }
-
-    // left
-    for (int j = c - 1; j >= 0; j--) {
-      if (map[r][j] == 1) break;
-      if (nodeGrid[r][j] != null) {
-        n.addNeighbor(nodeGrid[r][j]);
-        break;
-      }
-    }
-
-    // right
-    for (int j = c + 1; j < map[0].length; j++) {
-      if (map[r][j] == 1) break;
-      if (nodeGrid[r][j] != null) {
-        n.addNeighbor(nodeGrid[r][j]);
-        break;
-      }
-    }
-  }
-}
-*/
 
 // POINT SYSTEM 
 public void calcPoints(){
@@ -173,10 +135,8 @@ public void draw(){
   //}
   
   main.PacMove();
-  //System.out.println(main);
   main.display(); 
   
-  // main.display(); 
   for (Ghost g : ghosts){
     g.display(); 
   }

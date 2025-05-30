@@ -1,10 +1,12 @@
 class Ghost extends Characters{
   boolean alive =true;
   boolean vulnerable = false;
+  PVector target;  
   int row; int col; 
   
-   Ghost(int startx, int starty, PImage img, Node[][] grid){
+   Ghost(int startx, int starty, PVector pacpos, PImage img, Node[][] grid){
      super(startx, starty, img, grid);
+     target = pacpos; 
    }
    
    void setVulnerable(){
@@ -14,6 +16,10 @@ class Ghost extends Characters{
    
    boolean getVulnerable(){
      return vulnerable;
+   }
+   
+   void chase(){
+     
    }
    
   // void move(int targetx, int targety){
