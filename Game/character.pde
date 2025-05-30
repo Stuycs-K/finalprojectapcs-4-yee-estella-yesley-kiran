@@ -2,7 +2,7 @@ class character{
   Node currNode; 
   Node nextNode; 
   float x, y;
-  int dir;
+  // int dir;
   PImage icon; 
   float speed = 0.8; 
   
@@ -24,8 +24,9 @@ class character{
      float dist = sqrt(dx*dx + dy*dy); 
      if (dist > 0){
        x += (dx/dist) * speed; 
-       y += (dy/dist) * speed; 
+       y += (dy/dist) * speed; // SPEED DOES NOT WORK!!! Still goes too fast
      }
+     // actual updating of the node position 
      if (abs(x - nextNode.x) <= 0.1 || abs(y - nextNode.y) <= 0.1){
        currNode = nextNode; 
        x = currNode.x; 
@@ -40,10 +41,10 @@ class character{
        nextNode = neighbor; 
      }
      if (neighbor.row == 10 && neighbor.col == 0){
-       nextNode = neighbor; 
+       nextNode = nodeGrid[10][map.length-2]; 
      }
      if (neighbor.row == 10 && neighbor.col == map.length-1){
-       nextNode = neighbor; 
+       nextNode = nodeGrid[10][1]; 
      }
    }
  }
@@ -52,6 +53,7 @@ class character{
    image(icon, x, y);
    fill(255); 
    text("x: " + x + "y: " + y, x, y); 
+   text("col: " + currNode.col + "row: " + currNode.row, x, y+15); 
    // text("speed: " + speed, x, y  + 15);
  }
 }

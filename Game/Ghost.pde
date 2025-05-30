@@ -29,11 +29,8 @@ class Ghost extends character{
   }
   
   void chase(){
-    super.inch(); 
-    ticks ++; 
     Node bestNext = null; 
     float minDist = sqrt(map.length * map.length + map[0].length * map[0].length); 
-    
     ArrayList<Node> neighbors = currNode.getNeighbors(); 
     for (Node neighbor : neighbors){
       float dist = sqrt((neighbor.x-target.x)*(neighbor.x-target.x) + (neighbor.y-target.y)*(neighbor.y-target.y)); 
@@ -48,13 +45,16 @@ class Ghost extends character{
     if (bestNext != null){
       nextNode = bestNext; 
     }
+    super.inch(); 
+    ticks ++;
+    
     //if (target != null){
       //chaser.add(currNode); 
       //ArrayList<Node> path = chasePath(prevNode, currNode, target); 
       //nextNode = path.get(1); 
     // }
   }
-/*  
+/*  BFS Method 
   ArrayList<Node> chasePath(Node prevNode, Node start, Node target){
     ArrayList<Node> path = new ArrayList<Node>(); 
     ArrayList<Node> neighbors = currNode.getNeighbors();

@@ -18,6 +18,7 @@ class pac extends character{
   
   void inch(){
     super.inch(); 
+    // only change directions once pacman gets to the center of a node 
     if (abs ( x - currNode.x) < 0.1 && abs(y - currNode.y) < 0.1){
       update(); 
     }
@@ -61,7 +62,7 @@ class pac extends character{
         UP = RIGHT = LEFT = false; 
       }
       else if (dir.equals("left") && n.col == currNode.col - 1){
-        LEFT = true; 
+        LEFT = true;
         UP = RIGHT = DOWN = false;  
       }
       else if (dir.equals("right") && n.col == currNode.col + 1){
