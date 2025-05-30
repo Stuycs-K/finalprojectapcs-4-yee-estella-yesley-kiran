@@ -19,27 +19,30 @@ class pac extends character{
   void inch(){
     super.inch(); 
     if (abs ( x - currNode.x) < 0.1 && abs(y - currNode.y) < 0.1){
-      changeDir(); 
+      update(); 
     }
   }
   
-  void changeDir(){
+  void update(){
     if (UP){
-      move(-1, 0);  
+      move(-1, 0); 
       icon = pacUp; 
     }
     else if (DOWN){
-      move (1, 0); 
+      move(1, 0);
       icon = pacDown; 
     }
     else if (LEFT){
-      move (0, -1);
+      move(0, -1); 
       icon = pacLeft; 
     }
     else if (RIGHT){
-      move (0, 1); 
+      move(0, 1); 
       icon = pacRight; 
-    
+    }
+    if(currNode != null && !currNode.getEaten() && currNode.getValue() == 1){
+      currNode.beEaten();
+      score++;
     }
   }
   

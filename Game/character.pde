@@ -1,9 +1,10 @@
 class character{
   Node currNode; 
+  Node nextNode; 
   float x, y;
   int dir;
   PImage icon; 
-  float speed = 1.5; 
+  float speed = 0.8; 
   
  character(Node startNode, PImage img){
    currNode = startNode; 
@@ -14,32 +15,35 @@ class character{
  
  // updates the characters x and y and node only once it's in the center of the node
  void inch(){
-   float nodeX = currNode.x; 
-   float nodeY = currNode.y; 
-   if (abs(x - nodeX) <= 0.1 || abs(y - nodeY) <= 0.1){
-     x = nodeX; 
-     y = nodeY; 
-   }
-   else {
-     float dx = nodeX - x; 
-     float dy = nodeY - y; 
+   //move(dy, dx); 
+   //x += dx * SQUARESIZE/4; 
+   //y += dy * SQUARESIZE/4; 
+   if (nextNode != null){
+     float dx = nextNode.x - x; 
+     float dy = nextNode.y - y; 
      float dist = sqrt(dx*dx + dy*dy); 
-     x += (dx/dist) * speed; 
-     y += (dy/dist) * speed; 
+     if (dist > 0){
+       x += (dx/dist) * speed; 
+       y += (dy/dist) * speed; 
+     }
+     if (abs(x - nextNode.x) <= 0.1 || abs(y - nextNode.y) <= 0.1){
+       currNode = nextNode; 
+       x = currNode.x; 
+       y = currNode.y; 
+     }
    }
  }
  
  void move(int dr, int dc){
-  /* int[][] directions = {
-    {-1,  0},  // Up
-    { 1,  0},  // Down
-    { 0, -1},  // Left
-    { 0,  1}   // Right
-    };
-  */
    for (Node neighbor : currNode.neighbors){ // check through all the neighbors to find the right one to move to
-     if (neighbor.row - currNode.row == dr && neighbor.col - currNode.col == dc){
-       currNode = neighbor; 
+     if (neighbor.row == currNode.row + dr && neighbor.col == currNode.col + dc){
+       nextNode = neighbor; 
+     }
+     if (neighbor.row == 10 && neighbor.col == 0){
+       nextNode = neighbor; 
+     }
+     if (neighbor.row == 10 && neighbor.col == map.length-1){
+       nextNode = neighbor; 
      }
    }
  }
@@ -48,5 +52,6 @@ class character{
    image(icon, x, y);
    fill(255); 
    text("x: " + x + "y: " + y, x, y); 
+   // text("speed: " + speed, x, y  + 15);
  }
 }

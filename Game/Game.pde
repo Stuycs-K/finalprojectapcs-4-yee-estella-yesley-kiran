@@ -97,6 +97,12 @@ public void connectNodes(){
         n.addNeighbor(nodeGrid[newr][newc]);
       }
     }  
+    if (row == 10 && col == 0){
+      n.addNeighbor(nodeGrid[row][map.length-1]); 
+    }
+    if (row == 10 && col == map.length-1){
+      n.addNeighbor(nodeGrid[row][0]); 
+    }
   }
 }
 
@@ -122,7 +128,7 @@ public void draw(){
   //  n.displayEdges();
   //}
   
-  Pacman.inch();
+  Pacman.inch(); 
   Pacman.display(); 
   
   for (Ghost g : ghosts){
