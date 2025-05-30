@@ -25,12 +25,17 @@ class Characters{
   
  // Incremenet int by row and colum, why divide by squaresize 
  boolean move(int dx, int dy){
-    System.out.println("dx: " + dx + ", dy: " + dy);
-    System.out.println(String.format("Xloc: %.2f, Yloc: %.2f", Xloc, Yloc));
-    float newXloc = Xloc + dx * SQUARESIZE/5;
-    float newYloc = Yloc + dy * SQUARESIZE/5;
+   // System.out.println("dx: " + dx + ", dy: " + dy);
+    //System.out.println(String.format("Xloc: %.2f, Yloc: %.2f", Xloc, Yloc));
+    float newXloc = Xloc + dx * SQUARESIZE/10;
+    float newYloc = Yloc + dy * SQUARESIZE/10;
     int newrow =  (int)(newYloc / SQUARESIZE) ; 
     int newcol = (int)(newXloc / SQUARESIZE) ; 
+    if(newcol < 0){
+      newcol =20;
+      Xloc = 21 * SQUARESIZE;
+      return true;
+    }
     if( nodegrid[newrow][newcol] == null){ 
         System.out.println(String.format("STOP: %.2f, Yloc: %.2f", Xloc, Yloc));
         return false;

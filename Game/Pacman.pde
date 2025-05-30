@@ -81,7 +81,8 @@ class Pacman extends Characters{
     }
     if(val.equals("down")){
       for(int i = 0; i < possibles.size(); i++){
-        if(possibles.get(i).getRow() == currNode.getRow() + 1){
+        System.out.println( possibles.get(i).getY() + "" + Yloc);
+        if(possibles.get(i).getRow() == currNode.getRow() + 1 && possibles.get(i).getY() == Yloc ){
           down = true;
           up = right= left= false;
         }
