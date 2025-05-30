@@ -32,3 +32,6 @@ Expanded description including how much time was spent on task.
 ### 2025-05-28 
 - Tried to fix the issue where pacman doesn't right the up and left direction all the way (probably spent hours trying to figure this out but couldn't...)
 - Added in the rotating image feature. 
+
+### 2025-05-29 
+- Made enirely new character and pacman classes because things were getting way too complicated 

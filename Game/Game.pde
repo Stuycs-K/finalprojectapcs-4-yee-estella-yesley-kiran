@@ -48,7 +48,7 @@ void setup(){
   Node start = nodeGrid[13][10]; 
   Pacman = new pac(start, pacman); 
   PImage redghost = loadImage("RedGhost.png");
-  ghosts[0] = new Ghost(11, 9, position, redghost, nodeGrid);    
+  // ghosts[0] = new Ghost(11, 9, position, redghost, nodeGrid);    
   
 }  
 
