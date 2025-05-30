@@ -16,21 +16,56 @@ class pac extends character{
      pacDown = loadImage("PacDown.png");
   }
   
-  void display(){
-  }
-  
-  void center(){
-    super.center(); 
+  void inch(){
+    super.inch(); 
     if (abs ( x - currNode.x) < 0.1 && abs(y - currNode.y) < 0.1){
       changeDir(); 
     }
   }
   
   void changeDir(){
-    if (UP) move(-1, 0);  
-    else if (DOWN) move (1, 0); 
-    else if (LEFT) move (0, -1); 
-    else if (RIGHT) move (0, 1); 
+    if (UP){
+      move(-1, 0);  
+      icon = pacUp; 
+    }
+    else if (DOWN){
+      move (1, 0); 
+      icon = pacDown; 
+    }
+    else if (LEFT){
+      move (0, -1);
+      icon = pacLeft; 
+    }
+    else if (RIGHT){
+      move (0, 1); 
+      icon = pacRight; 
+    
+    }
+  }
+  
+  void move(String dir){
+    //int[] next = new int[2]; 
+    //int[][] directions = {
+    //  {-1, 0}, {1, 0}, {0, -1}, {0, 1} // UP, DOWN, LEFT, RIGHT 
+    //}; 
+    for (Node n : currNode.getNeighbors()){
+      if (dir.equals("up") && n.row == currNode.row - 1){
+        UP = true; 
+        DOWN = RIGHT = LEFT = false; 
+      }
+      else if (dir.equals("down") && n.row == currNode.row + 1){
+        DOWN = true; 
+        UP = RIGHT = LEFT = false; 
+      }
+      else if (dir.equals("left") && n.col == currNode.col - 1){
+        LEFT = true; 
+        UP = RIGHT = DOWN = false;  
+      }
+      else if (dir.equals("right") && n.col == currNode.col + 1){
+        RIGHT = true; 
+        UP = DOWN = LEFT = false;
+      }
+    }
   }
   
   void subHealth(){
@@ -39,5 +74,9 @@ class pac extends character{
   
   int getLives(){
     return lives;
+  }
+  
+  public int getScore(){
+    return score; 
   }
 }

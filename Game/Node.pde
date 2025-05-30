@@ -6,10 +6,10 @@ class Node{
   boolean eaten;
   
   Node(int r, int c,  int val){
-    x = col* SQUARESIZE + SQUARESIZE/2;
-    y = row * SQUARESIZE + SQUARESIZE/2;
     row = r; 
     col = c; 
+    x = col* SQUARESIZE;
+    y = row * SQUARESIZE;
     value = val; 
     eaten = false;
   }

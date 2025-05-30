@@ -122,14 +122,14 @@ public void draw(){
   //  n.displayEdges();
   //}
   
-  main.PacMove();
-  main.display(); 
+  Pacman.inch();
+  Pacman.display(); 
   
   for (Ghost g : ghosts){
     g.display(); 
   }
   displayPoints(); 
-  totalPoints = main.getScore();
+  totalPoints = Pacman.getScore();
   if (highScore < totalPoints) highScore = totalPoints;
   displayPoints();
   
@@ -164,13 +164,13 @@ void drawSquares(int[][] map){
 public void keyPressed(){
   if (key == CODED){
     if (keyCode == UP) {
-      main.PacMove("up");
+      Pacman.move("up");
     } else if (keyCode == DOWN) {
-      main.PacMove("down");
+      Pacman.move("down");
     } else if (keyCode == RIGHT) {
-      main.PacMove("right");
+      Pacman.move("right");
     } else if (keyCode == LEFT){
-      main.PacMove("left"); 
+      Pacman.move("left"); 
     }
   }
 }
