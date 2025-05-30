@@ -31,13 +31,30 @@ class Ghost extends character{
   void chase(){
     super.inch(); 
     ticks ++; 
-    if (target != null){
-      chaser.add(currNode); 
-      ArrayList<Node> path = chasePath(prevNode, currNode, target); 
-      nextNode = path.get(1); 
+    Node bestNext = null; 
+    float minDist = sqrt(map.length * map.length + map[0].length * map[0].length); 
+    
+    ArrayList<Node> neighbors = currNode.getNeighbors(); 
+    for (Node neighbor : neighbors){
+      float dist = sqrt((neighbor.x-target.x)*(neighbor.x-target.x) + (neighbor.y-target.y)*(neighbor.y-target.y)); 
+      if (neighbor == prevNode){
+        neighbors.remove(neighbor); 
+      }
+      else if (dist < minDist){
+        bestNext = neighbor; 
+        minDist = dist; 
+      }
     }
+    if (bestNext != null){
+      nextNode = bestNext; 
+    }
+    //if (target != null){
+      //chaser.add(currNode); 
+      //ArrayList<Node> path = chasePath(prevNode, currNode, target); 
+      //nextNode = path.get(1); 
+    // }
   }
-  
+/*  
   ArrayList<Node> chasePath(Node prevNode, Node start, Node target){
     ArrayList<Node> path = new ArrayList<Node>(); 
     ArrayList<Node> neighbors = currNode.getNeighbors();
@@ -58,6 +75,7 @@ class Ghost extends character{
     System.out.println(chaser); 
     return path; 
   }
+*/
   
   void setVulnerable(){
      // change character image to blue weird ghost 
