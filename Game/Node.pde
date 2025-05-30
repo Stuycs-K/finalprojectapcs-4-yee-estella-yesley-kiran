@@ -18,20 +18,20 @@ class Node{
     neighbors.add(n);
   }
   
-  public int getX(){
+  public float getX(){
    return x; 
   }
   
-  public int getY(){
+  public float getY(){
     return y;
   }
   
   public int getRow(){
-    return r;
+    return row;
   }
   
   public int getCol(){
-    return c; 
+    return col; 
   }
   
   public ArrayList<Node> getNeighbors(){
@@ -68,7 +68,7 @@ class Node{
   }
   
   public String toString(){
-    return "" + r + ", " + c + " , " + value;
+    return "" + row + ", " + col + " , " + value;
   }
   
 }

@@ -3,7 +3,8 @@ int SQUARESIZE = 25;
 ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
 Ghost[] ghosts = new Ghost[1]; // change to 4 later
-Pacman main; 
+//Pacman main; 
+pac Pacman; 
 Node posNode; 
 PVector position; 
 
@@ -42,8 +43,10 @@ void setup(){
   
   // main = new Pacman(10 * SQUARESIZE, 13 * SQUARESIZE,pacimg, nodeGrid); 
   PImage pacman = loadImage("PacRight.png");       
-  main = new Pacman(13, 10, pacman, nodeGrid); 
-  position = new PVector(main.row, main.col); 
+  //main = new Pacman(13, 10, pacman, nodeGrid); 
+  //position = new PVector(main.row, main.col); 
+  Node start = nodeGrid[13][10]; 
+  Pacman = new pac(start, pacman); 
   PImage redghost = loadImage("RedGhost.png");
   ghosts[0] = new Ghost(11, 9, position, redghost, nodeGrid);    
   
@@ -81,25 +84,10 @@ void genNodes(){
   }
 }
 
-/*
-public void addNeighborhood(Node n){
-  int r = n.getRow(); 
-  int c = n.getCol(); 
-  int[][] dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}; 
-  for (int i = 0; i < dir.length; i ++){
-    int newr = r + dir[i][0]; 
-    int newc = c + dir[i][1]; 
-    if (isWalkable(newr, newc)){
-      n.addNeighbor(nodeGrid[newr][newc]); 
-    }
-  }
-}
-*/
-
 public void connectNodes(){
   for(Node n: nodes){
-    int col = n.getX()/SQUARESIZE; 
-    int row = n.getY()/SQUARESIZE; 
+    int col = n.col; 
+    int row = n.row; 
     int[][] dir = { {0, 1} , {0, -1} , {1,0} , {-1, 0}};
     //up 
     for( int i = 0 ; i < dir.length; i++){

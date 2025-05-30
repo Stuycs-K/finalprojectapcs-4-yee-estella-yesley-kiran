@@ -1,13 +1,15 @@
 class character{
   Node currNode; 
   float x, y;
-  int dir; 
-  float speed = 2.5; 
+  int dir;
+  PImage icon; 
+  float speed = 2.0; 
   
- character(Node startNode){
+ character(Node startNode, PImage img){
    currNode = startNode; 
    x = currNode.x; 
    y = currNode.y; 
+   icon = img;
  }
  
  // updates the characters x and y and node only once it's in the center of the node
@@ -20,16 +22,23 @@ class character{
    }
  }
  
- void move(int dir){
+ void move(int dr, int dc){
    int[][] directions = {
     {-1,  0},  // Up
     { 1,  0},  // Down
     { 0, -1},  // Left
     { 0,  1}   // Right
     };
-   for (Node neighbor : currNode.neighbors){
-     int nextRow = neighbor.row - currNode.row; 
-     int nextCol = neighbor.col - currNode.col; 
+   for (Node neighbor : currNode.neighbors){ // check through all the neighbors to find the right one to move to
+     if (neighbor.row - currNode.row == dr && neighbor.col - currNode.col == dc){
+       currNode = neighbor; 
+     }
    }
+ }
+ 
+ void display(){
+   image(icon, x, y);
+   fill(255); 
+   text("x: " + x + "y: " + y, x, y); 
  }
 }
