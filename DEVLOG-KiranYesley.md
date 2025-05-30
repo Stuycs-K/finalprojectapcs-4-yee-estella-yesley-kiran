@@ -25,5 +25,8 @@ This document must be updated daily every time you finish a work session.
 - created a clear way of visuallizing our nodes for debugging purposes - 15 minutes
 
 ## 2025-05-28
-- created a almost working pacman movement (underestimates both left and up by exactly one)
-- added point disappearing boolean and point system for basic points;
+- created a almost working pacman movement (underestimates both left and up by exactly one) - 30 minutes
+- added point disappearing boolean and point system for basic points - 30 minutes 
+
+## 2025-05-29
+- fixed the horrible terrible pacman movement bug - 50 minutes 
