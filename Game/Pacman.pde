@@ -31,12 +31,13 @@ class Pacman extends Characters{
   
   // wait isn't the point of the arraylist of neighbors so we don't have to check each time? It just continuously moves through or wtv...
   void PacMove(){
+    //if( currNode == null) up = down = left = right =false;
     if (up){
-      if(nodegrid[currNode.getRow() - 1][currNode.getCol() ] != null){
-        move(0, -1);
+      //if(nodegrid[currNode.getRow() - 1][currNode.getCol() ] != null){
+        if(!move(0, -1)) up =false;
         Image = pacUp; 
-      }
-      else up = false;
+      //}
+      //else up = false;
     }
     if (down){
       if( nodegrid[currNode.getRow() + 1][currNode.getCol()] != null){
@@ -46,11 +47,12 @@ class Pacman extends Characters{
       else down = false;
     }
     if (left){
-      if(nodegrid[currNode.getRow()][currNode.getCol() - 1] != null){
-        move(-1, 0);
+      //if(nodegrid[currNode.getRow()][currNode.getCol() - 1] != null){
+      //if(Xloc != currNode.getX()){
+        if(!move(-1, 0)) left = false;
         Image = pacLeft; 
-      }
-      else left = false;
+      //}
+      //else left = false;
     }
     if (right){
       if(nodegrid[currNode.getRow()][currNode.getCol() + 1 ] != null){
@@ -61,7 +63,7 @@ class Pacman extends Characters{
     }
     //eating nodes
     
-     if(!currNode.getEaten() && currNode.getValue() == 1){
+     if(currNode != null && !currNode.getEaten() && currNode.getValue() == 1){
        currNode.beEaten();
        score++;
      }

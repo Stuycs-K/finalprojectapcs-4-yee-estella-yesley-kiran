@@ -21,11 +21,11 @@ class Node{
   }
   
   public int getX(){
-   return y; 
+   return x; 
   }
   
   public int getY(){
-    return x;
+    return y;
   }
   
   public int getRow(){
@@ -69,8 +69,8 @@ class Node{
     eaten = true;
   }
   
-  //public String toString(){
-  //  return "" + row + ", " + col + " , " + value;
-  //}
+  public String toString(){
+    return "" + r + ", " + c + " , " + value;
+  }
   
 }

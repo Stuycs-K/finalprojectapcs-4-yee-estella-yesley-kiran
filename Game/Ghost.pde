@@ -16,6 +16,6 @@ class Ghost extends Characters{
      return vulnerable;
    }
    
-   void move(int targetx, int targety){
-   }
+  // void move(int targetx, int targety){
+   //}
 }

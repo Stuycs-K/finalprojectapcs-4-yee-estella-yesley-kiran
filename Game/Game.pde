@@ -173,7 +173,7 @@ public void draw(){
   //}
   
   main.PacMove();
-  System.out.println(main);
+  //System.out.println(main);
   main.display(); 
   
   // main.display(); 

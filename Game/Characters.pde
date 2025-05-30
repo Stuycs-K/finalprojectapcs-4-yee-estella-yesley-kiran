@@ -1,12 +1,12 @@
 class Characters{
-  int Xloc;
-  int Yloc;
+  float Xloc;
+  float Yloc;
   int row; 
   int col; 
   PImage Image; 
   boolean moving;
   Node[][] nodegrid;
-  int SQUARESIZE = 25;
+  float SQUARESIZE = 25.0;
   Node currNode; 
   
   Characters(int startRow, int startCol, PImage img, Node[][] grid){
@@ -24,19 +24,32 @@ class Characters{
   }
   
  // Incremenet int by row and colum, why divide by squaresize 
- void move(int dx, int dy){
-    Xloc += dx * SQUARESIZE/5.0;
-    Yloc += dy * SQUARESIZE/5.0;
-    row = (int) (Yloc / SQUARESIZE) ; 
-    col = (int) (Xloc / SQUARESIZE) ; 
-    Node newNode = nodegrid[row][col]; 
-    if (Yloc <= newNode.getY() + 5 && Yloc >= newNode.getY() - 5 && Xloc <= newNode.getX() + 5 && Xloc >= newNode.getX() - 5){
-       currNode = newNode; 
+ boolean move(int dx, int dy){
+    System.out.println("dx: " + dx + ", dy: " + dy);
+    System.out.println(String.format("Xloc: %.2f, Yloc: %.2f", Xloc, Yloc));
+    float newXloc = Xloc + dx * SQUARESIZE/5;
+    float newYloc = Yloc + dy * SQUARESIZE/5;
+    int newrow =  (int)(newYloc / SQUARESIZE) ; 
+    int newcol = (int)(newXloc / SQUARESIZE) ; 
+    if( nodegrid[newrow][newcol] == null){ 
+        System.out.println(String.format("STOP: %.2f, Yloc: %.2f", Xloc, Yloc));
+        return false;
+    }
+    Xloc = newXloc;
+    Yloc = newYloc;
+    row = newrow;
+    col = newcol;
+    currNode = nodegrid[row][col];
+    return true;
+   // Node newNode = null;
+    //if ( nodegrid[row][col] != null)  newNode= nodegrid[row][col]; 
+    //if (newNode != null && Yloc <= newNode.getY() + 5 && Yloc >= newNode.getY() - 5 && Xloc <= newNode.getX() + 5 && Xloc >= newNode.getX() - 5){
+      // currNode = newNode; 
     }
     
-    println("Xloc:", Xloc, "Yloc:", Yloc, "row:", row, "col:", col);
+ //   println("Xloc:", Xloc, "Yloc:", Yloc, "row:", row, "col:", col);
 
-  }
+  
   
   float[] currLocation(){
     float[] ans = {Xloc, Yloc};
