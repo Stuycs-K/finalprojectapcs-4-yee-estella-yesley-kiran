@@ -29,23 +29,30 @@ class Ghost extends character{
   }
   
   void chase(){
-    Node bestNext = nextNode; 
-    float minDist = sqrt(map.length * map.length + map[0].length * map[0].length); 
+    System.out.println("Ghost is chasing"); 
+    Node bestNext = null; 
+    float minDist = Float.MAX_VALUE; 
+    //sqrt(map.length * map.length + map[0].length * map[0].length); 
     ArrayList<Node> neighbors = currNode.getNeighbors(); 
     for (Node neighbor : neighbors){
+      System.out.println(neighbor); 
       float dist = sqrt((neighbor.x-target.x)*(neighbor.x-target.x) + (neighbor.y-target.y)*(neighbor.y-target.y)); 
       if (neighbor == prevNode){
         neighbors.remove(neighbor); 
       }
       else if (dist < minDist){
         bestNext = neighbor; 
+        System.out.println(bestNext); 
         minDist = dist; 
       }
     }
+    //System.out.println(minDist); 
     if (bestNext != null){
+      System.out.println(bestNext); 
       nextNode = bestNext; 
     }
     super.inch(); 
+    display(); 
     ticks ++;
     
     //if (target != null){

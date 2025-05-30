@@ -18,6 +18,7 @@ class character{
    //move(dy, dx); 
    //x += dx * SQUARESIZE/4; 
    //y += dy * SQUARESIZE/4; 
+   System.out.println(nextNode); 
    if (nextNode != null){
      float dx = nextNode.x - x; 
      float dy = nextNode.y - y; 
@@ -27,7 +28,11 @@ class character{
        y += (dy/dist) * speed; // SPEED DOES NOT WORK!!! Still goes too fast
      }
      // actual updating of the node position 
+<<<<<<< HEAD
      if (abs(x - nextNode.x) <= 1 && abs(y - nextNode.y) <= 1){
+=======
+     if (abs(x - nextNode.x) <= 0.5 || abs(y - nextNode.y) <= 0.5){
+>>>>>>> 4fa0bc043cec756348109231649ce322235f42e5
        currNode = nextNode; 
        x = currNode.x; 
        y = currNode.y; 
