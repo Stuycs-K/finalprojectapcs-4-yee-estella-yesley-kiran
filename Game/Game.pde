@@ -1,12 +1,12 @@
 int[][] map; 
 int SQUARESIZE = 25; 
+
 ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
+
 Ghost[] ghosts = new Ghost[1]; // change to 4 later
 //Pacman main; 
 pac Pacman; 
-Node posNode; 
-PVector position; 
 
 int totalPoints = 0; 
 int highScore = totalPoints; 
@@ -129,10 +129,11 @@ public void draw(){
   //  n.displayEdges();
   //}
   
-  Pacman.inch(); 
+  Pacman.inch();
   Pacman.display(); 
   
   for (Ghost g : ghosts){
+    g.setTarget(Pacman.currNode);
     g.chase(); 
     g.display(); 
   }

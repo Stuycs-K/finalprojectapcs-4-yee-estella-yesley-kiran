@@ -29,7 +29,7 @@ class Ghost extends character{
   }
   
   void chase(){
-    Node bestNext = null; 
+    Node bestNext = nextNode; 
     float minDist = sqrt(map.length * map.length + map[0].length * map[0].length); 
     ArrayList<Node> neighbors = currNode.getNeighbors(); 
     for (Node neighbor : neighbors){
