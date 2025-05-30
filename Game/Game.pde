@@ -49,7 +49,7 @@ void setup(){
   Pacman = new pac(start, pacman); 
   PImage redghost = loadImage("RedGhost.png");
   //ghosts[0] = new Ghost(11, 9, position, redghost, nodeGrid); 
-  ghosts[0] = new Ghost(nodeGrid[11][ 9], start, redghost, nodeGrid); 
+  ghosts[0] = new Ghost(nodeGrid[11][9], nodeGrid[9][10], redghost, nodeGrid); 
   
 }  
 
@@ -124,19 +124,20 @@ public void displayPoints(){
 public void draw(){
   background(0); 
   drawSquares(map);
- // for(Node n: nodes){
+  //for(Node n: nodes){
   //  n.displayNodes();
   //  n.displayEdges();
   //}
   
+  for (Ghost g : ghosts){
+    g.setTarget(Pacman.currNode); // MUST CHANGE to account for their different targets leter 
+    g.chase(); 
+    // g.display(); 
+  }
+  
   Pacman.inch();
   Pacman.display(); 
   
-  for (Ghost g : ghosts){
-    g.setTarget(Pacman.currNode);
-    g.chase(); 
-    g.display(); 
-  }
   displayPoints(); 
   totalPoints = Pacman.getScore();
   if (highScore < totalPoints) highScore = totalPoints;
