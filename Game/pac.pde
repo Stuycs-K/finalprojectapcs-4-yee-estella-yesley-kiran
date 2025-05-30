@@ -57,7 +57,7 @@ class pac extends character{
         UP = true; 
         DOWN = RIGHT = LEFT = false; 
       }
-      else if (dir.equals("down") && n.row == currNode.row + 1){
+      else if (dir.equals("down") && checkNeighbor(0, -1) ){
         DOWN = true; 
         UP = RIGHT = LEFT = false; 
       }
@@ -70,6 +70,13 @@ class pac extends character{
         UP = DOWN = LEFT = false;
       }
     }
+  }
+  
+  boolean checkNeighbor( int dr ,int dc){
+    for (Node neighbor : currNode.neighbors){ // check through all the neighbors to find the right one to move to
+     if (neighbor.row == currNode.row + dr && neighbor.col == currNode.col + dc)return true; 
+    }
+    return false;
   }
   
   void subHealth(){

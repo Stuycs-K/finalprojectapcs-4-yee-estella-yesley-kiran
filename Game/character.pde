@@ -4,7 +4,7 @@ class character{
   float x, y;
   // int dir;
   PImage icon; 
-  float speed = 0.8; 
+  float speed = 2; 
   
  character(Node startNode, PImage img){
    currNode = startNode; 
@@ -22,12 +22,12 @@ class character{
      float dx = nextNode.x - x; 
      float dy = nextNode.y - y; 
      float dist = sqrt(dx*dx + dy*dy); 
-     if (dist > 0){
+     if (dist > 0){       
        x += (dx/dist) * speed; 
        y += (dy/dist) * speed; // SPEED DOES NOT WORK!!! Still goes too fast
      }
      // actual updating of the node position 
-     if (abs(x - nextNode.x) <= 0.1 || abs(y - nextNode.y) <= 0.1){
+     if (abs(x - nextNode.x) <= 1 && abs(y - nextNode.y) <= 1){
        currNode = nextNode; 
        x = currNode.x; 
        y = currNode.y; 
@@ -54,6 +54,7 @@ class character{
    fill(255); 
    text("x: " + x + "y: " + y, x, y); 
    text("col: " + currNode.col + "row: " + currNode.row, x, y+15); 
+  // text("col: " + nextNode.col + "row: " + nextNode.row, x, y+15); 
    // text("speed: " + speed, x, y  + 15);
  }
 }
