@@ -36,5 +36,5 @@ This document must be updated daily every time you finish a work session.
 - debugged speed of new character class - 20 minutes
 
 ## 2025-05-31
-- debugged the turning motion (for the most part) - 10 minutes
+- debugged the turning motion- 15 minutes
 - made the traveling from one end to the other side work - 20 minutes

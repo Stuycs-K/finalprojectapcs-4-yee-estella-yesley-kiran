@@ -73,19 +73,19 @@ class pac extends character{
     //  {-1, 0}, {1, 0}, {0, -1}, {0, 1} // UP, DOWN, LEFT, RIGHT 
     //}; 
     for (Node n : currNode.getNeighbors()){
-      if (dir.equals("up") && checkNeighbor(-1, 0)){
+      if (dir.equals("up") && (nextNode == null || checkNeighbor(-1, 0)) ){
         UP = true; 
         DOWN = RIGHT = LEFT = false; 
       }
-      else if (dir.equals("down") && checkNeighbor(1, 0) ){
+      else if (dir.equals("down") && (nextNode == null || checkNeighbor(1, 0)) ){
         DOWN = true; 
         UP = RIGHT = LEFT = false; 
       }
-      else if (dir.equals("left") && checkNeighbor(0, -1)){
+      else if (dir.equals("left") && (nextNode == null ||checkNeighbor(0, -1))){
         LEFT = true;
         UP = RIGHT = DOWN = false;  
       }
-      else if (dir.equals("right") && checkNeighbor(0, 1)){
+      else if (dir.equals("right") && (nextNode == null ||checkNeighbor(0, 1))){
         RIGHT = true; 
         UP = DOWN = LEFT = false;
       }
@@ -93,10 +93,12 @@ class pac extends character{
   }
   
   boolean checkNeighbor( int dr ,int dc){
+    /*
     for (Node neighbor : currNode.neighbors){ 
      if (neighbor.row == currNode.row + dr && neighbor.col == currNode.col + dc)return true; 
      System.out.println( neighbor.row + ", " + (currNode.row + dr) + ", " + neighbor.col + ", " + (currNode.col + dc));
     }
+    */
     for (Node neighbor : nextNode.neighbors){ 
      if (neighbor.row == nextNode.row + dr && neighbor.col == nextNode.col + dc)return true; 
      System.out.println( neighbor.row + ", " + (nextNode.row + dr) + ", " + neighbor.col + ", " + (nextNode.col + dc));
