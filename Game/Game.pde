@@ -64,22 +64,8 @@ void genNodes(){
     for(int c = 0; c < map[0].length; c++){
       if(map[r][c] >= 0){
         Node n = new Node(r, c, map[r][c]);
-        // add each neighbor
         nodes.add(n);
         nodeGrid[r][c] = n;
-        // addNeighborhood(n); 
-        /* 
-        int exits = 0;
-        if(isWalkable(r-1, c)) exits++; // up
-        if(isWalkable(r+1, c)) exits++; //down
-        if(isWalkable(r, c-1)) exits++; //left
-        if(isWalkable(r, c+1)) exits++; //right
-        
-        if (exits != 2 || (isWalkable(r-1, c) && isWalkable(r+1, c)) || (isWalkable(r, c-1) && isWalkable(r, c+1))){
-          Node n = new Node(r,c);
-          nodes.add(n);
-        } 
-        */
       }
     }
   }
@@ -117,8 +103,7 @@ public void displayPoints(){
   textSize(25);
   text("High Score: " + highScore, (21 * 25) /3 , (21 * 25) + 30);
   text( "Current Score: " + totalPoints , (21 * 25) /3 , (21 * 25) +55);
-  //System.out.println("High Score: " + highScore); 
-  //System.out.println("Current Score: " + totalPoints); 
+
 }
 
 public void draw(){
@@ -170,7 +155,7 @@ void drawSquares(int[][] map){
   }
 }
 
-// Check for ^ v < > keys and move Pacman accordingly 
+
 public void keyPressed(){
   if (key == CODED){
     if (keyCode == UP) {

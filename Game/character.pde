@@ -28,11 +28,7 @@ class character{
        y += (dy/dist) * speed; // SPEED DOES NOT WORK!!! Still goes too fast
      }
      // actual updating of the node position 
-<<<<<<< HEAD
      if (abs(x - nextNode.x) <= 1 && abs(y - nextNode.y) <= 1){
-=======
-     if (abs(x - nextNode.x) <= 0.5 || abs(y - nextNode.y) <= 0.5){
->>>>>>> 4fa0bc043cec756348109231649ce322235f42e5
        currNode = nextNode; 
        x = currNode.x; 
        y = currNode.y; 
@@ -41,17 +37,23 @@ class character{
  }
  
  void move(int dr, int dc){
+  // if(currNode.col + dc < 0) nextNode = nodeGrid[currNode.row][20];
+   //else if(currNode.col + dc > 20) nextNode = nodeGrid[currNode.row][0];
+   //else{
    for (Node neighbor : currNode.neighbors){ // check through all the neighbors to find the right one to move to
      if (neighbor.row == currNode.row + dr && neighbor.col == currNode.col + dc){
        nextNode = neighbor; 
      }
+   }
+     /*
      if (neighbor.row == 10 && neighbor.col == 0){
        nextNode = nodeGrid[10][map.length-2]; 
      }
      if (neighbor.row == 10 && neighbor.col == map.length-1){
        nextNode = nodeGrid[10][1]; 
      }
-   }
+     */
+ //  }
  }
  
  void display(){

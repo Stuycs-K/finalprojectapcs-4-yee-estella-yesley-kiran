@@ -25,6 +25,25 @@ class pac extends character{
   }
   
   void update(){
+    if(currNode.col -1 < 0 && LEFT){
+      currNode.beEaten();
+      score++;
+      x =  500;
+      currNode = nodeGrid[currNode.row][20];
+      nextNode = nodeGrid[currNode.row][19];
+      currNode.beEaten();
+      score++;
+    }
+    else if(currNode.col +1 > 20 && RIGHT){
+      currNode.beEaten();
+      score++;
+      x = 0;
+      currNode = nodeGrid[currNode.row][0];
+      nextNode = nodeGrid[currNode.row][1];
+      currNode.beEaten();
+      score++;
+    }
+    else{
     if (UP){
       move(-1, 0); 
       icon = pacUp; 
@@ -46,6 +65,7 @@ class pac extends character{
       score++;
     }
   }
+  }
   
   void move(String dir){
     //int[] next = new int[2]; 
@@ -53,19 +73,19 @@ class pac extends character{
     //  {-1, 0}, {1, 0}, {0, -1}, {0, 1} // UP, DOWN, LEFT, RIGHT 
     //}; 
     for (Node n : currNode.getNeighbors()){
-      if (dir.equals("up") && n.row == currNode.row - 1){
+      if (dir.equals("up") && checkNeighbor(-1, 0)){
         UP = true; 
         DOWN = RIGHT = LEFT = false; 
       }
-      else if (dir.equals("down") && checkNeighbor(0, -1) ){
+      else if (dir.equals("down") && checkNeighbor(1, 0) ){
         DOWN = true; 
         UP = RIGHT = LEFT = false; 
       }
-      else if (dir.equals("left") && n.col == currNode.col - 1){
+      else if (dir.equals("left") && checkNeighbor(0, -1)){
         LEFT = true;
         UP = RIGHT = DOWN = false;  
       }
-      else if (dir.equals("right") && n.col == currNode.col + 1){
+      else if (dir.equals("right") && checkNeighbor(0, 1)){
         RIGHT = true; 
         UP = DOWN = LEFT = false;
       }
@@ -73,8 +93,13 @@ class pac extends character{
   }
   
   boolean checkNeighbor( int dr ,int dc){
-    for (Node neighbor : currNode.neighbors){ // check through all the neighbors to find the right one to move to
+    for (Node neighbor : currNode.neighbors){ 
      if (neighbor.row == currNode.row + dr && neighbor.col == currNode.col + dc)return true; 
+     System.out.println( neighbor.row + ", " + (currNode.row + dr) + ", " + neighbor.col + ", " + (currNode.col + dc));
+    }
+    for (Node neighbor : nextNode.neighbors){ 
+     if (neighbor.row == nextNode.row + dr && neighbor.col == nextNode.col + dc)return true; 
+     System.out.println( neighbor.row + ", " + (nextNode.row + dr) + ", " + neighbor.col + ", " + (nextNode.col + dc));
     }
     return false;
   }
