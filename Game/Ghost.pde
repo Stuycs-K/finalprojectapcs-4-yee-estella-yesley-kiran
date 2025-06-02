@@ -1,9 +1,11 @@
 class Ghost extends character{
   PImage ghostImg; 
+  int MODE = 0; 
   int SCATTER = 0; // different modes; 
   int CHASE = 1; 
   int BLUE = 2; 
   boolean vulnerable = false;
+  
   Node prevNode; 
   Node target;
   int targetRow, targetCol; 
@@ -19,6 +21,8 @@ class Ghost extends character{
      this.target = target; 
      targetRow = target.row; 
      targetCol = target.col; 
+     
+     speed = 1.5; 
   }
   
   void setTarget(Node targNode){
@@ -29,7 +33,7 @@ class Ghost extends character{
   }
   
   void chase(){
-//    System.out.println("Ghost is chasing"); 
+  // System.out.println("Ghost is chasing"); 
     Node bestNext = null; 
     float minDist = Float.MAX_VALUE; 
     //sqrt(map.length * map.length + map[0].length * map[0].length); 
@@ -93,6 +97,12 @@ class Ghost extends character{
     return vulnerable;
   }
    
+ 
+  void timeGhosts(){
+    if (ticks > 10){
+      MODE = CHASE; 
+    }
+  }
   // void move(int targetx, int targety){
    //}
 }

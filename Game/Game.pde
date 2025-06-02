@@ -5,8 +5,11 @@ ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
 
 Ghost[] ghosts = new Ghost[1]; // change to 4 later
+PImage redghost; 
+
 //Pacman main; 
 pac Pacman; 
+PImage pacman; 
 
 int totalPoints = 0; 
 int highScore = totalPoints; 
@@ -41,15 +44,11 @@ void setup(){
   genNodes(); 
   connectNodes(); 
   
-  // main = new Pacman(10 * SQUARESIZE, 13 * SQUARESIZE,pacimg, nodeGrid); 
-  PImage pacman = loadImage("PacRight.png");       
-  //main = new Pacman(13, 10, pacman, nodeGrid); 
-  //position = new PVector(main.row, main.col); 
+  pacman = loadImage("PacRight.png");       
   Node start = nodeGrid[13][10]; 
   Pacman = new pac(start, pacman); 
-  PImage redghost = loadImage("RedGhost.png");
-  //ghosts[0] = new Ghost(11, 9, position, redghost, nodeGrid); 
-  ghosts[0] = new Ghost(nodeGrid[11][9], nodeGrid[9][10], redghost, nodeGrid); 
+  redghost = loadImage("RedGhost.png");
+  ghosts[0] = new Ghost(nodeGrid[11][9], nodeGrid[3][19], redghost, nodeGrid); 
   
 }  
 
@@ -115,7 +114,17 @@ public void draw(){
   //}
   
   for (Ghost g : ghosts){
-    g.setTarget(Pacman.currNode); // MUST CHANGE to account for their different targets leter 
+    g.timeGhosts(); 
+    if (g.MODE == g.SCATTER){
+      if (g.ghostImg == redghost){
+        g.setTarget(nodeGrid[3][19]); 
+      }
+    }
+    else if (g.MODE == g.CHASE){
+      if (g.ghostImg == redghost){
+        g.setTarget(Pacman.currNode); // MUST CHANGE to account for their different targets leter 
+      }
+    }
     g.chase(); 
     // g.display(); 
   }

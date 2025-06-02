@@ -59,9 +59,9 @@ class character{
  void display(){
    image(icon, x, y);
    fill(255); 
-   text("x: " + x + "y: " + y, x, y); 
-   text("col: " + currNode.col + "row: " + currNode.row, x, y+15); 
-  // text("col: " + nextNode.col + "row: " + nextNode.row, x, y+15); 
+   // text("x: " + x + "y: " + y, x, y); 
+   // text("col: " + currNode.col + "row: " + currNode.row, x, y+15); 
+   // text("col: " + nextNode.col + "row: " + nextNode.row, x, y+15); 
    // text("speed: " + speed, x, y  + 15);
  }
 }
