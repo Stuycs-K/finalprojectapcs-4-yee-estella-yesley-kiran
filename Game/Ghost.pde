@@ -118,7 +118,9 @@ class Ghost extends character{
    //}
    
    void reset(){
-      
+      //turn to eyes but figure that out later 
+      this.setTarget(nodeGrid[11][10]);
+      //while not at center be eyes and be in the returning mode --> once out of the returning mode go back to chasse
    }
 }
 
