@@ -105,6 +105,13 @@ public void displayPoints(){
 
 }
 
+public void displayLives(){
+    fill(255,255,255);
+    textSize(25);
+    text("Lives : " + Pacman.getLives(),0, (21 * 25) + 30 );
+
+}
+
 public void draw(){
   background(0); 
   drawSquares(map);
@@ -136,7 +143,8 @@ public void draw(){
   totalPoints = Pacman.getScore();
   if (highScore < totalPoints) highScore = totalPoints;
   displayPoints();
-  
+  checkContact();
+  displayLives();
 }
 
 /* Draw the walls, points, etc 
@@ -158,12 +166,56 @@ void drawSquares(int[][] map){
           if(!current.getEaten())
           circle(cols * SQUARESIZE + SQUARESIZE/2, rows * SQUARESIZE + SQUARESIZE/2, SQUARESIZE/4); 
         }
+        if (map[rows][cols] == 2){
+          Node current = nodeGrid[rows][cols];
+          if(!current.getEaten())
+          circle(cols * SQUARESIZE + SQUARESIZE/2, rows * SQUARESIZE + SQUARESIZE/2, SQUARESIZE/2); 
+        }
         
       }
     }
   }
 }
 
+void checkContact(){
+  for (Ghost g : ghosts){
+    if (g.currNode == Pacman.currNode){
+      if(g.getVulnerable()){
+        g.reset();
+        Pacman.addtoScore(100);
+      }
+      if( reset()) GameOver();
+    }
+  }
+}
+
+void GameOver(){
+  fill(0);
+  rect(0,0, 21 * SQUARESIZE , 21 * SQUARESIZE);
+  fill(255,255,255);
+  textSize(25);
+  text("GAME OVER", (21 * SQUARESIZE) / 3 , (21 * SQUARESIZE) /2 );
+  noLoop();
+}
+
+  boolean reset(){
+    Pacman.subHealth();
+    if(Pacman.getLives() <= 0) return true;
+    else {
+      Pacman.UP =Pacman.DOWN = Pacman.LEFT = Pacman.RIGHT = false;
+      int currtime = second();
+      int updatetime = currtime - 1;
+      while(second() != currtime + 2){
+        if( second() != updatetime ){
+          updatetime = second();
+          Pacman.icon = Pacman.deathseq.get(updatetime - currtime);
+        }
+      }
+      Pacman.setCurrNode(nodeGrid[13][10], Pacman.pacRight);
+      Pacman.nextNode = null;
+    }
+    return false;
+  }
 
 public void keyPressed(){
   if (key == CODED){

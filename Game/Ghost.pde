@@ -5,6 +5,8 @@ class Ghost extends character{
   int CHASE = 1; 
   int BLUE = 2; 
   boolean vulnerable = false;
+  PImage vulnearbleimg;
+  PImage icon;
   
   Node prevNode; 
   Node target;
@@ -16,7 +18,7 @@ class Ghost extends character{
   
   Ghost(Node start, Node target, PImage img, Node[][] grid){
      super(start, img);
-     ghostImg = img; 
+     ghostImg = icon =img; 
      nodeGrid = grid; 
      prevNode = null; 
      this.target = target; 
@@ -24,6 +26,7 @@ class Ghost extends character{
      targetCol = target.col; 
      
      speed = 1.5; 
+     vulnearbleimg = loadImage("VulnerableGhost.png");
   }
   
   void setTarget(Node targNode){
@@ -34,12 +37,7 @@ class Ghost extends character{
   }
 
   void chase(){
-<<<<<<< HEAD
-//    System.out.println("Ghost is chasing");
-/*
-=======
-  // System.out.println("Ghost is chasing"); 
->>>>>>> 07355a51c3356708176817dfa996cabcf0459b7a
+
     Node bestNext = null; 
     float minDist = Float.MAX_VALUE; 
     //sqrt(map.length * map.length + map[0].length * map[0].length); 
@@ -56,10 +54,10 @@ class Ghost extends character{
         minDist = dist; 
       }
     }
-    */
+   
     //System.out.println(minDist);
-    Node bestNext = null;
-    bestNext = chasePath(prevNode, currNode, target);
+//    Node bestNext = null;
+ //   bestNext = chasePath(prevNode, currNode, target);
     if (bestNext != null){
 //      System.out.println(bestNext); 
       nextNode = bestNext; 
@@ -75,13 +73,13 @@ class Ghost extends character{
     // }
   }
 // BFS Method 
-  Node chasePath(Node prevNode, Node start, Node target){
-    if(start == target) return start;
-    for(Node n : start.getNeighbors()){
-        return chasePath(currNode, n, target);
-      }
-      return null;
-    }
+  //Node chasePath(Node prevNode, Node start, Node target){
+  //  if(start == target) return start;
+  //  for(Node n : start.getNeighbors()){
+  //      return chasePath(currNode, n, target);
+  //    }
+  //    return null;
+  //  }
     
     /*
     ArrayList<Node> path = new ArrayList<Node>(); 
@@ -106,7 +104,15 @@ class Ghost extends character{
   
 
   
-  void setVulnerable(){
+  void setVulnerable(boolean bool){
+    if(bool){
+    ghostImg = vulnearbleimg;
+    vulnerable = true;
+    }
+    else{
+      ghostImg = icon;
+      vulnerable = false;
+    }
      // change character image to blue weird ghost 
      // change contact thing --> so that they can be eaten    
   }
@@ -123,4 +129,10 @@ class Ghost extends character{
   }
   // void move(int targetx, int targety){
    //}
+   
+   void reset(){
+      
+   }
 }
+
+  

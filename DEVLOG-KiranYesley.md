@@ -42,3 +42,5 @@ This document must be updated daily every time you finish a work session.
 ## 2025-06-01
 - attempted a BFS (got a stack overflow error) - 30 minutes 
 - created and added all remaining icons - 20 minutes 
+- got the lives and contact with ghost to work - 40 minutes 
+- started working on the ghost vulnearble state and got probably halfway ish through completing that but there are so many caveats to it - 30 minutes 

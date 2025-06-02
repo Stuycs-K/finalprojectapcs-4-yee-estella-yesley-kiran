@@ -13,6 +13,13 @@ class character{
    icon = img;
  }
  
+ void setCurrNode(Node node, PImage img ){
+   currNode = node;
+   x = node.x;
+   y = node.y;
+   icon = img;
+ }
+ 
  // updates the characters x and y and node only once it's in the center of the node
  void inch(){
    //move(dy, dx); 
