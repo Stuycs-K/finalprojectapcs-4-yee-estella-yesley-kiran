@@ -40,3 +40,5 @@ Expanded description including how much time was spent on task.
 
 ### 2025-05-30-06-2
 - Tried to debug ghost movement in class - 20 minutes 
+- Made progress setting up different modes in the Ghosts and understanding their target mechanisms - 1 hours 
+- Fixed the ghosts issue with continuously going back and forth in place (no 180 degree turning) - 1 hours 
