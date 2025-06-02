@@ -38,3 +38,7 @@ This document must be updated daily every time you finish a work session.
 ## 2025-05-31
 - debugged the turning motion- 15 minutes
 - made the traveling from one end to the other side work - 20 minutes
+
+## 2025-06-01
+- attempted a BFS (got a stack overflow error) - 30 minutes 
+- created and added all remaining icons - 20 minutes 
