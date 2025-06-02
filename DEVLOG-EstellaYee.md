@@ -34,4 +34,9 @@ Expanded description including how much time was spent on task.
 - Added in the rotating image feature. 
 
 ### 2025-05-29 
-- Made enirely new character and pacman classes because things were getting way too complicated 
+- Made enirely new character class because everything was extremely complicated - 1.5 hours 
+- Maade entirely new pacman class - 1.5 hours 
+- Also started making the Ghost class, inserted all the methods 1 hour 
+
+### 2025-05-30-06-2
+- Tried to debug ghost movement in class - 20 minutes 
