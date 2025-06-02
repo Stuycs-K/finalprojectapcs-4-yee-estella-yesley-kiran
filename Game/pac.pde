@@ -7,6 +7,7 @@ class pac extends character{
   int lives = 3;
  
   PImage pacUp, pacDown, pacRight, pacLeft; 
+  ArrayList<PImage> deathseq= new ArrayList<PImage>();
   
   pac(Node startNode, PImage img){
     super(startNode, img);
@@ -14,6 +15,14 @@ class pac extends character{
      pacLeft = loadImage("PacLeft.png");      
      pacUp = loadImage("PacUp.png");   
      pacDown = loadImage("PacDown.png");
+     
+      PImage death1 = loadImage("death1.png");
+      PImage death2 = loadImage("death2.png");
+      PImage death3 = loadImage("death3.png");
+     
+      deathseq.add(death1);
+      deathseq.add(death2);
+      deathseq.add(death3);
   }
   
   void inch(){
@@ -61,6 +70,9 @@ class pac extends character{
       icon = pacRight; 
     }
     if(currNode != null && !currNode.getEaten() && currNode.getValue() == 1){
+      if(currNode.getValue() == 2){
+        for(Ghost g: ghosts) g.setVulnerable(true);
+      }
       currNode.beEaten();
       score++;
     }
@@ -119,4 +131,27 @@ class pac extends character{
   public int getScore(){
     return score; 
   }
+  
+  public void addtoScore(int val){
+    score += val;
+  }
+  
+  //boolean reset(){
+  //  subHealth();
+  //  if(getLives() < 0) return true;
+  //  else {
+  //    UP =DOWN = LEFT = RIGHT = false;
+  //    int currtime = second();
+  //    int updatetime = currtime - 1;
+  //    while(second() != currtime + 2){
+  //      if( second() != updatetime ){
+  //        updatetime = second();
+  //        icon = deathseq.get(updatetime - currtime);
+  //      }
+  //    }
+  //    this.setCurrNode(nodeGrid[13][10], pacRight);
+  //    nextNode = null;
+  //  }
+  //  return false;
+  //}
 }
