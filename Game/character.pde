@@ -1,6 +1,7 @@
 class character{
   Node currNode; 
   Node nextNode; 
+  Node prevNode; 
   float x, y;
   // int dir;
   PImage icon; 
@@ -18,7 +19,7 @@ class character{
    //move(dy, dx); 
    //x += dx * SQUARESIZE/4; 
    //y += dy * SQUARESIZE/4; 
-   System.out.println(nextNode); 
+   // System.out.println(nextNode); 
    if (nextNode != null){
      float dx = nextNode.x - x; 
      float dy = nextNode.y - y; 
@@ -29,6 +30,7 @@ class character{
      }
      // actual updating of the node position 
      if (abs(x - nextNode.x) <= 1 && abs(y - nextNode.y) <= 1){
+       prevNode = currNode; 
        currNode = nextNode; 
        x = currNode.x; 
        y = currNode.y; 

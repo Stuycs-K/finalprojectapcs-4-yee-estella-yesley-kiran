@@ -100,8 +100,10 @@ class pac extends character{
     }
     */
     for (Node neighbor : nextNode.neighbors){ 
-     if (neighbor.row == nextNode.row + dr && neighbor.col == nextNode.col + dc)return true; 
-     System.out.println( neighbor.row + ", " + (nextNode.row + dr) + ", " + neighbor.col + ", " + (nextNode.col + dc));
+     if (neighbor.row == nextNode.row + dr && neighbor.col == nextNode.col + dc){
+       return true; 
+     }
+     // System.out.println( neighbor.row + ", " + (nextNode.row + dr) + ", " + neighbor.col + ", " + (nextNode.col + dc));
     }
     return false;
   }

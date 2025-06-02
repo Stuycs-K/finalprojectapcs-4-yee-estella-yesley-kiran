@@ -6,7 +6,6 @@ class Ghost extends character{
   int BLUE = 2; 
   boolean vulnerable = false;
   
-  Node prevNode; 
   Node target;
   int targetRow, targetCol; 
   Node[][] nodeGrid; 
@@ -18,14 +17,13 @@ class Ghost extends character{
      super(start, img);
      ghostImg = img; 
      nodeGrid = grid; 
-     prevNode = null; 
      this.target = target; 
      targetRow = target.row; 
      targetCol = target.col; 
      
      speed = 1.5; 
   }
-  
+ 
   void setTarget(Node targNode){
     target = targNode; 
     targetRow = target.row; 
@@ -34,36 +32,31 @@ class Ghost extends character{
   }
 
   void chase(){
-<<<<<<< HEAD
-//    System.out.println("Ghost is chasing");
-/*
-=======
-  // System.out.println("Ghost is chasing"); 
->>>>>>> 07355a51c3356708176817dfa996cabcf0459b7a
+    // System.out.println("Ghost is chasing");
     Node bestNext = null; 
     float minDist = Float.MAX_VALUE; 
-    //sqrt(map.length * map.length + map[0].length * map[0].length); 
+    // sqrt(map.length * map.length + map[0].length * map[0].length); 
     ArrayList<Node> neighbors = currNode.getNeighbors(); 
     for (Node neighbor : neighbors){
-   //   System.out.println(neighbor); 
-      float dist = sqrt((neighbor.x-target.x)*(neighbor.x-target.x) + (neighbor.y-target.y)*(neighbor.y-target.y)); 
-      if (neighbor == prevNode){
-        neighbors.remove(neighbor); 
-      }
-      else if (dist < minDist){
-        bestNext = neighbor; 
-  //      System.out.println(bestNext); 
-        minDist = dist; 
+      // System.out.println(neighbor); 
+      // System.out.println(prevNode);
+      if (neighbor != prevNode){
+        System.out.println("180 turn: " + prevNode); 
+        float dist = sqrt((neighbor.row-target.row)*(neighbor.row-target.row) + (neighbor.col-target.col)*(neighbor.col-target.col));
+        if (dist < minDist){
+          bestNext = neighbor; 
+          // System.out.println(bestNext); 
+          minDist = dist; 
+        }
       }
     }
-    */
     //System.out.println(minDist);
-    Node bestNext = null;
-    bestNext = chasePath(prevNode, currNode, target);
+    // bestNext = makePath(prevNode, currNode, target);
     if (bestNext != null){
-//      System.out.println(bestNext); 
+      // System.out.println(bestNext); 
       nextNode = bestNext; 
     }
+    
     super.inch(); 
     display(); 
     ticks ++;
@@ -74,37 +67,16 @@ class Ghost extends character{
       //nextNode = path.get(1); 
     // }
   }
+  
 // BFS Method 
-  Node chasePath(Node prevNode, Node start, Node target){
+/*  Node makePath(Node prevNode, Node start, Node target){
     if(start == target) return start;
     for(Node n : start.getNeighbors()){
-        return chasePath(currNode, n, target);
-      }
+      return chasePath(currNode, n, target);
+    }
       return null;
-    }
-    
-    /*
-    ArrayList<Node> path = new ArrayList<Node>(); 
-    ArrayList<Node> neighbors = currNode.getNeighbors();
-    
-    ArrayList<Node> p1 = new ArrayList<Node>(); 
-    ArrayList<Node> p2 = new ArrayList<Node>(); 
-    ArrayList<Node> p3 = new ArrayList<Node>(); 
-    
-    // implement that the ghost is not allowed to turn 180 degrees; it cannot go back the direction it was moving in
-
-    int rows = nodeGrid.length; 
-    int cols = nodeGrid[0].length; 
-   
-    for (int i = 1; i <=3; i ++){
-      Node n = neighbors.get(i); 
-      chaser.add(n); 
-    }
-    System.out.println(chaser); 
-    return path; 
-    */
-  
-
+  }
+*/
   
   void setVulnerable(){
      // change character image to blue weird ghost 

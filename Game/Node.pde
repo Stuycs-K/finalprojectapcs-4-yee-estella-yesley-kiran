@@ -51,6 +51,9 @@ class Node{
     }
   }
   
+  public boolean equals(Node other){
+    return (row == other.row && col == other.col);
+  }
 
   public void setValue(int val){
     value = val; 
