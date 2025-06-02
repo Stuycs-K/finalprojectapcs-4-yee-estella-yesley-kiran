@@ -28,8 +28,13 @@ class Ghost extends character{
     target = targNode; 
     targetRow = target.row; 
     targetCol = target.col; 
-    
   }
+  
+  //void setTarget(int targetR, int targetC){ 
+  //  targetRow = targetR; 
+  //  targetCol = targetC; 
+  //  target = nodeGrid[targetRow][targetCol]; 
+  //}
 
   void chase(){
     // System.out.println("Ghost is chasing");

@@ -4,8 +4,8 @@ int SQUARESIZE = 25;
 ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
 
-Ghost[] ghosts = new Ghost[1]; // change to 4 later
-PImage redghost; 
+Ghost[] ghosts = new Ghost[3]; // change to 4 later
+PImage Blinky, Pinky, Inky; 
 
 //Pacman main; 
 pac Pacman; 
@@ -47,8 +47,13 @@ void setup(){
   pacman = loadImage("PacRight.png");       
   Node start = nodeGrid[13][10]; 
   Pacman = new pac(start, pacman); 
-  redghost = loadImage("RedGhost.png");
-  ghosts[0] = new Ghost(nodeGrid[11][9], nodeGrid[3][19], redghost, nodeGrid); 
+  Blinky = loadImage("RedGhost.png");
+  Pinky = loadImage("PurpleGhost.png"); 
+  Inky = loadImage("GreenGhost.png"); 
+  ghosts[0] = new Ghost(nodeGrid[11][9], nodeGrid[3][19], Blinky, nodeGrid); 
+  ghosts[1] = new Ghost(nodeGrid[11][10], nodeGrid[3][3], Pinky, nodeGrid); 
+  ghosts[2] = new Ghost(nodeGrid[11][11], nodeGrid[19][3], Inky, nodeGrid); 
+  
   
 }  
 
@@ -113,17 +118,30 @@ public void draw(){
   //  n.displayEdges();
   //}
   
+  // GHOST MODES  
+  
   for (Ghost g : ghosts){
     g.timeGhosts(); 
     if (g.MODE == g.SCATTER){
-      if (g.ghostImg == redghost){
+      if (g.ghostImg == Blinky){
         g.setTarget(nodeGrid[3][19]); 
       }
     }
     else if (g.MODE == g.CHASE){
-      if (g.ghostImg == redghost){
+      if (g.ghostImg == Blinky){
         g.setTarget(Pacman.currNode); // MUST CHANGE to account for their different targets leter 
       }
+      if (g.ghostImg == Pinky){
+        //if (Pacman.icon == Pacman.pacUp){
+        //  g.setTarget(nodeGrid[Pacman.row-4][Pacman.col-4]); 
+        //}
+        g.setTarget(Pacman.currNode); // Set to four tiles ahead
+      }
+      if (g.ghostImg == Inky){
+        g.setTarget(Pacman.currNode); // Change to: the tile 180 degrees from Pacman to Blinky
+      }
+      
+      // Clyde: Targets Pacman only when he is 8 or more tiles away, otherwise if he's closer he goes into scatter mode
     }
     g.chase(); 
     // g.display(); 
