@@ -8,11 +8,12 @@ Ghost[] ghosts = new Ghost[3]; // change to 4 later
 PImage Blinky, Pinky, Inky; 
 
 //Pacman main; 
-pac Pacman; 
+Pac Pacman; 
 PImage pacman; 
 
 int totalPoints = 0; 
-int highScore = totalPoints; 
+int highScore = totalPoints;
+boolean vulnerable = false; 
 
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
@@ -33,7 +34,7 @@ void setup(){
   {-1,  1,  1, -1,  1, -1, -1,  0, -1, -1, -1, -1, -1,  0, -1,  1, -1, -1,  1, -1, -1},
   {-1,  1,  1,  1,  1, -1, -1,  0,  0,  0,  0,  0,  0,  0, -1,  1,  1,  1,  1,  1, -1},
   {-1,  1, -1, -1,  1,  1,  1,  1, -1, -1,  1, -1, -1,  1, -1,  1, -1, -1, -1,  1, -1},
-  {-1,  1, -1, -1,  1, -1, -1, -1, -1, -1,  1, -1, -1,  1, -1,  1, -1,  1,  1,  1, -1},
+  {-1,  1, -1, -1,  1, -1, -1, -1, -1, -1,  1, -1, -1,  1, -1,  1, -1,  1,  1,  10, -1},
   {-1,  1, -1, -1,  1,  1,  1,  1,  1,  1,  1, -1,  1,  1,  1,  1, -1, -1, -1,  1, -1},
   {-1,  1, -1, -1,  1, -1, -1, -1,  1, -1,  1,  1,  1, -1, -1,  1, -1,  1,  1,  1, -1},
   {-1,  1,  1,  1,  1,  1,  1,  1,  1, -1, -1, -1,  1, -1, -1,  1, -1, -1, -1,  1, -1}, 
@@ -46,7 +47,7 @@ void setup(){
   
   pacman = loadImage("PacRight.png");       
   Node start = nodeGrid[13][10]; 
-  Pacman = new pac(start, pacman); 
+  Pacman = new Pac(start, pacman); 
   Blinky = loadImage("RedGhost.png");
   Pinky = loadImage("PurpleGhost.png"); 
   Inky = loadImage("GreenGhost.png"); 
@@ -129,34 +130,39 @@ public void draw(){
   
   for (Ghost g : ghosts){
     g.timeGhosts(); 
+    g.setVulnerable(vulnerable); 
     if (g.MODE == g.SCATTER){
-      if (g.ghostImg == Blinky){
+      if (g.icon == Blinky){
         g.setTarget(nodeGrid[3][19]); 
       }
-      if (g.ghostImg == Pinky){
+      if (g.icon == Pinky){
         g.setTarget(nodeGrid[3][3]); 
       }
-      if (g.ghostImg == Inky){
+      if (g.icon == Inky){
         g.setTarget(nodeGrid[19][3]); 
       }
+      g.chase(); 
     }
     else if (g.MODE == g.CHASE){
-      if (g.ghostImg == Blinky){
+      if (g.icon == Blinky){
         g.setTarget(Pacman.currNode); // MUST CHANGE to account for their different targets leter 
       }
-      if (g.ghostImg == Pinky){
+      if (g.icon == Pinky){
         //if (Pacman.icon == Pacman.pacUp){
         //  g.setTarget(nodeGrid[Pacman.row-4][Pacman.col-4]); 
         //}
         g.setTarget(Pacman.currNode); // Set to four tiles ahead
       }
-      if (g.ghostImg == Inky){
+      if (g.icon == Inky){
         g.setTarget(Pacman.currNode); // Change to: the tile 180 degrees from Pacman to Blinky
       }
-      
+      g.chase(); 
       // Clyde: Targets Pacman only when he is 8 or more tiles away, otherwise if he's closer he goes into scatter mode
     }
-    g.chase(); 
+    else if (g.MODE == g.BLUE){
+      System.out.println("Transition into vulnerable state"); 
+      g.run(); 
+    }
     // g.display(); 
   }
   
@@ -190,7 +196,7 @@ void drawSquares(int[][] map){
           if(!current.getEaten())
           circle(cols * SQUARESIZE + SQUARESIZE/2, rows * SQUARESIZE + SQUARESIZE/2, SQUARESIZE/4); 
         }
-        if (map[rows][cols] == 2){
+        if (map[rows][cols] == 10){
           Node current = nodeGrid[rows][cols];
           if(!current.getEaten())
           circle(cols * SQUARESIZE + SQUARESIZE/2, rows * SQUARESIZE + SQUARESIZE/2, SQUARESIZE/2); 
@@ -204,7 +210,7 @@ void drawSquares(int[][] map){
 void checkContact(){
   for (Ghost g : ghosts){
     if (g.currNode == Pacman.currNode){
-      if(g.getVulnerable()){
+      if(g.MODE == g.BLUE){
         g.reset();
         Pacman.addtoScore(100);
       }

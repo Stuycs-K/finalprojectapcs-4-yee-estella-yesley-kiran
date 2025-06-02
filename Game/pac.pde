@@ -1,4 +1,4 @@
-class pac extends character{
+class Pac extends character{
   boolean UP =false;
   boolean DOWN = false;
   boolean RIGHT = false;
@@ -9,7 +9,7 @@ class pac extends character{
   PImage pacUp, pacDown, pacRight, pacLeft; 
   ArrayList<PImage> deathseq= new ArrayList<PImage>();
   
-  pac(Node startNode, PImage img){
+  Pac(Node startNode, PImage img){
     super(startNode, img);
      pacRight = loadImage("PacRight.png");       
      pacLeft = loadImage("PacLeft.png");      
@@ -36,12 +36,12 @@ class pac extends character{
   void update(){
     if(currNode.col -1 < 0 && LEFT){
       currNode.beEaten();
-      score++;
+      score+=currNode.value;
       x =  500;
       currNode = nodeGrid[currNode.row][20];
       nextNode = nodeGrid[currNode.row][19];
       currNode.beEaten();
-      score++;
+      score+=currNode.value;
     }
     else if(currNode.col +1 > 20 && RIGHT){
       currNode.beEaten();
@@ -69,12 +69,17 @@ class pac extends character{
       move(0, 1); 
       icon = pacRight; 
     }
-    if(currNode != null && !currNode.getEaten() && currNode.getValue() == 1){
-      if(currNode.getValue() == 2){
-        for(Ghost g: ghosts) g.setVulnerable(true);
+    if(currNode != null && !currNode.getEaten() && currNode.getValue() > 0){
+      if(currNode.getValue() == 10){
+         vulnerable = true;
+         System.out.println("Vulnerable state activated"); 
+      //  for(Ghost g: ghosts) 
+      //    g.setVulnerable(true); 
+      //    System.out.println("Transition into Blue State"); 
+      //    System.out.println(g.getMode()); 
       }
       currNode.beEaten();
-      score++;
+      score+=currNode.value;
     }
   }
   }
@@ -84,7 +89,7 @@ class pac extends character{
     //int[][] directions = {
     //  {-1, 0}, {1, 0}, {0, -1}, {0, 1} // UP, DOWN, LEFT, RIGHT 
     //}; 
-    for (Node n : currNode.getNeighbors()){
+    // for (Node n : currNode.getNeighbors()){
       if (dir.equals("up") && (nextNode == null || checkNeighbor(-1, 0)) ){
         UP = true; 
         DOWN = RIGHT = LEFT = false; 
@@ -101,7 +106,7 @@ class pac extends character{
         RIGHT = true; 
         UP = DOWN = LEFT = false;
       }
-    }
+    // }
   }
   
   boolean checkNeighbor( int dr ,int dc){

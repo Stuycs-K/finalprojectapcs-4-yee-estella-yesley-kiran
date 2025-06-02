@@ -1,11 +1,11 @@
 class Ghost extends character{
-  PImage ghostImg; 
+  // PImage ghostImg; 
   int MODE = 0; 
   int SCATTER = 0; // different modes; 
   int CHASE = 1; 
   int BLUE = 2; 
-  boolean vulnerable = false;
-  PImage vulnearbleimg;
+  // boolean vulnerable = false;
+  // PImage vulnearbleimg;
   PImage icon;
   
   Node target;
@@ -13,18 +13,19 @@ class Ghost extends character{
   Node[][] nodeGrid; 
   int ticks = 0; 
   chaseFrontier chaser = new chaseFrontier(); 
-//  pac targetChar; 
+  // pac targetChar; 
   
   Ghost(Node start, Node target, PImage img, Node[][] grid){
      super(start, img);
-     ghostImg = icon =img; 
+     icon = img; 
      nodeGrid = grid; 
      this.target = target; 
      targetRow = target.row; 
      targetCol = target.col; 
+     MODE = SCATTER;
      
      speed = 1.5; 
-     vulnearbleimg = loadImage("VulnerableGhost.png");
+     // vulnearbleimg = loadImage("VulnerableGhost.png");
   }
  
   void setTarget(Node targNode){
@@ -85,27 +86,37 @@ class Ghost extends character{
       return null;
   }
 */
+
+  void run(){
+    
+  }
   
   void setVulnerable(boolean bool){
-    if(bool){
-    ghostImg = vulnearbleimg;
-    vulnerable = true;
+    if (bool){
+      MODE = BLUE; 
+      icon = loadImage("VulnerableGhost.png");
+    } else {
+      MODE = CHASE;
     }
-    else{
-      ghostImg = icon;
-      vulnerable = false;
-    }
+    
+    //ghostImg = vulnearbleimg;
+    //vulnerable = true;
+    //}
+    //else{
+    //  ghostImg = icon;
+    //  vulnerable = false;
+    //}
      // change character image to blue weird ghost 
      // change contact thing --> so that they can be eaten    
   }
    
-  boolean getVulnerable(){     
-    return vulnerable;
+  int getMode(){     
+    return MODE;
   }
    
  
   void timeGhosts(){
-    System.out.println(ticks); 
+    // System.out.println(ticks); 
     if (ticks < 500){
       setTarget(nodeGrid[8][10]); 
       MODE = SCATTER;
