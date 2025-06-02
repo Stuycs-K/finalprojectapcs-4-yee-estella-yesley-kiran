@@ -40,11 +40,7 @@ class Ghost extends character{
   //}
 
   void chase(){
-<<<<<<< HEAD
     // System.out.println("Ghost is chasing");
-=======
-
->>>>>>> 7305dee6fef002084e304cb8b60232eb827d6d2f
     Node bestNext = null; 
     float minDist = Float.MAX_VALUE; 
     // sqrt(map.length * map.length + map[0].length * map[0].length); 
@@ -53,7 +49,7 @@ class Ghost extends character{
       // System.out.println(neighbor); 
       // System.out.println(prevNode);
       if (neighbor != prevNode){
-        System.out.println("180 turn: " + prevNode); 
+        // System.out.println("180 turn: " + prevNode); 
         float dist = sqrt((neighbor.row-target.row)*(neighbor.row-target.row) + (neighbor.col-target.col)*(neighbor.col-target.col));
         if (dist < minDist){
           bestNext = neighbor; 
@@ -81,7 +77,6 @@ class Ghost extends character{
   }
   
 // BFS Method 
-<<<<<<< HEAD
 /*  Node makePath(Node prevNode, Node start, Node target){
     if(start == target) return start;
     for(Node n : start.getNeighbors()){
@@ -90,38 +85,6 @@ class Ghost extends character{
       return null;
   }
 */
-=======
-  //Node chasePath(Node prevNode, Node start, Node target){
-  //  if(start == target) return start;
-  //  for(Node n : start.getNeighbors()){
-  //      return chasePath(currNode, n, target);
-  //    }
-  //    return null;
-  //  }
-    
-    /*
-    ArrayList<Node> path = new ArrayList<Node>(); 
-    ArrayList<Node> neighbors = currNode.getNeighbors();
-    
-    ArrayList<Node> p1 = new ArrayList<Node>(); 
-    ArrayList<Node> p2 = new ArrayList<Node>(); 
-    ArrayList<Node> p3 = new ArrayList<Node>(); 
-    
-    // implement that the ghost is not allowed to turn 180 degrees; it cannot go back the direction it was moving in
-
-    int rows = nodeGrid.length; 
-    int cols = nodeGrid[0].length; 
-   
-    for (int i = 1; i <=3; i ++){
-      Node n = neighbors.get(i); 
-      chaser.add(n); 
-    }
-    System.out.println(chaser); 
-    return path; 
-    */
-  
-
->>>>>>> 7305dee6fef002084e304cb8b60232eb827d6d2f
   
   void setVulnerable(boolean bool){
     if(bool){
@@ -142,9 +105,14 @@ class Ghost extends character{
    
  
   void timeGhosts(){
-    if (ticks > 10){
-      MODE = CHASE; 
+    System.out.println(ticks); 
+    if (ticks < 500){
+      setTarget(nodeGrid[8][10]); 
+      MODE = SCATTER;
     }
+    else {
+      MODE = CHASE; 
+    } 
   }
   // void move(int targetx, int targety){
    //}

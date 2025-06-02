@@ -133,6 +133,12 @@ public void draw(){
       if (g.ghostImg == Blinky){
         g.setTarget(nodeGrid[3][19]); 
       }
+      if (g.ghostImg == Pinky){
+        g.setTarget(nodeGrid[3][3]); 
+      }
+      if (g.ghostImg == Inky){
+        g.setTarget(nodeGrid[19][3]); 
+      }
     }
     else if (g.MODE == g.CHASE){
       if (g.ghostImg == Blinky){
