@@ -10,6 +10,7 @@ class Ghost extends character{
   Node[][] nodeGrid; 
   int ticks = 0; 
   chaseFrontier chaser = new chaseFrontier(); 
+//  pac targetChar; 
   
   Ghost(Node start, Node target, PImage img, Node[][] grid){
      super(start, img);
@@ -27,9 +28,10 @@ class Ghost extends character{
     targetCol = target.col; 
     
   }
-  
+
   void chase(){
-//    System.out.println("Ghost is chasing"); 
+//    System.out.println("Ghost is chasing");
+/*
     Node bestNext = null; 
     float minDist = Float.MAX_VALUE; 
     //sqrt(map.length * map.length + map[0].length * map[0].length); 
@@ -46,7 +48,10 @@ class Ghost extends character{
         minDist = dist; 
       }
     }
-    //System.out.println(minDist); 
+    */
+    //System.out.println(minDist);
+    Node bestNext = null;
+    bestNext = chasePath(prevNode, currNode, target);
     if (bestNext != null){
 //      System.out.println(bestNext); 
       nextNode = bestNext; 
@@ -61,8 +66,16 @@ class Ghost extends character{
       //nextNode = path.get(1); 
     // }
   }
-/*  BFS Method 
-  ArrayList<Node> chasePath(Node prevNode, Node start, Node target){
+// BFS Method 
+  Node chasePath(Node prevNode, Node start, Node target){
+    if(start == target) return start;
+    for(Node n : start.getNeighbors()){
+        return chasePath(currNode, n, target);
+      }
+      return null;
+    }
+    
+    /*
     ArrayList<Node> path = new ArrayList<Node>(); 
     ArrayList<Node> neighbors = currNode.getNeighbors();
     
@@ -81,8 +94,9 @@ class Ghost extends character{
     }
     System.out.println(chaser); 
     return path; 
-  }
-*/
+    */
+  
+
   
   void setVulnerable(){
      // change character image to blue weird ghost 

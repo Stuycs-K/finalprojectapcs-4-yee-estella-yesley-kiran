@@ -4,6 +4,7 @@ class Node{
   private ArrayList<Node> neighbors = new ArrayList<Node>();
   int value = 0; 
   boolean eaten;
+ //static final float SQUARESIZE = 25.0;
   
   Node(int r, int c,  int val){
     row = r; 
