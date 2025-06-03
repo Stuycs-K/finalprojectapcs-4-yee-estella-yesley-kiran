@@ -3,7 +3,7 @@ class Ghost extends character{
   int MODE = 0; 
   int SCATTER = 0; // different modes; 
   int CHASE = 1; 
-  int BLUE = 2; 
+  // int BLUE = 2; 
   
   boolean vulnerable = false;
   int blueTime = 0; 
@@ -94,13 +94,15 @@ class Ghost extends character{
     if (isVulnerable){
       vulnerable = true; 
       ghostImg = blueghost;
-      System.out.println("ghostImage changed"); 
+      // System.out.println("ghostImage changed"); 
       blueTime = millis(); 
-      MODE = BLUE; 
+      // MODE = BLUE; 
+      speed = 1.2; 
     } else {
       MODE = CHASE;
       ghostImg = icon; 
       vulnerable = false; 
+      speed = 1.5; 
     }
     
      // change character image to blue weird ghost 
@@ -117,7 +119,7 @@ class Ghost extends character{
       setVulnerable(false); 
     }
     // System.out.println(ticks); 
-    if (ticks < 500 && MODE != BLUE){
+    if (ticks < 500 && !vulnerable){
       setTarget(nodeGrid[8][10]); 
       MODE = SCATTER;
     }
@@ -128,11 +130,16 @@ class Ghost extends character{
   // void move(int targetx, int targety){
    //}
    
-   void reset(){
-      //turn to eyes but figure that out later 
-      this.setTarget(nodeGrid[11][10]);
-      //while not at center be eyes and be in the returning mode --> once out of the returning mode go back to chasse
-   }
+ void reset(){
+    //turn to eyes but figure that out later 
+    setTarget(nodeGrid[11][10]);
+    speed = 5; 
+    chase(); 
+    if (currNode.row >= 9 && currNode.row <= 11 && currNode.col >= 9 && currNode.col <= 11){
+      speed = 1.5;  
+    }
+    //while not at center be eyes and be in the returning mode --> once out of the returning mode go back to chasse
+ }
    
    void display(){
      image(ghostImg, x, y); 

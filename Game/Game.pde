@@ -130,7 +130,8 @@ public void draw(){
   //}
   
   Pacman.inch();
-  Pacman.display(); 
+  Pacman.display();
+  checkContact();
   // GHOST MODES  
   for (Ghost g : ghosts){
     g.timeGhosts(); 
@@ -160,10 +161,10 @@ public void draw(){
       }
       // Clyde: Targets Pacman only when he is 8 or more tiles away, otherwise if he's closer he goes into scatter mode
     }
-    else if (g.MODE == g.BLUE){
+    else if (g.vulnerable){
       System.out.println("Transition into vulnerable state"); 
       // g.setVulnerable(true); 
-      g.setTarget(Pacman.currNode); 
+      g.setTarget(Pacman.currNode); // makes it run away from pacman 
     }
     g.chase(); 
     g.display();
@@ -173,7 +174,6 @@ public void draw(){
   totalPoints = Pacman.getScore();
   if (highScore < totalPoints) highScore = totalPoints;
   displayPoints();
-  checkContact();
   displayLives();
 }
 
@@ -210,11 +210,12 @@ void drawSquares(int[][] map){
 void checkContact(){ // ISSUE: for some reason, after blue state had been activated once, the ghost disappears from the screen
   for (Ghost g : ghosts){
     if (g.currNode == Pacman.currNode){
-      if(g.MODE == g.BLUE){
+      if(g.vulnerable){
+        System.out.println("Ghosts die"); 
         g.reset(); // Right now Pacman is dying even when ghosts are in blue mode
         Pacman.addtoScore(100);
       }
-      if(reset()) 
+      else if(reset()) 
         GameOver();
     }
   }
@@ -231,9 +232,10 @@ void GameOver(){
 
   boolean reset(){
     Pacman.subHealth();
-    if(Pacman.getLives() <= 0) return true;
+    if(Pacman.getLives() <= 0) 
+      return true;
     else {
-      Pacman.UP =Pacman.DOWN = Pacman.LEFT = Pacman.RIGHT = false;
+      Pacman.UP = Pacman.DOWN = Pacman.LEFT = Pacman.RIGHT = false;
       int currtime = second();
       int updatetime = currtime - 1;
       while(second() != currtime + 2){

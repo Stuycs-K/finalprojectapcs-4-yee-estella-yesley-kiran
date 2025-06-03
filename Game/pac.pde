@@ -73,7 +73,7 @@ class Pac extends character{
       if(currNode.getValue() == 10){
          for (Ghost g : ghosts){
            g.setVulnerable(true);
-           System.out.println("Vulnerable state activated"); 
+           // System.out.println("Vulnerable state activated"); 
          }
       //  for(Ghost g: ghosts) 
       //    g.setVulnerable(true); 
