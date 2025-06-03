@@ -132,28 +132,28 @@ public void draw(){
     g.timeGhosts(); 
     g.setVulnerable(vulnerable); 
     if (g.MODE == g.SCATTER){
-      if (g.icon == Blinky){
+      if (g.ghostImg == Blinky){
         g.setTarget(nodeGrid[3][19]); 
       }
-      if (g.icon == Pinky){
+      if (g.ghostImg == Pinky){
         g.setTarget(nodeGrid[3][3]); 
       }
-      if (g.icon == Inky){
+      if (g.ghostImg == Inky){
         g.setTarget(nodeGrid[19][3]); 
       }
       g.chase(); 
     }
     else if (g.MODE == g.CHASE){
-      if (g.icon == Blinky){
+      if (g.ghostImg == Blinky){
         g.setTarget(Pacman.currNode); // MUST CHANGE to account for their different targets leter 
       }
-      if (g.icon == Pinky){
+      if (g.ghostImg == Pinky){
         //if (Pacman.icon == Pacman.pacUp){
         //  g.setTarget(nodeGrid[Pacman.row-4][Pacman.col-4]); 
         //}
         g.setTarget(Pacman.currNode); // Set to four tiles ahead
       }
-      if (g.icon == Inky){
+      if (g.ghostImg == Inky){
         g.setTarget(Pacman.currNode); // Change to: the tile 180 degrees from Pacman to Blinky
       }
       g.chase(); 
@@ -161,9 +161,9 @@ public void draw(){
     }
     else if (g.MODE == g.BLUE){
       System.out.println("Transition into vulnerable state"); 
-      g.run(); 
+      g.chase(); 
     }
-    // g.display(); 
+    g.display(); 
   }
   
   Pacman.inch();
