@@ -42,3 +42,8 @@ Expanded description including how much time was spent on task.
 - Tried to debug ghost movement in class - 20 minutes 
 - Made progress setting up different modes in the Ghosts and understanding their target mechanisms - 1 hours 
 - Fixed the ghosts issue with continuously going back and forth in place (no 180 degree turning) - 1 hours 
+
+### 2025-06-03 
+- Made the blue state transition images - 30 minutes
+- Made blue state adhere to a certain time frame - 10 minutes 
+- Coded so that in blue state the ghost should run away from Pacman - 10 minutes
