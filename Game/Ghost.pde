@@ -132,8 +132,9 @@ class Ghost extends character{
    
  void reset(){
     //turn to eyes but figure that out later 
-    setTarget(nodeGrid[11][10]);
+    setTarget(nodeGrid[11][10]); // Ghosts are having a lot of trouble finding their way back to the base... 
     speed = 5; 
+    setVulnerable(false); 
     chase(); 
     if (currNode.row >= 9 && currNode.row <= 11 && currNode.col >= 9 && currNode.col <= 11){
       speed = 1.5;  
@@ -144,6 +145,13 @@ class Ghost extends character{
    void display(){
      image(ghostImg, x, y); 
    }
+   
+   /* NOTES: 
+   - Should have a target variable so we can store the different targets of each instead of having to reset every time 
+   - After blue state is over, ghosts need to target pacman again 
+   - Ghosts need to scatter in the beginning and actually leave the box 
+   - BFS search would be much better. 
+   */
 }
 
   
