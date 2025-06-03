@@ -71,8 +71,10 @@ class Pac extends character{
     }
     if(currNode != null && !currNode.getEaten() && currNode.getValue() > 0){
       if(currNode.getValue() == 10){
-         vulnerable = true;
-         System.out.println("Vulnerable state activated"); 
+         for (Ghost g : ghosts){
+           g.setVulnerable(true);
+           System.out.println("Vulnerable state activated"); 
+         }
       //  for(Ghost g: ghosts) 
       //    g.setVulnerable(true); 
       //    System.out.println("Transition into Blue State"); 

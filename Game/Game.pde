@@ -5,7 +5,7 @@ ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
 
 Ghost[] ghosts = new Ghost[3]; // change to 4 later
-PImage Blinky, Pinky, Inky; 
+PImage Blinky, Pinky, Inky, Blue; 
 
 //Pacman main; 
 Pac Pacman; 
@@ -13,7 +13,7 @@ PImage pacman;
 
 int totalPoints = 0; 
 int highScore = totalPoints;
-boolean vulnerable = false; 
+// boolean vulnerable = false; 
 
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
@@ -51,10 +51,13 @@ void setup(){
   Blinky = loadImage("RedGhost.png");
   Pinky = loadImage("PurpleGhost.png"); 
   Inky = loadImage("GreenGhost.png"); 
+  Blue = loadImage("VulnerableGhost.png");
   ghosts[0] = new Ghost(nodeGrid[11][9], nodeGrid[3][19], Blinky, nodeGrid); 
   ghosts[1] = new Ghost(nodeGrid[11][10], nodeGrid[3][3], Pinky, nodeGrid); 
   ghosts[2] = new Ghost(nodeGrid[11][11], nodeGrid[19][3], Inky, nodeGrid); 
-  
+  for (Ghost g : ghosts){
+    g.blueghost = Blue; 
+  }
   
 }  
 
@@ -126,11 +129,11 @@ public void draw(){
   //  n.displayEdges();
   //}
   
+  Pacman.inch();
+  Pacman.display(); 
   // GHOST MODES  
-  
   for (Ghost g : ghosts){
     g.timeGhosts(); 
-    g.setVulnerable(vulnerable); 
     if (g.MODE == g.SCATTER){
       if (g.ghostImg == Blinky){
         g.setTarget(nodeGrid[3][19]); 
@@ -141,7 +144,6 @@ public void draw(){
       if (g.ghostImg == Inky){
         g.setTarget(nodeGrid[19][3]); 
       }
-      g.chase(); 
     }
     else if (g.MODE == g.CHASE){
       if (g.ghostImg == Blinky){
@@ -156,18 +158,16 @@ public void draw(){
       if (g.ghostImg == Inky){
         g.setTarget(Pacman.currNode); // Change to: the tile 180 degrees from Pacman to Blinky
       }
-      g.chase(); 
       // Clyde: Targets Pacman only when he is 8 or more tiles away, otherwise if he's closer he goes into scatter mode
     }
     else if (g.MODE == g.BLUE){
       System.out.println("Transition into vulnerable state"); 
-      g.chase(); 
+      // g.setVulnerable(true); 
+      g.setTarget(Pacman.currNode); 
     }
-    g.display(); 
+    g.chase(); 
+    g.display();
   }
-  
-  Pacman.inch();
-  Pacman.display(); 
   
   displayPoints(); 
   totalPoints = Pacman.getScore();

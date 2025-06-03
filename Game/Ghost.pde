@@ -4,9 +4,10 @@ class Ghost extends character{
   int SCATTER = 0; // different modes; 
   int CHASE = 1; 
   int BLUE = 2; 
+  
   boolean vulnerable = false;
-  PImage blueghost = loadImage("BlueGhost.png");
-  PImage icon;
+  int blueTime = 0; 
+  PImage blueghost; 
   
   Node target;
   int targetRow, targetCol; 
@@ -91,12 +92,14 @@ class Ghost extends character{
   
   void setVulnerable(boolean isVulnerable){
     if (isVulnerable){
-      MODE = BLUE; 
-      icon = blueghost;
       vulnerable = true; 
+      ghostImg = blueghost;
+      System.out.println("ghostImage changed"); 
+      blueTime = millis(); 
+      MODE = BLUE; 
     } else {
       MODE = CHASE;
-      icon = ghostImg; 
+      ghostImg = icon; 
       vulnerable = false; 
     }
     
@@ -110,8 +113,11 @@ class Ghost extends character{
    
  
   void timeGhosts(){
+    if (vulnerable && millis() - blueTime > 5000){
+      setVulnerable(false); 
+    }
     // System.out.println(ticks); 
-    if (ticks < 500 && MODE == SCATTER){
+    if (ticks < 500 && MODE != BLUE){
       setTarget(nodeGrid[8][10]); 
       MODE = SCATTER;
     }
@@ -126,6 +132,10 @@ class Ghost extends character{
       //turn to eyes but figure that out later 
       this.setTarget(nodeGrid[11][10]);
       //while not at center be eyes and be in the returning mode --> once out of the returning mode go back to chasse
+   }
+   
+   void display(){
+     image(ghostImg, x, y); 
    }
 }
 
