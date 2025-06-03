@@ -5,7 +5,7 @@ ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
 
 Ghost[] ghosts = new Ghost[3]; // change to 4 later
-PImage Blinky, Pinky, Inky, Blue; 
+PImage Blinky, Pinky, Inky, Blue,Eyes; 
 
 //Pacman main; 
 Pac Pacman; 
@@ -52,11 +52,13 @@ void setup(){
   Pinky = loadImage("PurpleGhost.png"); 
   Inky = loadImage("GreenGhost.png"); 
   Blue = loadImage("VulnerableGhost.png");
+  Eyes = loadImage("DeadGhostEyes.png");
   ghosts[0] = new Ghost(nodeGrid[11][9], nodeGrid[3][19], Blinky, nodeGrid); 
   ghosts[1] = new Ghost(nodeGrid[11][10], nodeGrid[3][3], Pinky, nodeGrid); 
   ghosts[2] = new Ghost(nodeGrid[11][11], nodeGrid[19][3], Inky, nodeGrid); 
   for (Ghost g : ghosts){
     g.blueghost = Blue; 
+    g.eyesghost = Eyes;
   }
   
 }  
@@ -131,7 +133,7 @@ public void draw(){
   
   Pacman.inch();
   Pacman.display();
-  checkContact();
+
   // GHOST MODES  
   for (Ghost g : ghosts){
     g.timeGhosts(); 
@@ -146,7 +148,7 @@ public void draw(){
         g.setTarget(nodeGrid[19][3]); 
       }
     }
-    else if (g.MODE == g.CHASE){
+    else if (!(g.vulnerable) && g.MODE == g.CHASE){
       if (g.ghostImg == Blinky){
         g.setTarget(Pacman.currNode); // MUST CHANGE to account for their different targets leter 
       }
@@ -161,15 +163,24 @@ public void draw(){
       }
       // Clyde: Targets Pacman only when he is 8 or more tiles away, otherwise if he's closer he goes into scatter mode
     }
-    else if (g.vulnerable){
-      System.out.println("Transition into vulnerable state"); 
+    else if (g.vulnerable && g.MODE == g.CHASE){
+     // System.out.println("Transition into vulnerable state"); 
       // g.setVulnerable(true); 
       g.setTarget(Pacman.currNode); // makes it run away from pacman 
+    }
+    else if(g.MODE == g.RETURNING){
+      System.out.println( "this 1 is running");
+      g.setTarget(nodeGrid[11][10]);
+      if(g.currNode ==nodeGrid[9][10]){
+        g.MODE =g.CHASE;
+        g.ghostImg = g.icon;
+      }
     }
     g.chase(); 
     g.display();
   }
   
+  checkContact();
   displayPoints(); 
   totalPoints = Pacman.getScore();
   if (highScore < totalPoints) highScore = totalPoints;
@@ -209,13 +220,14 @@ void drawSquares(int[][] map){
 
 void checkContact(){ // ISSUE: for some reason, after blue state had been activated once, the ghost disappears from the screen
   for (Ghost g : ghosts){
-    if (g.currNode == Pacman.currNode){
-      if(g.vulnerable){
-        System.out.println("Ghosts die"); 
+    if (g.currNode == Pacman.currNode){ 
+   //   System.out.println(" this is running " );
+       if(!(g.MODE == g.RETURNING) && g.vulnerable ){
+     //   System.out.println("Ghosts die"); 
         g.reset(); // Right now Pacman is dying even when ghosts are in blue mode
         Pacman.addtoScore(100);
       }
-      else if(reset()) 
+      else if(!(g.MODE == g.RETURNING) && Pacman.reset()) 
         GameOver();
     }
   }
@@ -229,26 +241,6 @@ void GameOver(){
   text("GAME OVER", (21 * SQUARESIZE) / 3 , (21 * SQUARESIZE) /2 );
   noLoop();
 }
-
-  boolean reset(){
-    Pacman.subHealth();
-    if(Pacman.getLives() <= 0) 
-      return true;
-    else {
-      Pacman.UP = Pacman.DOWN = Pacman.LEFT = Pacman.RIGHT = false;
-      int currtime = second();
-      int updatetime = currtime - 1;
-      while(second() != currtime + 2){
-        if( second() != updatetime ){
-          updatetime = second();
-          Pacman.icon = Pacman.deathseq.get(updatetime - currtime);
-        }
-      }
-      Pacman.setCurrNode(nodeGrid[13][10], Pacman.pacRight);
-      Pacman.nextNode = null;
-    }
-    return false;
-  }
 
 public void keyPressed(){
   if (key == CODED){

@@ -44,3 +44,7 @@ This document must be updated daily every time you finish a work session.
 - created and added all remaining icons - 20 minutes 
 - got the lives and contact with ghost to work - 40 minutes 
 - started working on the ghost vulnearble state and got probably halfway ish through completing that but there are so many caveats to it - 30 minutes 
+
+## 2025-06-03
+- created a new returning mode that succesfully switches if pacman runs into a blue ghost in a striaght line (bug when they remain on same tile) - 30 minutes
+- wrote code for returning but there seems to be a bug  - 40 minutes

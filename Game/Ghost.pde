@@ -3,11 +3,13 @@ class Ghost extends character{
   int MODE = 0; 
   int SCATTER = 0; // different modes; 
   int CHASE = 1; 
+  int RETURNING = 3;
   // int BLUE = 2; 
   
   boolean vulnerable = false;
   int blueTime = 0; 
   PImage blueghost; 
+  PImage eyesghost;
   
   Node target;
   int targetRow, targetCol; 
@@ -42,10 +44,43 @@ class Ghost extends character{
   //}
 
   void chase(){
-    // System.out.println("Ghost is chasing");
     Node bestNext = null; 
+    if (MODE == RETURNING) {
+     ghostImg = eyesghost;
+    setTarget(nodeGrid[11][10]);
+    float minDist = Float.MAX_VALUE;
+
+    for (Node neighbor : currNode.getNeighbors()) {
+      if (neighbor != prevNode) {
+        float dist =  sqrt((neighbor.row-target.row)*(neighbor.row-target.row) + (neighbor.col-target.col)*(neighbor.col-target.col));
+        if (dist < minDist) {
+          minDist = dist;
+          bestNext = neighbor;
+        }
+      }
+    }
+    if (currNode == nodeGrid[11][10]) {
+      MODE = CHASE;
+      ghostImg = icon;
+      speed = 1.5;
+    }
+    System.out.println( "is this running");
+  }
+  else{   
+    // System.out.println("Ghost is chasing");
     float minDist = Float.MAX_VALUE; 
     float maxDist = Float.MIN_VALUE; 
+    if(currNode.col == 0 && target.col > 15){
+      x =  500;
+      bestNext = nodeGrid[currNode.row][20];
+    //  nextNode = nodeGrid[currNode.row][19];
+    }
+    else if(currNode.col == 20 && target.col < 5){
+      x =  500;
+      bestNext = nodeGrid[currNode.row][0];
+    //  nextNode = nodeGrid[currNode.row][19];
+    }
+    else{
     ArrayList<Node> neighbors = currNode.getNeighbors(); 
     for (Node neighbor : neighbors){
       if (neighbor != prevNode){
@@ -64,19 +99,16 @@ class Ghost extends character{
         }
       }
     }
+    }
     // bestNext = makePath(prevNode, currNode, target);
     if (bestNext != null){
       nextNode = bestNext; 
     }
     
+  }
+  
     super.inch(); 
     ticks ++;
-    
-    //if (target != null){
-      //chaser.add(currNode); 
-      //ArrayList<Node> path = chasePath(prevNode, currNode, target); 
-      //nextNode = path.get(1); 
-    // }
   }
   
 // BFS Method 
@@ -94,7 +126,6 @@ class Ghost extends character{
     if (isVulnerable){
       vulnerable = true; 
       ghostImg = blueghost;
-      // System.out.println("ghostImage changed"); 
       blueTime = millis(); 
       // MODE = BLUE; 
       speed = 1.2; 
@@ -104,9 +135,7 @@ class Ghost extends character{
       vulnerable = false; 
       speed = 1.5; 
     }
-    
-     // change character image to blue weird ghost 
-     // change contact thing --> so that they can be eaten    
+
   }
    
   int getMode(){     
@@ -115,7 +144,7 @@ class Ghost extends character{
    
  
   void timeGhosts(){
-    if (vulnerable && millis() - blueTime > 5000){
+    if (vulnerable && millis() - blueTime > 10000){
       setVulnerable(false); 
     }
     // System.out.println(ticks); 
@@ -123,7 +152,7 @@ class Ghost extends character{
       setTarget(nodeGrid[8][10]); 
       MODE = SCATTER;
     }
-    else {
+    else if(MODE != RETURNING){
       MODE = CHASE; 
     } 
   }
@@ -132,10 +161,13 @@ class Ghost extends character{
    
  void reset(){
     //turn to eyes but figure that out later 
-    setTarget(nodeGrid[11][10]); // Ghosts are having a lot of trouble finding their way back to the base... 
+   // setTarget(nodeGrid[11][10]); // Ghosts are having a lot of trouble finding their way back to the base... 
+   System.out.println("ghost is being reset");
+   MODE = RETURNING;
     speed = 5; 
-    setVulnerable(false); 
-    chase(); 
+    vulnerable = false;
+   // setVulnerable(false); 
+ //   chase(); 
     if (currNode.row >= 9 && currNode.row <= 11 && currNode.col >= 9 && currNode.col <= 11){
       speed = 1.5;  
     }
@@ -143,7 +175,9 @@ class Ghost extends character{
  }
    
    void display(){
-     image(ghostImg, x, y); 
+     image(ghostImg, x, y);
+     fill(255); 
+     text("MODE: " + MODE, x, y); 
    }
    
    /* NOTES: 

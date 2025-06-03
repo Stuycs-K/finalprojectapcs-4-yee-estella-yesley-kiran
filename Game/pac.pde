@@ -143,22 +143,23 @@ class Pac extends character{
     score += val;
   }
   
-  //boolean reset(){
-  //  subHealth();
-  //  if(getLives() < 0) return true;
-  //  else {
-  //    UP =DOWN = LEFT = RIGHT = false;
-  //    int currtime = second();
-  //    int updatetime = currtime - 1;
-  //    while(second() != currtime + 2){
-  //      if( second() != updatetime ){
-  //        updatetime = second();
-  //        icon = deathseq.get(updatetime - currtime);
-  //      }
-  //    }
-  //    this.setCurrNode(nodeGrid[13][10], pacRight);
-  //    nextNode = null;
-  //  }
-  //  return false;
-  //}
+  boolean reset(){
+    System.out.println("pacman is being reset");
+    subHealth();
+    if(getLives() < 0) return true;
+    else {
+      UP =DOWN = LEFT = RIGHT = false;
+      int currtime = second();
+      int updatetime = currtime - 1;
+      while(second() != currtime + 2){
+        if( second() != updatetime ){
+          updatetime = second();
+          icon = deathseq.get(updatetime - currtime);
+        }
+      }
+      this.setCurrNode(nodeGrid[13][10], pacRight);
+      nextNode = null;
+    }
+    return false;
+  }
 }
