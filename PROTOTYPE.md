@@ -19,21 +19,29 @@ A description of your technical design. This should include:
 ### Features 
 Critical Features: 
 - ~Randomly Generated Maze that is different every time~
-- Custom Map 
+- (Added in) Custom Map 
     - wraparound feature 
 - Controllable Pacman 
 - Pathfinding ghosts 
     - Regular mode & Vulnerable mode 
+    - (Added in) Scatter, Run, and Blue Modes that designate how the ghosts move at a specific point in time 
+    - Basic version: choose tile based on distance
+    - Better version: use BFS to find the best path 
+    - 4 different ghosts that have different target algorithms
 - Point system and display that continuously upates 
     - Three different point systems: fruit, pellet, superpellet 
+    - Superpellet should activate Blue Mode 
 
 Extra Features: 
 - Start and End screen, and replay screen 
 - High Score 
 - Choose your avatar 
 - Stacking of point values per ghosts/different fruits
-- differnet speeds for vulnerable and regular mode for ghosts  
+- different speeds for vulnerable and regular mode for ghosts  
 - make custom looking walls
+- Animations: 
+    - Pacman dying animation 
+    - Ghosts being eaten and running back to the home base 
      
 # Project Design
 
