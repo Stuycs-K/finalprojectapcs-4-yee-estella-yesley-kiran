@@ -139,44 +139,44 @@ public void draw(){
     g.timeGhosts(); 
     if (g.MODE == g.SCATTER){
       if (g.ghostImg == Blinky){
-        g.setTarget(nodeGrid[3][19]); 
+        g.target = nodeGrid[3][19]; 
       }
       if (g.ghostImg == Pinky){
-        g.setTarget(nodeGrid[3][3]); 
+        g.target = nodeGrid[3][3]; 
       }
       if (g.ghostImg == Inky){
-        g.setTarget(nodeGrid[19][3]); 
+        g.target = nodeGrid[19][3]; 
       }
     }
     else if (!(g.vulnerable) && g.MODE == g.CHASE){
       if (g.ghostImg == Blinky){
-        g.setTarget(Pacman.currNode); // MUST CHANGE to account for their different targets leter 
+        g.target = Pacman.currNode; // MUST CHANGE to account for their different targets leter 
       }
       if (g.ghostImg == Pinky){
         //if (Pacman.icon == Pacman.pacUp){
         //  g.setTarget(nodeGrid[Pacman.row-4][Pacman.col-4]); 
         //}
-        g.setTarget(Pacman.currNode); // Set to four tiles ahead
+        g.target = Pacman.currNode; // Set to four tiles ahead
       }
       if (g.ghostImg == Inky){
-        g.setTarget(Pacman.currNode); // Change to: the tile 180 degrees from Pacman to Blinky
+        g.target = Pacman.currNode; // Change to: the tile 180 degrees from Pacman to Blinky
       }
       // Clyde: Targets Pacman only when he is 8 or more tiles away, otherwise if he's closer he goes into scatter mode
     }
     else if (g.vulnerable && g.MODE == g.CHASE){
      // System.out.println("Transition into vulnerable state"); 
       // g.setVulnerable(true); 
-      g.setTarget(Pacman.currNode); // makes it run away from pacman 
+      g.target = Pacman.currNode; // makes it run away from pacman 
     }
     else if(g.MODE == g.RETURNING){
-      System.out.println( "this 1 is running");
-      g.setTarget(nodeGrid[11][10]);
+      //System.out.println( "this 1 is running");
+      g.target = nodeGrid[11][10];
       if(g.currNode ==nodeGrid[9][10]){
         g.MODE =g.CHASE;
         g.ghostImg = g.icon;
       }
     }
-    g.chase(); 
+    g.update(); 
     g.display();
   }
   
@@ -223,9 +223,9 @@ void checkContact(){ // ISSUE: for some reason, after blue state had been activa
     if (g.currNode == Pacman.currNode){ 
    //   System.out.println(" this is running " );
        if(!(g.MODE == g.RETURNING) && g.vulnerable ){
-     //   System.out.println("Ghosts die"); 
-        g.reset(); // Right now Pacman is dying even when ghosts are in blue mode
-        Pacman.addtoScore(100);
+          //System.out.println("Ghosts die"); 
+          g.reset(); // Right now Pacman is dying even when ghosts are in blue mode
+          Pacman.addtoScore(100);
       }
       else if(!(g.MODE == g.RETURNING) && Pacman.reset()) 
         GameOver();

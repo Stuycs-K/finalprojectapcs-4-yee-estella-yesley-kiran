@@ -1,10 +1,9 @@
 class Ghost extends character{
   PImage ghostImg; 
-  int MODE = 0; 
-  int SCATTER = 0; // different modes; 
-  int CHASE = 1; 
+  int MODE = 0;
+  int SCATTER = 1; // different modes; 
+  int CHASE = 2 ;
   int RETURNING = 3;
-  // int BLUE = 2; 
   
   boolean vulnerable = false;
   int blueTime = 0; 
@@ -12,7 +11,6 @@ class Ghost extends character{
   PImage eyesghost;
   
   Node target;
-  int targetRow, targetCol; 
   Node[][] nodeGrid; 
   int ticks = 0; 
   chaseFrontier chaser = new chaseFrontier(); 
@@ -23,89 +21,83 @@ class Ghost extends character{
      ghostImg = icon = img; 
      nodeGrid = grid; 
      this.target = target; 
-     targetRow = target.row; 
-     targetCol = target.col; 
      MODE = SCATTER;
      
      speed = 1.5; 
      // vulnearbleimg = loadImage("VulnerableGhost.png");
   }
  
-  void setTarget(Node targNode){
-    target = targNode; 
-    targetRow = target.row; 
-    targetCol = target.col; 
+
+  private float distanceToTarget(Node node) {
+      float dx = node.row - target.row;
+      float dy = node.col - target.col;
+      return (float) Math.sqrt(dx * dx + dy * dy);
   }
-  
-  //void setTarget(int targetR, int targetC){ 
-  //  targetRow = targetR; 
-  //  targetCol = targetC; 
-  //  target = nodeGrid[targetRow][targetCol]; 
-  //}
 
-  void chase(){
-    Node bestNext = null; 
-    if (MODE == RETURNING) {
-     ghostImg = eyesghost;
-    setTarget(nodeGrid[11][10]);
-    float minDist = Float.MAX_VALUE;
-
-    for (Node neighbor : currNode.getNeighbors()) {
-      if (neighbor != prevNode) {
-        float dist =  sqrt((neighbor.row-target.row)*(neighbor.row-target.row) + (neighbor.col-target.col)*(neighbor.col-target.col));
-        if (dist < minDist) {
-          minDist = dist;
-          bestNext = neighbor;
-        }
+  Node pickNextMove(boolean escape) {
+      //escape = true, means you are running away from your target
+      //escape = false means you are running towards your target
+      Node bestNext = null;
+      float bestDist;
+      if (escape) bestDist = Float.MAX_VALUE ;
+      else bestDist =Float.MIN_VALUE;
+      
+      for (Node neighbor : currNode.getNeighbors()) {
+          if (neighbor == prevNode) continue;
+          
+          float dist = distanceToTarget(neighbor);
+          if ((escape && dist < bestDist) || (!escape && dist > bestDist)) {
+              bestNext = neighbor;
+              bestDist = dist;
+          }
       }
-    }
+      return bestNext;
+  }
+
+  void update(){
+    //This method updates the ghost mode and position
+    Node bestNext = null; 
     if (currNode == nodeGrid[11][10]) {
+      // the ghost has returned home
       MODE = CHASE;
       ghostImg = icon;
       speed = 1.5;
     }
-    System.out.println( "is this running");
-  }
-  else{   
-    // System.out.println("Ghost is chasing");
-    float minDist = Float.MAX_VALUE; 
-    float maxDist = Float.MIN_VALUE; 
-    if(currNode.col == 0 && target.col > 15){
-      x =  500;
-      bestNext = nodeGrid[currNode.row][20];
-    //  nextNode = nodeGrid[currNode.row][19];
+    if (MODE == RETURNING) {
+       bestNext = pickNextMove( false );
+       System.out.print("Return Mode ");
+       printNode( target );
+       printNode( bestNext );
     }
-    else if(currNode.col == 20 && target.col < 5){
-      x =  500;
-      bestNext = nodeGrid[currNode.row][0];
-    //  nextNode = nodeGrid[currNode.row][19];
-    }
-    else{
-    ArrayList<Node> neighbors = currNode.getNeighbors(); 
-    for (Node neighbor : neighbors){
-      if (neighbor != prevNode){
-        float dist = sqrt((neighbor.row-target.row)*(neighbor.row-target.row) + (neighbor.col-target.col)*(neighbor.col-target.col));
-        if (vulnerable){
-          if (dist > maxDist){
-            bestNext = neighbor; 
-            maxDist = dist; 
-          }
+    else{   
+      //the ghost is in Chase mode
+      // System.out.println("Ghost is chasing");
+      //this is the tunnel logic
+      if(currNode.col == 0 && target.col > 15){
+          x =  500;
+          bestNext = nodeGrid[currNode.row][20];
+          //  nextNode = nodeGrid[currNode.row][19];
+      }
+      else if(currNode.col == 20 && target.col < 5){
+          x =  500;
+          bestNext = nodeGrid[currNode.row][0];
+          //  nextNode = nodeGrid[currNode.row][19];
+      }
+      else{
+        //not in the tunnel
+        if( vulnerable ){
+          bestNext = pickNextMove( true );
         }
-        else{
-          if (dist < minDist){
-            bestNext = neighbor; 
-            minDist = dist; 
-          }
+        else
+        {
+          bestNext = pickNextMove( false ); 
         }
+
       }
     }
-    }
-    // bestNext = makePath(prevNode, currNode, target);
     if (bestNext != null){
       nextNode = bestNext; 
     }
-    
-  }
   
     super.inch(); 
     ticks ++;
@@ -149,7 +141,7 @@ class Ghost extends character{
     }
     // System.out.println(ticks); 
     if (ticks < 500 && !vulnerable){
-      setTarget(nodeGrid[8][10]); 
+      target = nodeGrid[8][10]; 
       MODE = SCATTER;
     }
     else if(MODE != RETURNING){
@@ -161,20 +153,22 @@ class Ghost extends character{
    
  void reset(){
     //turn to eyes but figure that out later 
-   // setTarget(nodeGrid[11][10]); // Ghosts are having a lot of trouble finding their way back to the base... 
-   System.out.println("ghost is being reset");
-   MODE = RETURNING;
+    // setTarget(nodeGrid[11][10]); // Ghosts are having a lot of trouble finding their way back to the base... 
+    System.out.println("ghost is being reset");
+    MODE = RETURNING;
+    ghostImg = eyesghost;
+    target = nodeGrid[11][10];
     speed = 5; 
     vulnerable = false;
-   // setVulnerable(false); 
- //   chase(); 
+    // setVulnerable(false); 
+    //   chase(); 
     if (currNode.row >= 9 && currNode.row <= 11 && currNode.col >= 9 && currNode.col <= 11){
       speed = 1.5;  
     }
     //while not at center be eyes and be in the returning mode --> once out of the returning mode go back to chasse
  }
    
-   void display(){
+ void display(){
      image(ghostImg, x, y);
      fill(255); 
      text("MODE: " + MODE, x, y); 

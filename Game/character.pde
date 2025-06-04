@@ -45,6 +45,10 @@ class character{
    }
  }
  
+ void printNode( Node x ){
+    System.out.println( x.row+" "+x.col); 
+ }
+ 
  void move(int dr, int dc){
   // if(currNode.col + dc < 0) nextNode = nodeGrid[currNode.row][20];
    //else if(currNode.col + dc > 20) nextNode = nodeGrid[currNode.row][0];
