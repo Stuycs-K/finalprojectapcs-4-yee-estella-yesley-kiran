@@ -38,12 +38,18 @@ Expanded description including how much time was spent on task.
 - Maade entirely new pacman class - 1.5 hours 
 - Also started making the Ghost class, inserted all the methods 1 hour 
 
-### 2025-05-30-06-2
+### 2025-05-30-06-1
 - Tried to debug ghost movement in class - 20 minutes 
 - Made progress setting up different modes in the Ghosts and understanding their target mechanisms - 1 hours 
 - Fixed the ghosts issue with continuously going back and forth in place (no 180 degree turning) - 1 hours 
 
-### 2025-06-03 
+### 2025-06-02 
 - Made the blue state transition images - 30 minutes
 - Made blue state adhere to a certain time frame - 10 minutes 
 - Coded so that in blue state the ghost should run away from Pacman - 10 minutes
+
+### 2025-06-03 
+- Cleared up clutter in code with blue state/vulnerable state - 10 minutes
+- Tried to code the death of the ghosts and have them run back to the base when they come in contact with Pacman - 40 minutes 
+- 
+

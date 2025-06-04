@@ -1,9 +1,9 @@
 class Ghost extends character{
   PImage ghostImg; 
   int MODE = 0;
-  int SCATTER = 1; // different modes; 
-  int CHASE = 2 ;
-  int RETURNING = 3;
+  int SCATTER = 1; // spreads out to the corners; 
+  int CHASE = 2 ; // chase Pacman
+  int RETURNING = 3; // return to base after being eaten
   
   boolean vulnerable = false;
   int blueTime = 0; 
@@ -34,19 +34,19 @@ class Ghost extends character{
       return (float) Math.sqrt(dx * dx + dy * dy);
   }
 
-  Node pickNextMove(boolean escape) {
-      //escape = true, means you are running away from your target
-      //escape = false means you are running towards your target
+  Node pickNextMove(boolean run) {
+      //run = true, means you are running away from your target
+      //run = false means you are running towards your target
       Node bestNext = null;
       float bestDist;
-      if (escape) bestDist = Float.MAX_VALUE ;
+      if (run) bestDist = Float.MAX_VALUE ;
       else bestDist =Float.MIN_VALUE;
       
       for (Node neighbor : currNode.getNeighbors()) {
           if (neighbor == prevNode) continue;
           
           float dist = distanceToTarget(neighbor);
-          if ((escape && dist < bestDist) || (!escape && dist > bestDist)) {
+          if ((run && dist < bestDist) || (!run && dist > bestDist)) {
               bestNext = neighbor;
               bestDist = dist;
           }
@@ -65,6 +65,7 @@ class Ghost extends character{
     }
     if (MODE == RETURNING) {
        bestNext = pickNextMove( false );
+       speed = 5; 
        System.out.print("Return Mode ");
        printNode( target );
        printNode( bestNext );
@@ -73,12 +74,12 @@ class Ghost extends character{
       //the ghost is in Chase mode
       // System.out.println("Ghost is chasing");
       //this is the tunnel logic
-      if(currNode.col == 0 && target.col > 15){
+      if (currNode.col == 0 && target.col > 15){
           x =  500;
           bestNext = nodeGrid[currNode.row][20];
           //  nextNode = nodeGrid[currNode.row][19];
       }
-      else if(currNode.col == 20 && target.col < 5){
+      else if (currNode.col == 20 && target.col < 5){
           x =  500;
           bestNext = nodeGrid[currNode.row][0];
           //  nextNode = nodeGrid[currNode.row][19];
@@ -152,7 +153,6 @@ class Ghost extends character{
    //}
    
  void reset(){
-    //turn to eyes but figure that out later 
     // setTarget(nodeGrid[11][10]); // Ghosts are having a lot of trouble finding their way back to the base... 
     System.out.println("ghost is being reset");
     MODE = RETURNING;
@@ -172,7 +172,7 @@ class Ghost extends character{
      image(ghostImg, x, y);
      fill(255); 
      text("MODE: " + MODE, x, y); 
-   }
+ }
    
    /* NOTES: 
    - Should have a target variable so we can store the different targets of each instead of having to reset every time 

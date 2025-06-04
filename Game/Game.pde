@@ -152,11 +152,30 @@ public void draw(){
       if (g.ghostImg == Blinky){
         g.target = Pacman.currNode; // MUST CHANGE to account for their different targets leter 
       }
-      if (g.ghostImg == Pinky){
-        //if (Pacman.icon == Pacman.pacUp){
-        //  g.setTarget(nodeGrid[Pacman.row-4][Pacman.col-4]); 
-        //}
-        g.target = Pacman.currNode; // Set to four tiles ahead
+      if (g.ghostImg == Pinky){ // targets the node four tiles ahead of Pacman 
+        int targetRow = Pacman.currNode.row; 
+        int targetCol = Pacman.currNode.col; 
+        if (Pacman.icon == Pacman.pacUp){ // When Pacman faces up, ghost target four up and four to the left
+          targetRow = Pacman.currNode.row - 4; 
+          targetCol = Pacman.currNode.row - 4; 
+        }
+        else if (Pacman.icon == Pacman.pacLeft){
+          targetCol = Pacman.currNode.col - 4; 
+          targetRow = Pacman.currNode.row; 
+        }
+        else if (Pacman.icon == Pacman.pacRight){
+          targetCol = Pacman.currNode.col + 4; 
+          targetRow = Pacman.currNode.row; 
+        }
+        else if (Pacman.icon == Pacman.pacDown){
+          targetCol = Pacman.currNode.col; 
+          targetRow = Pacman.currNode.row + 4; 
+        }
+        if (targetRow >= 0 && targetCol >= 0)
+          g.target = nodeGrid[targetRow][targetCol];
+        else {
+          g.target = nodeGrid[Pacman.currNode.row][Pacman.currNode.col]; 
+        }
       }
       if (g.ghostImg == Inky){
         g.target = Pacman.currNode; // Change to: the tile 180 degrees from Pacman to Blinky
