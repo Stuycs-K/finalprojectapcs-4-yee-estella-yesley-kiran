@@ -219,6 +219,11 @@ void drawSquares(int[][] map){
         fill (0, 0, 255); 
         rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
       }
+      // checks the pathfinding mechanism of ghost
+      if (nodeGrid[rows][cols].TREADED == true){
+        fill(0, 255, 0); 
+        rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
+      }
       else {
         fill (255);
         if (map[rows][cols] == 1){

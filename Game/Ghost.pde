@@ -6,6 +6,7 @@ class Ghost extends character{
   int RETURNING = 3; // return to base after being eaten
   
   chaseFrontier PATH; 
+  boolean found = false; 
   
   boolean vulnerable = false;
   int blueTime = 0; 
@@ -57,26 +58,30 @@ class Ghost extends character{
   }
   
   // BREADTH FIRST SEARCHING ALGORITHM 
-  ArrayList<Node> move(){
+  ArrayList<Node> selectbestPath(){
     ArrayList<Node> bestPath = new ArrayList<Node> (); 
+    // Call the make path function, and when it ends choose the best path 
+    return bestPath; 
+  }
+  
+  void findTarget(){
     if (PATH.size()==0){
       // should return the path that reaches the target first
-      return bestPath;   
+      found = true; 
     }
+    Node coordinate = PATH.remove(); 
+    int R = coordinate.row; int C = coordinate.col; 
     int[][] dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}; 
-    int[] coordinate = FLARES.remove(); 
-    int y = coordinate[0]; int x = coordinate[1]; 
-    map[y][x] = ASH; 
     for (int k = 0; k < 4; k ++){
-        int newY = y + dir[k][0]; 
-        int newX = x + dir[k][1]; 
-        if (newY < map.length && newY >= 0 && newX >= 0 && newX < map[newY].length && map[newY][newX] == TREE){
-          map[newY][newX] = FIRE; 
-          FLARES.add(new int[]{newY, newX});
+        int nextR = R + dir[k][0]; 
+        int nextC = C + dir[k][1]; 
+        if (nextR < map.length && nextR >= 0 && nextC >= 0 && nextC < map[0].length && nodeGrid[nextR][nextC] != null){
+          nodeGrid[nextR][nextC].TREADED = true; 
+          PATH.add(nodeGrid[nextR][nextC]);
           ticks ++;
         }
-        else if (newY < map.length && newY >= 0 && newX >= 0 && newX < map[newY].length && map[newY][newX] == 'E'){
-          burnt = true; 
+        else if (nextR < map.length && nextC >= 0 && nextR >= 0 && nextC < map[nextR].length && map[nextR][nextC] == 'E'){
+          found = true; 
         }
       }  
   }
