@@ -1,9 +1,11 @@
 class Ghost extends character{
   PImage ghostImg; 
   int MODE = 0;
-  int SCATTER = 1; // spreads out to the corners; 
+  int SCATTER = 1; // spreads out to the corners 
   int CHASE = 2 ; // chase Pacman
   int RETURNING = 3; // return to base after being eaten
+  
+  chaseFrontier PATH; 
   
   boolean vulnerable = false;
   int blueTime = 0; 
@@ -53,6 +55,31 @@ class Ghost extends character{
       }
       return bestNext;
   }
+  
+  // BREADTH FIRST SEARCHING ALGORITHM 
+  ArrayList<Node> move(){
+    ArrayList<Node> bestPath = new ArrayList<Node> (); 
+    if (PATH.size()==0){
+      // should return the path that reaches the target first
+      return bestPath;   
+    }
+    int[][] dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}; 
+    int[] coordinate = FLARES.remove(); 
+    int y = coordinate[0]; int x = coordinate[1]; 
+    map[y][x] = ASH; 
+    for (int k = 0; k < 4; k ++){
+        int newY = y + dir[k][0]; 
+        int newX = x + dir[k][1]; 
+        if (newY < map.length && newY >= 0 && newX >= 0 && newX < map[newY].length && map[newY][newX] == TREE){
+          map[newY][newX] = FIRE; 
+          FLARES.add(new int[]{newY, newX});
+          ticks ++;
+        }
+        else if (newY < map.length && newY >= 0 && newX >= 0 && newX < map[newY].length && map[newY][newX] == 'E'){
+          burnt = true; 
+        }
+      }  
+  }
 
   void update(){
     //This method updates the ghost mode and position
@@ -73,7 +100,7 @@ class Ghost extends character{
     else{   
       //the ghost is in Chase mode
       // System.out.println("Ghost is chasing");
-      //this is the tunnel logic
+      // TUNNEL LOGIC 
       if (currNode.col == 0 && target.col > 15){
           x =  500;
           bestNext = nodeGrid[currNode.row][20];
@@ -103,17 +130,6 @@ class Ghost extends character{
     super.inch(); 
     ticks ++;
   }
-  
-// BFS Method 
-/*  Node makePath(Node prevNode, Node start, Node target){
-    if(start == target) return start;
-    for(Node n : start.getNeighbors()){
-      return chasePath(currNode, n, target);
-    }
-      return null;
-  }
-*/
-
   
   void setVulnerable(boolean isVulnerable){
     if (isVulnerable){

@@ -1,21 +1,21 @@
 import java.util.*; 
 
 public class chaseFrontier{
-  private ArrayDeque<int[]> frontier;
+  private ArrayDeque<Node> frontier;
   
   
   public chaseFrontier(){
-    frontier = new ArrayDeque<int[]>(); 
+    frontier = new ArrayDeque<Node>(); 
   }
   
   public int size(){
     return frontier.size(); 
   }
   public void add(Node node){
-    int[] location = new int[]{node.row, node.col}; 
+    Node location = nodeGrid[node.row][node.col]; 
     frontier.addLast(location); 
   }
-  public int[] remove(){
+  public Node remove(){
     return frontier.removeFirst(); // QUEUE 
   }
 }
