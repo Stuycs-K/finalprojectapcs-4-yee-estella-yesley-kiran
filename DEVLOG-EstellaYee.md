@@ -51,5 +51,5 @@ Expanded description including how much time was spent on task.
 ### 2025-06-03 
 - Cleared up clutter in code with blue state/vulnerable state - 10 minutes
 - Tried to code the death of the ghosts and have them run back to the base when they come in contact with Pacman - 40 minutes 
-- 
+- Coded Pinky's targeting mechanism, but was not able to test because there are still bugs in the scatter mode; 
 
