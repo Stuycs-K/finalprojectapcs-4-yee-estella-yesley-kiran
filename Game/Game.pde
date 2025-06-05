@@ -133,7 +133,6 @@ public void draw(){
   
   Pacman.inch();
   Pacman.display();
-
   // GHOST MODES  
   for (Ghost g : ghosts){
     g.timeGhosts(); 
@@ -142,10 +141,10 @@ public void draw(){
         g.target = nodeGrid[3][19]; 
       }
       if (g.ghostImg == Pinky){
-        g.target = nodeGrid[3][3]; 
+        g.target = nodeGrid[2][1]; 
       }
       if (g.ghostImg == Inky){
-        g.target = nodeGrid[19][3]; 
+        g.target = nodeGrid[18][1]; 
       }
     }
     else if (!(g.vulnerable) && g.MODE == g.CHASE){
@@ -220,7 +219,7 @@ void drawSquares(int[][] map){
         rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
       }
       // checks the pathfinding mechanism of ghost
-      if (nodeGrid[rows][cols].TREADED == true){
+      if (nodeGrid[rows][cols] != null && nodeGrid[rows][cols].TREADED == true){
         fill(0, 255, 0); 
         rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
       }

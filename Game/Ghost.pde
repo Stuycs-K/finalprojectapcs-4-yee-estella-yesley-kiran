@@ -37,7 +37,7 @@ class Ghost extends character{
       return (float) Math.sqrt(dx * dx + dy * dy);
   }
 
-  Node pickNextMove(boolean run) {
+  Node oldPickNextMove(boolean run) {
       //run = true, means you are running away from your target
       //run = false means you are running towards your target
       Node bestNext = null;
@@ -57,34 +57,90 @@ class Ghost extends character{
       return bestNext;
   }
   
+  Node pickNextMove(boolean run){
+    ArrayList<Node> path = selectBestPath(); 
+    if (path != null && path.size() > 0 && !run){
+      return path.get(0); 
+    }
+    // if there is no best path, it should return a random one); 
+    else {
+      ArrayList<Node> neighbors = currNode.getNeighbors(); 
+      if (prevNode != null){
+        neighbors.remove(prevNode); 
+      }
+      if (neighbors.size() > 0){
+        return neighbors.get((int)random(neighbors.size())); 
+      }
+    }
+    return currNode; 
+  }
+  
   // BREADTH FIRST SEARCHING ALGORITHM 
-  ArrayList<Node> selectbestPath(){
+  ArrayList<Node> selectBestPath(){
+    
+    // reset visited & parent nodes each turn 
+    for (Node n: nodes){
+      n.TREADED = false; // tracks what nodes have been visited 
+      n.parent = null; // tracks the node it came from 
+    }
+    
+    PATH = new chaseFrontier(); 
+    PATH.add(currNode); 
+    currNode.TREADED = true; 
+    
+    while (PATH.size() > 0){
+      Node coordinate = PATH.remove(); 
+      if (coordinate == target){
+        found = true; 
+        break; 
+      }
+      // For every neighbor the currNode has as a valid option, add it to the frontier 
+      ArrayList<Node> neighbors = coordinate.getNeighbors(); 
+      if (coordinate == currNode && prevNode != null){
+        neighbors.remove(prevNode); 
+      }
+      for (Node neighbor : neighbors){
+        if (!neighbor.TREADED){
+          neighbor.TREADED = true; 
+          neighbor.parent = coordinate; 
+          PATH.add(neighbor);
+        }
+      }
+    }
+    // grab the best path
     ArrayList<Node> bestPath = new ArrayList<Node> (); 
-    // Call the make path function, and when it ends choose the best path 
+    if (found){
+      Node node = target; 
+      while (node != currNode){
+        bestPath.add(0, node); 
+        node = node.parent; 
+      }
+    }
+    System.out.println(bestPath); 
     return bestPath; 
   }
   
-  void findTarget(){
-    if (PATH.size()==0){
-      // should return the path that reaches the target first
-      found = true; 
-    }
-    Node coordinate = PATH.remove(); 
-    int R = coordinate.row; int C = coordinate.col; 
-    int[][] dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}; 
-    for (int k = 0; k < 4; k ++){
-        int nextR = R + dir[k][0]; 
-        int nextC = C + dir[k][1]; 
-        if (nextR < map.length && nextR >= 0 && nextC >= 0 && nextC < map[0].length && nodeGrid[nextR][nextC] != null){
-          nodeGrid[nextR][nextC].TREADED = true; 
-          PATH.add(nodeGrid[nextR][nextC]);
-          ticks ++;
-        }
-        else if (nextR < map.length && nextC >= 0 && nextR >= 0 && nextC < map[nextR].length && map[nextR][nextC] == 'E'){
-          found = true; 
-        }
-      }  
-  }
+  //void findTarget(){
+  //  if (PATH.size()==0){
+  //    // should return the path that reaches the target first
+  //    found = true; 
+  //  }
+  //  Node coordinate = PATH.remove(); 
+  //  int R = coordinate.row; int C = coordinate.col; 
+  //  int[][] dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}; 
+  //  for (int k = 0; k < 4; k ++){
+  //      int nextR = R + dir[k][0]; 
+  //      int nextC = C + dir[k][1]; 
+  //      if (nextR < map.length && nextR >= 0 && nextC >= 0 && nextC < map[0].length && nodeGrid[nextR][nextC] != null){
+  //        nodeGrid[nextR][nextC].TREADED = true; 
+  //        PATH.add(nodeGrid[nextR][nextC]);
+  //        ticks ++;
+  //      }
+  //      else if (nextR < map.length && nextC >= 0 && nextR >= 0 && nextC < map[nextR].length && map[nextR][nextC] == 'E'){
+  //        found = true; 
+  //      }
+  //    }  
+  //}
 
   void update(){
     //This method updates the ghost mode and position

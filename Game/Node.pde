@@ -7,6 +7,7 @@ class Node{
   
   int seq = 0; 
   boolean TREADED = false;
+  Node parent = null; 
   
   Node(int r, int c,  int val){
     row = r; 

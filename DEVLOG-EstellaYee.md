@@ -53,3 +53,7 @@ Expanded description including how much time was spent on task.
 - Tried to code the death of the ghosts and have them run back to the base when they come in contact with Pacman - 40 minutes 
 - Coded Pinky's targeting mechanism, but was not able to test because there are still bugs in the scatter mode; 
 
+### 2025-06-04-05
+- Made a to-do list for everything we need to finish an a schedule to get things done by. 5 min
+- Worked on making a new move method with BFS searching mechanism. 
+
