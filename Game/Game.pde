@@ -21,7 +21,7 @@ int highScore = totalPoints;
 
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
-  size(21*25, 21*25 + 75);
+  size(21*25, 21*25 + 75); //<>//
   map = new int[][]{
   {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
   {-1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1},
@@ -147,6 +147,8 @@ public void draw(){
   
   Pacman.inch();
   Pacman.display();
+  // System.out.println(Arrays.deepToString(nodeGrid)); 
+  // System.out.println(nodes); 
   // GHOST MODES  
   
   // To visualize the paths: 

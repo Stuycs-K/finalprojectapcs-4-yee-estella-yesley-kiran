@@ -104,7 +104,10 @@ class Pac extends character{
         UP = DOWN = LEFT = false;
       }
       else{
+        // System.out.println(Arrays.deepToString(nodeGrid)); 
+        System.out.println(currNode.getNeighbors()); 
         System.out.println("next Direction node is NULL");  //<>//
+        System.out.println(Arrays.deepToString(nodeGrid)); 
       }
   }
   
@@ -159,4 +162,15 @@ class Pac extends character{
     }
     return false;
   }
+  
+  void display(){
+    super.display(); 
+    if (nextNode != null){
+      text("Next Node: " + nextNode, x, y+15); 
+    } 
+    else {
+      text("NULL", x, y+15); 
+    }
+  }
+  
 }
