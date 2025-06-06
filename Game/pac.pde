@@ -35,21 +35,21 @@ class Pac extends character{
   
   void update(){
     if(currNode.col -1 < 0 && LEFT){
-      currNode.beEaten();
+      currNode.eaten = true;
       score+=currNode.value;
       x =  500;
       currNode = nodeGrid[currNode.row][20];
       nextNode = nodeGrid[currNode.row][19];
-      currNode.beEaten();
+      currNode.eaten = true;
       score+=currNode.value;
     }
     else if(currNode.col +1 > 20 && RIGHT){
-      currNode.beEaten();
+      currNode.eaten = true;
       score++;
       x = 0;
       currNode = nodeGrid[currNode.row][0];
       nextNode = nodeGrid[currNode.row][1];
-      currNode.beEaten();
+      currNode.eaten= true;
       score++;
     }
     else{
@@ -69,8 +69,8 @@ class Pac extends character{
       move(0, 1); 
       icon = pacRight; 
     }
-    if(currNode != null && !currNode.getEaten() && currNode.getValue() > 0){
-      if(currNode.getValue() == 10){
+    if(currNode != null && !currNode.eaten && currNode.value > 0){
+      if(currNode.value == 10){
          for (Ghost g : ghosts){
            g.setVulnerable(true);
            // System.out.println("Vulnerable state activated"); 
@@ -80,7 +80,7 @@ class Pac extends character{
       //    System.out.println("Transition into Blue State"); 
       //    System.out.println(g.getMode()); 
       }
-      currNode.beEaten();
+      currNode.eaten = true;
       score+=currNode.value;
     }
   }

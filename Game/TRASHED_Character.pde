@@ -1,4 +1,4 @@
-class Characters{
+/* class Characters{
   float Xloc;
   float Yloc;
   int row; 
@@ -84,3 +84,4 @@ class Characters{
   }
   
 }
+*/

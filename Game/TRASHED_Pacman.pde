@@ -1,4 +1,4 @@
-class Pacman extends Characters{
+/* class Pacman extends Characters{
   int lives = 3;
   boolean up =false;
   boolean down = false;
@@ -111,3 +111,4 @@ class Pacman extends Characters{
   }
   
 }
+*/
