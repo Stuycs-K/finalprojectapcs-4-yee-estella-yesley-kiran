@@ -14,7 +14,7 @@ class Ghost extends character{
   PImage eyesghost;
   
   Node target;
-  int ticks = 0; 
+  Node VulMove;
   chaseFrontier chaser = new chaseFrontier(); 
   // pac targetChar; 
   
@@ -58,20 +58,25 @@ class Ghost extends character{
   Node pickNextMove(boolean run){
     ArrayList<Node> path = selectBestPath(); 
     if (path != null && path.size() > 0 && !run){
+    //  System.out.println( " the nonvuln is running");
       return path.get(0); 
     }
     // if there is no best path, it should return a random one); 
+    else if(currNode == nodeGrid[10][10]) return nodeGrid[10][9];
+    else if(VulMove != null && currNode != VulMove) return VulMove;
     else {
       ArrayList<Node> neighbors = currNode.getNeighbors(); 
-      if (prevNode != null){
+      if (prevNode != null && neighbors.size() > 1){
         neighbors.remove(prevNode); 
       }
       if (neighbors.size() > 0){
-        return neighbors.get((int)random(neighbors.size())); 
+        VulMove = neighbors.get((int)random(neighbors.size()));
+        return VulMove;
       }
     }
     return currNode; 
   }
+
   
   // BREADTH FIRST SEARCHING ALGORITHM 
   ArrayList<Node> selectBestPath(){
@@ -168,7 +173,6 @@ class Ghost extends character{
     }
   
     super.inch(); 
-    ticks ++;
   }
   
   void setVulnerable(boolean isVulnerable){
@@ -200,7 +204,7 @@ class Ghost extends character{
       setVulnerable(false); 
     }
     // System.out.println(ticks); 
-    if (ticks < 500 && !vulnerable){
+    if (millis() < 10000 && !vulnerable){
       target = nodeGrid[8][10]; 
       MODE = SCATTER;
     }
