@@ -9,6 +9,8 @@ class Node{
   boolean TREADED = false;
   Node parent = null; 
   
+  boolean pathPart = false; 
+  
   Node(int r, int c,  int val){
     row = r; 
     col = c; 

@@ -14,15 +14,13 @@ class Ghost extends character{
   PImage eyesghost;
   
   Node target;
-  Node[][] nodeGrid; 
   int ticks = 0; 
   chaseFrontier chaser = new chaseFrontier(); 
   // pac targetChar; 
   
-  Ghost(Node start, Node target, PImage img, Node[][] grid){
+  Ghost(Node start, Node target, PImage img){
      super(start, img);
      ghostImg = icon = img; 
-     nodeGrid = grid; 
      this.target = target; 
      MODE = SCATTER;
      
@@ -79,7 +77,7 @@ class Ghost extends character{
   ArrayList<Node> selectBestPath(){
     
     // reset visited & parent nodes each turn 
-    for (Node n: nodes){
+    for (Node n : nodes){
       n.TREADED = false; // tracks what nodes have been visited 
       n.parent = null; // tracks the node it came from 
     }
@@ -116,32 +114,13 @@ class Ghost extends character{
         node = node.parent; 
       }
     }
-    System.out.println(bestPath); 
+    for (Node n : bestPath){
+      n.pathPart = true; 
+    }
+    // System.out.println(bestPath); 
     return bestPath; 
   }
   
-  //void findTarget(){
-  //  if (PATH.size()==0){
-  //    // should return the path that reaches the target first
-  //    found = true; 
-  //  }
-  //  Node coordinate = PATH.remove(); 
-  //  int R = coordinate.row; int C = coordinate.col; 
-  //  int[][] dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}}; 
-  //  for (int k = 0; k < 4; k ++){
-  //      int nextR = R + dir[k][0]; 
-  //      int nextC = C + dir[k][1]; 
-  //      if (nextR < map.length && nextR >= 0 && nextC >= 0 && nextC < map[0].length && nodeGrid[nextR][nextC] != null){
-  //        nodeGrid[nextR][nextC].TREADED = true; 
-  //        PATH.add(nodeGrid[nextR][nextC]);
-  //        ticks ++;
-  //      }
-  //      else if (nextR < map.length && nextC >= 0 && nextR >= 0 && nextC < map[nextR].length && map[nextR][nextC] == 'E'){
-  //        found = true; 
-  //      }
-  //    }  
-  //}
-
   void update(){
     //This method updates the ghost mode and position
     Node bestNext = null; 
@@ -212,7 +191,10 @@ class Ghost extends character{
     return MODE;
   }
    
- 
+  void setTarget(Node node){
+    target = node; 
+  }
+  
   void timeGhosts(){
     if (vulnerable && millis() - blueTime > 10000){
       setVulnerable(false); 
