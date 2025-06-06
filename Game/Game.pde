@@ -4,8 +4,11 @@ int SQUARESIZE = 25;
 ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
 
-Ghost[] ghosts = new Ghost[3]; // change to 4 later
-PImage Blinky, Pinky, Inky, Blue,Eyes; 
+ArrayList<Ghost> ghosts = new ArrayList<Ghost>(); // change to 4 later
+PImage redG, purpG, greenG, Blue,Eyes; 
+Blinky blinky; 
+Pinky pinky; 
+Inky inky; 
 
 //Pacman main; 
 Pac Pacman; 
@@ -48,14 +51,20 @@ void setup(){
   pacman = loadImage("PacRight.png");       
   Node start = nodeGrid[13][10]; 
   Pacman = new Pac(start, pacman); 
-  Blinky = loadImage("RedGhost.png");
-  Pinky = loadImage("PurpleGhost.png"); 
-  Inky = loadImage("GreenGhost.png"); 
+  redG = loadImage("RedGhost.png");
+  purpG = loadImage("PurpleGhost.png"); 
+  greenG = loadImage("GreenGhost.png"); 
   Blue = loadImage("VulnerableGhost.png");
   Eyes = loadImage("DeadGhostEyes.png");
-  ghosts[0] = new Ghost(nodeGrid[11][9], nodeGrid[3][19], Blinky, nodeGrid); 
-  ghosts[1] = new Ghost(nodeGrid[11][10], nodeGrid[3][3], Pinky, nodeGrid); 
-  ghosts[2] = new Ghost(nodeGrid[11][11], nodeGrid[19][3], Inky, nodeGrid); 
+  
+  
+  
+  blinky = new Blinky(nodeGrid[11][9], nodeGrid[3][19], redG); 
+  pinky = new Pinky(nodeGrid[11][10], nodeGrid[3][3], purpG); 
+  inky = new Inky(nodeGrid[11][11], nodeGrid[19][3], greenG); 
+  ghosts.add(blinky); 
+  ghosts.add(pinky); 
+  ghosts.add(inky); 
   for (Ghost g : ghosts){
     g.blueghost = Blue; 
     g.eyesghost = Eyes;
@@ -134,58 +143,38 @@ public void draw(){
   Pacman.inch();
   Pacman.display();
   // GHOST MODES  
+  
+  // To visualize the paths: 
+  
+  for (Node n : nodes){
+    n.pathPart = false; 
+  }
+  
   for (Ghost g : ghosts){
     g.timeGhosts(); 
     if (g.MODE == g.SCATTER){
-      if (g.ghostImg == Blinky){
+      if (g == blinky){
         g.target = nodeGrid[3][19]; 
       }
-      if (g.ghostImg == Pinky){
+      if (g == pinky){
         g.target = nodeGrid[2][1]; 
       }
-      if (g.ghostImg == Inky){
+      if (g == inky){
         g.target = nodeGrid[18][1]; 
       }
     }
     else if (!(g.vulnerable) && g.MODE == g.CHASE){
-      if (g.ghostImg == Blinky){
-        g.target = Pacman.currNode; // MUST CHANGE to account for their different targets leter 
-      }
-      if (g.ghostImg == Pinky){ // targets the node four tiles ahead of Pacman 
-        int targetRow = Pacman.currNode.row; 
-        int targetCol = Pacman.currNode.col; 
-        if (Pacman.icon == Pacman.pacUp){ // When Pacman faces up, ghost target four up and four to the left
-          targetRow = Pacman.currNode.row - 4; 
-          targetCol = Pacman.currNode.row - 4; 
-        }
-        else if (Pacman.icon == Pacman.pacLeft){
-          targetCol = Pacman.currNode.col - 4; 
-          targetRow = Pacman.currNode.row; 
-        }
-        else if (Pacman.icon == Pacman.pacRight){
-          targetCol = Pacman.currNode.col + 4; 
-          targetRow = Pacman.currNode.row; 
-        }
-        else if (Pacman.icon == Pacman.pacDown){
-          targetCol = Pacman.currNode.col; 
-          targetRow = Pacman.currNode.row + 4; 
-        }
-        if (targetRow >= 0 && targetCol >= 0)
-          g.target = nodeGrid[targetRow][targetCol];
-        else {
-          g.target = nodeGrid[Pacman.currNode.row][Pacman.currNode.col]; 
-        }
-      }
-      if (g.ghostImg == Inky){
-        g.target = Pacman.currNode; // Change to: the tile 180 degrees from Pacman to Blinky
-      }
+      g.setTarget(Pacman.currNode); 
+      
       // Clyde: Targets Pacman only when he is 8 or more tiles away, otherwise if he's closer he goes into scatter mode
     }
+    /*
     else if (g.vulnerable && g.MODE == g.CHASE){
      // System.out.println("Transition into vulnerable state"); 
       // g.setVulnerable(true); 
       g.target = Pacman.currNode; // makes it run away from pacman 
     }
+    */
     else if(g.MODE == g.RETURNING){
       //System.out.println( "this 1 is running");
       g.target = nodeGrid[11][10];
@@ -219,7 +208,7 @@ void drawSquares(int[][] map){
         rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
       }
       // checks the pathfinding mechanism of ghost
-      if (nodeGrid[rows][cols] != null && nodeGrid[rows][cols].TREADED == true){
+      if (nodeGrid[rows][cols] != null && nodeGrid[rows][cols].pathPart == true){
         fill(0, 255, 0); 
         rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
       }
