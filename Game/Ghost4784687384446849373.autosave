@@ -26,6 +26,7 @@ class Ghost extends character{
      MODE = SCATTER;
      
      speed = 1.5; 
+     // vulnearbleimg = loadImage("VulnerableGhost.png");
   }
  
 
@@ -75,7 +76,7 @@ class Ghost extends character{
     return currNode;
   }
   
-  Node pickNextVulnerableMove(){
+  Node pickNextVulneableMove(){
     if(currNode == nodeGrid[10][10]) return nodeGrid[10][9];
     else if(VulMove != null && currNode != VulMove) return VulMove;
     else {
@@ -130,10 +131,7 @@ class Ghost extends character{
       Node node = target; 
       while (node != currNode){
         bestPath.add(0, node); 
-        System.out.println("node.parent statement being reached"); 
-        // while (node.parent != null){
-          node = node.parent; // NullPointerException
-        // }
+        node = node.parent; 
       }
     }
     for (Node n : bestPath){
@@ -156,25 +154,12 @@ class Ghost extends character{
        bestNext = pickNextMove( false );
        speed = 5; 
        System.out.print("Return Mode ");
-    //   printNode( target );
-      // printNode( bestNext );
+       printNode( target );
+       printNode( bestNext );
       }
     }
     
-    
-    else if(MODE == VULNERABLE){ 
-      // only choose a new node once it reaches the center of a node
-      if (currNode == nextNode || nextNode == null){
-        ArrayList<Node> neighbors = currNode.getNeighbors();
-        if (prevNode != null && neighbors.size() > 1){
-          neighbors.remove(prevNode); 
-        }
-        int temp = (int)random(neighbors.size()); 
-        bestNext = neighbors.get(temp); 
-      }
-    }
-    
-    /*
+    if(MODE == VULNERABLE){
       if(currNode.col == 0 && prevNode.col ==1){
         x=500;
         bestNext = nodeGrid[currNode.row][20];
@@ -183,12 +168,10 @@ class Ghost extends character{
           x =  500;
           bestNext = nodeGrid[currNode.row][0];
       }
-      else bestNext = pickNextVulnerableMove();
-      
+      else bestNext = pickNextVulneableMove();
     }
-    */
     
-    if(MODE != VULNERABLE){   
+    if(MODE == CHASE || MODE == SCATTER){   
       // TUNNEL LOGIC 
       if (currNode.col == 0 && target.col > 15){
           x =  500;
@@ -200,7 +183,7 @@ class Ghost extends character{
       }
       else bestNext = pickNextMove( false );  //not in tunnel
 
-     }
+    }
     
     if (bestNext != null){
       nextNode = bestNext; 
@@ -228,7 +211,7 @@ class Ghost extends character{
   }
   
   void timeGhosts(){
-    if (MODE == VULNERABLE && millis() - blueTime > 8000){
+    if (MODE == VULNERABLE && millis() - blueTime > 10000){
       setVulnerable(false); 
     }
     else if (millis() < 10000 && (MODE != VULNERABLE)){
@@ -244,12 +227,11 @@ class Ghost extends character{
    
  void reset(){
     // setTarget(nodeGrid[11][10]); // Ghosts are having a lot of trouble finding their way back to the base... 
-   // System.out.println("ghost is being reset");
+    System.out.println("ghost is being reset");
     MODE = RETURNING;
     ghostImg = eyesghost;
     target = nodeGrid[11][10];
     speed = 5; 
-    System.out.println("ghost is being reset");
     // setVulnerable(false); 
     //   chase(); 
     if (currNode.row >= 9 && currNode.row <= 11 && currNode.col >= 9 && currNode.col <= 11){

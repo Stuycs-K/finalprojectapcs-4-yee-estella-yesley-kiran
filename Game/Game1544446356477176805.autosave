@@ -166,22 +166,6 @@ public void draw(){
     else if (g.MODE == g.CHASE){
       g.setTarget(Pacman.currNode); 
     }
-    /*
-    else if (g.MODE == g.VULNERABLE){
-      
-      ArrayList<Node> neighbors = g.currNode.getNeighbors();
-      neighbors.remove(g.prevNode); 
-      if (neighbors.size() == 0 && g.prevNode != null){
-        g.target = g.prevNode; 
-      }else {
-        
-      int temp = (int)random(neighbors.size()); 
-      g.target = neighbors.get(temp); 
-      
-      }
-      System.out.println("BLUE MODE: " + g.target); 
-     }
-    */
     else if(g.MODE == g.RETURNING){
       //System.out.println( "this 1 is running");
       g.target = nodeGrid[11][10];
