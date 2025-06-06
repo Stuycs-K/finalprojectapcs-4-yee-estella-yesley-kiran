@@ -18,6 +18,8 @@ int totalPoints = 0;
 int highScore = totalPoints;
 // boolean vulnerable = false; 
 
+boolean fresh = false;
+int freshtime =0;
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
   size(21*25, 21*25 + 75);
@@ -149,10 +151,12 @@ public void draw(){
   for (Node n : nodes){
     n.pathPart = false; 
   }
-  
+  // System.out.println("before ghosts" + millis());
   for (Ghost g : ghosts){
+    System.out.println(g);
     g.timeGhosts(); 
     if (g.MODE == g.SCATTER){
+      System.out.println("scatter");
       if (g == blinky){
         g.target = nodeGrid[3][19]; 
       }
@@ -164,9 +168,11 @@ public void draw(){
       }
     }
     else if (g.MODE == g.CHASE){
+            System.out.println("CHAse");
       g.setTarget(Pacman.currNode); 
     }
     else if (g.MODE == g.RETURNING){
+            System.out.println("returning");
       g.target = nodeGrid[11][10]; 
       g.speed = 5; 
       g.ghostImg = Eyes; 
@@ -175,7 +181,9 @@ public void draw(){
         g.MODE = g.CHASE;
         g.ghostImg = g.icon;
         g.speed = 1.5;
+        
       }
+      System.out.println("end of returning");
 
     }
     /*
@@ -194,16 +202,22 @@ public void draw(){
       System.out.println("BLUE MODE: " + g.target); 
      }
     */
+        System.out.println(" running?");
     g.update(); 
+    System.out.println("is update running?");
     g.display();
   }
+    System.out.println("after ghosts" + millis());
   
   checkContact();
+  timers();
+  System.out.println("timers" + millis());
   displayPoints(); 
   totalPoints = Pacman.getScore();
   if (highScore < totalPoints) highScore = totalPoints;
   displayPoints();
   displayLives();
+  System.out.println(millis());
 }
 
 /* Draw the walls, points, etc 
@@ -247,11 +261,17 @@ void checkContact(){
        if(g.MODE == g.VULNERABLE ){
           g.reset(); // Right now Pacman is dying even when ghosts are in blue mode
           Pacman.addtoScore(100);
+          fresh =true; //add a timer to this but for now its just so incredibly unlikely a ghost kills u near to when u kill a ghost 
+          freshtime =  millis();
       }
-      else if(!(g.MODE == g.RETURNING) && Pacman.reset()) 
-        GameOver();
+      else if(!(g.MODE == g.RETURNING) && !fresh && Pacman.reset()) 
+        GameOver(); //<>//
     }
   }
+}
+
+void timers(){
+  if (millis() - freshtime > 5000) fresh= false;
 }
 
 void GameOver(){

@@ -56,21 +56,26 @@ class Ghost extends character{
   }
   
   Node pickNextMove(boolean run){
+    System.out.println("lalala");
     ArrayList<Node> path = selectBestPath(); 
+  //  System.out.println("a?");
     if (path != null && path.size() > 0 && !run){
     //  System.out.println( " the nonvuln is running");
       return path.get(0); 
     }
     // if there is no best path, the ghost should standstill because something is terribly wrong
     else {
+    //  System.out.println("b?");
       ArrayList<Node> neighbors = currNode.getNeighbors(); 
       if (prevNode != null && neighbors.size() > 1){
         neighbors.remove(prevNode); 
       }
+   //   System.out.println("c?");
       if (neighbors.size() > 0){
         VulMove = neighbors.get((int)random(neighbors.size()));
         return VulMove;
       }
+      //System.out.println("d?");
     }
     return currNode;
   }
@@ -94,7 +99,7 @@ class Ghost extends character{
   
   // BREADTH FIRST SEARCHING ALGORITHM 
   ArrayList<Node> selectBestPath(){
-    
+    System.out.println("a?");
     // reset visited & parent nodes each turn 
     for (Node n : nodes){
       n.TREADED = false; // tracks what nodes have been visited 
@@ -106,6 +111,7 @@ class Ghost extends character{
     currNode.TREADED = true; 
     
     while (PATH.size() > 0){
+      System.out.println("b?" + millis());
       Node coordinate = PATH.remove(); 
       if (coordinate == target){
         found = true; 
@@ -117,7 +123,7 @@ class Ghost extends character{
         neighbors.remove(prevNode); 
       }
       for (Node neighbor : neighbors){
-        if (!neighbor.TREADED){
+        if (!neighbor.TREADED && (neighbor != null)){
           neighbor.TREADED = true; 
           neighbor.parent = coordinate; 
           PATH.add(neighbor);
@@ -127,18 +133,28 @@ class Ghost extends character{
     // grab the best path
     ArrayList<Node> bestPath = new ArrayList<Node> (); 
     if (found){
+      System.out.println( "did we find?");
       Node node = target; 
       while (node != currNode){
+        int run =0;
+       // System.out.println( "stuck?" + millis());
         bestPath.add(0, node); 
-        System.out.println("node.parent statement being reached"); 
+       // System.out.println("node.parent statement being reached"); 
         // while (node != currNode && node.parent != null){
-        if (node != null)
+        System.out.println("is the node null:" +(node ==null)); 
+        
+        //THIS IS WHERE ITS STUCK THE NODE IS NULL IN THE PATH?? BUT HOW IS THAT EVEN POSSSIBLE??
+        if (node != null){
           node = node.parent; // NullPointerException
+          System.out.println("running many:" + run);
+          run++;
+        }
          else{
            MODE = RETURNING; 
          }
         // }
       }
+      System.out.println( "finished while loop??");
     }
     for (Node n : bestPath){
       n.pathPart = true; 
@@ -150,10 +166,12 @@ class Ghost extends character{
   void update(){
     //This method updates the ghost mode and position
     Node bestNext = null;
-    /*
+    
     if (MODE == RETURNING) {
       target = nodeGrid[11][10]; 
+      System.out.println("here?");
       bestNext = pickNextMove(false); 
+      System.out.println("there?");
       speed = 5; 
       ghostImg = eyesghost; 
        if (currNode == nodeGrid[11][10]) {
@@ -163,10 +181,9 @@ class Ghost extends character{
         speed = 1.5;
       }
     }
-    */
     
     
-   if(MODE == VULNERABLE){ 
+   else if(MODE == VULNERABLE){ 
       // only choose a new node once it reaches the center of a node
       if (currNode == nextNode || nextNode == null){
         ArrayList<Node> neighbors = currNode.getNeighbors();
@@ -249,7 +266,7 @@ class Ghost extends character{
  void reset(){
     // setTarget(nodeGrid[11][10]); // Ghosts are having a lot of trouble finding their way back to the base... 
    // System.out.println("ghost is being reset");
-    MODE = RETURNING;
+    MODE = RETURNING; //<>//
     ghostImg = eyesghost;
     target = nodeGrid[11][10];
     speed = 5; 
@@ -266,6 +283,7 @@ class Ghost extends character{
      image(ghostImg, x, y);
      fill(255); 
      text("MODE: " + MODE, x, y); 
+     text("target:" + target, x , y +15);
  }
    
    /* NOTES: 
