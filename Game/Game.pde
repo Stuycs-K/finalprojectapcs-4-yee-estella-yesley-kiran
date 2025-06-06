@@ -9,6 +9,7 @@ PImage redG, purpG, greenG, Blue,Eyes;
 Blinky blinky; 
 Pinky pinky; 
 Inky inky; 
+Clyde clyde; 
 
 //Pacman main; 
 Pac Pacman; 
@@ -62,9 +63,12 @@ void setup(){
   blinky = new Blinky(nodeGrid[11][9], nodeGrid[3][19], redG); 
   pinky = new Pinky(nodeGrid[11][10], nodeGrid[3][3], purpG); 
   inky = new Inky(nodeGrid[11][11], nodeGrid[19][3], greenG); 
+  clyde = new Clyde(nodeGrid[10][11], nodeGrid[19][19], purpG); 
+  
   ghosts.add(blinky); 
   ghosts.add(pinky); 
   ghosts.add(inky); 
+  ghosts.add(clyde); 
   for (Ghost g : ghosts){
     g.blueghost = Blue; 
     g.eyesghost = Eyes;
@@ -160,7 +164,10 @@ public void draw(){
         g.target = nodeGrid[2][1]; 
       }
       if (g == inky){
-        g.target = nodeGrid[15][1]; 
+        g.target = nodeGrid[19][1]; 
+      }
+      if (g == clyde){
+        g.target = nodeGrid[19][19]; 
       }
     }
     else if (!(g.vulnerable) && g.MODE == g.CHASE){

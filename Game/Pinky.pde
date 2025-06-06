@@ -10,7 +10,7 @@ public class Pinky extends Ghost{
     if (prevNode != null && neighbors.size() > 0)
       neighbors.remove(prevNode);
     for (int i = 1; i <= 4; i ++){
-      neighbors = temp.getNeighbors(); 
+     neighbors = temp.getNeighbors(); 
      Node prev = temp; 
      neighbors.remove(prev); 
      int select = (int) random(neighbors.size()); 
