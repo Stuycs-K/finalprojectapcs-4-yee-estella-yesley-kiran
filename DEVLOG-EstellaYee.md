@@ -55,5 +55,7 @@ Expanded description including how much time was spent on task.
 
 ### 2025-06-04-05
 - Made a to-do list for everything we need to finish an a schedule to get things done by. 5 min
-- Worked on making a new move method with BFS searching mechanism. 
+- Worked on making a new move method with BFS searching mechanism. 1 hour 
+- Made new ghost classes (Blinky, Inky, Pinky) to update setTarget methods so that each ghost has a different target mechanism. Worked on Pinky first - 1 hour 
+- Tried to merge with Kiran's debugging and freaked out because it completely broke out code... discovered branching, freaked out more because we hadn't been doing that, reverted back to our version before I had made the ghost classes and branched from there. - 2 hours
 
