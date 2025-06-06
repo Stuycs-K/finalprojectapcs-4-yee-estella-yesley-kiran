@@ -159,4 +159,8 @@ class Pac extends character{
     }
     return false;
   }
+  
+  void display(){
+    super.display(); 
+  }
 }

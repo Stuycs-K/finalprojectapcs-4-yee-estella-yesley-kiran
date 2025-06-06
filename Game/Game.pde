@@ -254,7 +254,7 @@ void checkContact(){ // ISSUE: for some reason, after blue state had been activa
 }
 
 void GameOver(){
-  fill(0);
+  fill(0); //<>//
   rect(0,0, 21 * SQUARESIZE , 21 * SQUARESIZE);
   fill(255,255,255);
   textSize(25);
@@ -274,4 +274,4 @@ public void keyPressed(){
       Pacman.move("left"); 
     }
   }
-}
+ }
