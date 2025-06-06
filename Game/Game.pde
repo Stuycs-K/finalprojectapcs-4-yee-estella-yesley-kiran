@@ -160,12 +160,11 @@ public void draw(){
         g.target = nodeGrid[2][1]; 
       }
       if (g == inky){
-        g.target = nodeGrid[18][1]; 
+        g.target = nodeGrid[15][1]; 
       }
     }
     else if (!(g.vulnerable) && g.MODE == g.CHASE){
       g.setTarget(Pacman.currNode); 
-      
       // Clyde: Targets Pacman only when he is 8 or more tiles away, otherwise if he's closer he goes into scatter mode
     }
     /*
