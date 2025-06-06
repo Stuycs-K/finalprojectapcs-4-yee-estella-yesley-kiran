@@ -166,6 +166,18 @@ public void draw(){
     else if (g.MODE == g.CHASE){
       g.setTarget(Pacman.currNode); 
     }
+    else if (g.MODE == g.RETURNING){
+      g.target = nodeGrid[11][10]; 
+      g.speed = 5; 
+      g.ghostImg = Eyes; 
+      if (g.currNode == nodeGrid[11][10]) {
+         // the ghost has returned home
+        g.MODE = g.CHASE;
+        g.ghostImg = g.icon;
+        g.speed = 1.5;
+      }
+
+    }
     /*
     else if (g.MODE == g.VULNERABLE){
       
@@ -182,14 +194,6 @@ public void draw(){
       System.out.println("BLUE MODE: " + g.target); 
      }
     */
-    else if(g.MODE == g.RETURNING){
-      //System.out.println( "this 1 is running");
-      g.target = nodeGrid[11][10];
-      if(g.currNode ==nodeGrid[9][10]){
-        g.MODE =g.CHASE;
-        g.ghostImg = g.icon;
-      }
-    }
     g.update(); 
     g.display();
   }
@@ -215,10 +219,10 @@ void drawSquares(int[][] map){
         rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
       }
       // checks the pathfinding mechanism of ghost
-      if (nodeGrid[rows][cols] != null && nodeGrid[rows][cols].pathPart == true){
-        fill(0, 255, 0); 
-        rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
-      }
+      //if (nodeGrid[rows][cols] != null && nodeGrid[rows][cols].pathPart == true){
+      //  fill(0, 255, 0); 
+      //  rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
+      //}
       else {
         fill (255);
         if (map[rows][cols] == 1){

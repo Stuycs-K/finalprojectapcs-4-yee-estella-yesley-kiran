@@ -131,8 +131,12 @@ class Ghost extends character{
       while (node != currNode){
         bestPath.add(0, node); 
         System.out.println("node.parent statement being reached"); 
-        // while (node.parent != null){
+        // while (node != currNode && node.parent != null){
+        if (node != null)
           node = node.parent; // NullPointerException
+         else{
+           MODE = RETURNING; 
+         }
         // }
       }
     }
@@ -145,24 +149,24 @@ class Ghost extends character{
   
   void update(){
     //This method updates the ghost mode and position
-    Node bestNext = null; 
+    Node bestNext = null;
+    /*
     if (MODE == RETURNING) {
+      target = nodeGrid[11][10]; 
+      bestNext = pickNextMove(false); 
+      speed = 5; 
+      ghostImg = eyesghost; 
        if (currNode == nodeGrid[11][10]) {
         // the ghost has returned home
         MODE = CHASE;
         ghostImg = icon;
         speed = 1.5;
-      }else{
-       bestNext = pickNextMove( false );
-       speed = 5; 
-       System.out.print("Return Mode ");
-    //   printNode( target );
-      // printNode( bestNext );
       }
     }
+    */
     
     
-    else if(MODE == VULNERABLE){ 
+   if(MODE == VULNERABLE){ 
       // only choose a new node once it reaches the center of a node
       if (currNode == nextNode || nextNode == null){
         ArrayList<Node> neighbors = currNode.getNeighbors();
@@ -188,8 +192,8 @@ class Ghost extends character{
     }
     */
     
-    if(MODE != VULNERABLE){   
-      // TUNNEL LOGIC 
+    else{   
+      // TUNNEL LOGIC --> LOWK Should put this in the selectbestpath method 
       if (currNode.col == 0 && target.col > 15){
           x =  500;
           bestNext = nodeGrid[currNode.row][20];
