@@ -22,22 +22,6 @@ class Node{
     neighbors.add(n);
   }
   
-  public float getX(){
-   return x; 
-  }
-  
-  public float getY(){
-    return y;
-  }
-  
-  public int getRow(){
-    return row;
-  }
-  
-  public int getCol(){
-    return col; 
-  }
-  
   public ArrayList<Node> getNeighbors(){
     return neighbors;
   }
@@ -56,22 +40,6 @@ class Node{
   
   public boolean equals(Node other){
     return (row == other.row && col == other.col);
-  }
-
-  public void setValue(int val){
-    value = val; 
-  }
-  
-  public int getValue(){
-    return value; 
-  }
-  
-  public boolean getEaten(){
-    return eaten;
-  }
-  
-  public void beEaten(){
-    eaten = true;
   }
   
   public String toString(){

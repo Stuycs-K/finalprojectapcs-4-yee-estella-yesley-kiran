@@ -227,12 +227,12 @@ void drawSquares(int[][] map){
         fill (255);
         if (map[rows][cols] == 1){
           Node current = nodeGrid[rows][cols];
-          if(!current.getEaten())
+          if(!current.eaten)
           circle(cols * SQUARESIZE + SQUARESIZE/2, rows * SQUARESIZE + SQUARESIZE/2, SQUARESIZE/4); 
         }
         if (map[rows][cols] == 10){
           Node current = nodeGrid[rows][cols];
-          if(!current.getEaten())
+          if(!current.eaten)
           circle(cols * SQUARESIZE + SQUARESIZE/2, rows * SQUARESIZE + SQUARESIZE/2, SQUARESIZE/2); 
         }
         
