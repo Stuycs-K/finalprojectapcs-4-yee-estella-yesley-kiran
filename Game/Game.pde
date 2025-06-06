@@ -5,7 +5,7 @@ ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
 
 ArrayList<Ghost> ghosts = new ArrayList<Ghost>(); // change to 4 later
-PImage redG, purpG, greenG, Blue,Eyes; 
+PImage redG, purpG, greenG, Blue,Eyes, orangeG; 
 Blinky blinky; 
 Pinky pinky; 
 Inky inky; 
@@ -56,6 +56,7 @@ void setup(){
   purpG = loadImage("PurpleGhost.png"); 
   greenG = loadImage("GreenGhost.png"); 
   Blue = loadImage("VulnerableGhost.png");
+  orangeG = loadImage("OrangeGhost.png");
   Eyes = loadImage("DeadGhostEyes.png");
   
   
@@ -63,7 +64,7 @@ void setup(){
   blinky = new Blinky(nodeGrid[11][9], nodeGrid[3][19], redG); 
   pinky = new Pinky(nodeGrid[11][10], nodeGrid[3][3], purpG); 
   inky = new Inky(nodeGrid[11][11], nodeGrid[19][3], greenG); 
-  clyde = new Clyde(nodeGrid[10][11], nodeGrid[19][19], purpG); 
+  clyde = new Clyde(nodeGrid[10][11], nodeGrid[19][19], orangeG); 
   
   ghosts.add(blinky); 
   ghosts.add(pinky); 
