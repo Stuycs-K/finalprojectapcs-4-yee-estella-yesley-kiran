@@ -1,7 +1,7 @@
 public class Clyde extends Ghost{
 
-  public Clyde(Node start, Node target, PImage img){
-      super(start, target, img); 
+  public Clyde(Node start, Node target, PImage img, ArrayList<Node> nodesArray){
+      super(start, target, img, nodesArray); 
     }
     
   private float distanceToTarget(Node node) {
@@ -20,7 +20,7 @@ public class Clyde extends Ghost{
       int select = (int) random(neighbors.size()); 
       target = neighbors.get(select); 
     }
-    System.out.println("Clyde's target: " + target); 
+    // System.out.println("Clyde's target: " + target); 
   }
   
 }

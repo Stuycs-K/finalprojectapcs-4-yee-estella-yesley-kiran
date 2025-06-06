@@ -87,11 +87,6 @@ class Pac extends character{
   }
   
   void move(String dir){
-    //int[] next = new int[2]; 
-    //int[][] directions = {
-    //  {-1, 0}, {1, 0}, {0, -1}, {0, 1} // UP, DOWN, LEFT, RIGHT 
-    //}; 
-    // for (Node n : currNode.getNeighbors()){
       if (dir.equals("up") && (nextNode == null || checkNeighbor(-1, 0)) ){
         UP = true; 
         DOWN = RIGHT = LEFT = false; 
@@ -108,7 +103,9 @@ class Pac extends character{
         RIGHT = true; 
         UP = DOWN = LEFT = false;
       }
-    // }
+      else{
+        System.out.println("next Direction node is NULL");  //<>//
+      }
   }
   
   boolean checkNeighbor( int dr ,int dc){

@@ -16,13 +16,16 @@ class Ghost extends character{
   Node target;
   Node VulMove;
   chaseFrontier chaser = new chaseFrontier(); 
+  
+  ArrayList<Node> ghostNodes; 
   // pac targetChar; 
   
-  Ghost(Node start, Node target, PImage img){
+  Ghost(Node start, Node target, PImage img, ArrayList<Node> nodeArrays){
      super(start, img);
      ghostImg = icon = img; 
      this.target = target; 
      MODE = SCATTER;
+     ghostNodes = nodeArrays;
      
      speed = 1.5; 
      // vulnearbleimg = loadImage("VulnerableGhost.png");
@@ -83,8 +86,8 @@ class Ghost extends character{
     
     // reset visited & parent nodes each turn 
     for (Node n : nodes){
-      n.TREADED = false; // tracks what nodes have been visited 
-      n.parent = null; // tracks the node it came from 
+        n.TREADED = false; // tracks what nodes have been visited 
+        n.parent = null; // tracks the node it came from 
     }
     
     PATH = new chaseFrontier(); 

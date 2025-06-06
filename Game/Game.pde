@@ -61,10 +61,10 @@ void setup(){
   
   
   
-  blinky = new Blinky(nodeGrid[11][9], nodeGrid[3][19], redG); 
-  pinky = new Pinky(nodeGrid[11][10], nodeGrid[3][3], purpG); 
-  inky = new Inky(nodeGrid[11][11], nodeGrid[19][3], greenG); 
-  clyde = new Clyde(nodeGrid[10][11], nodeGrid[19][19], orangeG); 
+  blinky = new Blinky(nodeGrid[11][9], nodeGrid[3][19], redG, nodes); 
+  pinky = new Pinky(nodeGrid[11][10], nodeGrid[3][3], purpG, nodes); 
+  inky = new Inky(nodeGrid[11][11], nodeGrid[19][3], greenG, nodes); 
+  clyde = new Clyde(nodeGrid[10][11], nodeGrid[19][19], orangeG, nodes); 
   
   ghosts.add(blinky); 
   ghosts.add(pinky); 
@@ -159,7 +159,8 @@ public void draw(){
     g.timeGhosts(); 
     if (g.MODE == g.SCATTER){
       if (g == blinky){
-        g.target = nodeGrid[3][19]; 
+        // g.target = nodeGrid[3][19]; 
+        g.target = Pacman.currNode; 
       }
       if (g == pinky){
         g.target = nodeGrid[2][1]; 
