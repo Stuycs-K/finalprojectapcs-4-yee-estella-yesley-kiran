@@ -58,10 +58,11 @@ class Ghost extends character{
       return bestNext;
   }
   
-  Node pickNextMove(boolean run){
+  Node pickNextMove(boolean run){ // run is true when the ghost is in blue state
     ArrayList<Node> path = selectBestPath(); 
     if (path != null && path.size() > 0 && !run){
     //  System.out.println( " the nonvuln is running");
+      System.out.println("Path: " + path); 
       return path.get(0); 
     }
     // if there is no best path, it should return a random one); 
@@ -82,21 +83,26 @@ class Ghost extends character{
 
   
   // BREADTH FIRST SEARCHING ALGORITHM 
-  ArrayList<Node> selectBestPath(){
+  ArrayList<Node> selectBestPath(){ //<>//
     
     // reset visited & parent nodes each turn 
     for (Node n : nodes){
         n.TREADED = false; // tracks what nodes have been visited 
-        n.parent = null; // tracks the node it came from 
+        // n.parent = null; // tracks the node it came from 
+        n.seq = 0; 
     }
     
     PATH = new chaseFrontier(); 
     PATH.add(currNode); 
     currNode.TREADED = true; 
-    
+    currNode.seq = 1; 
+    found = false; 
+    int max = 0; // track targ seq numb
+
     while (PATH.size() > 0){
       Node coordinate = PATH.remove(); 
       if (coordinate == target){
+        max = coordinate.seq; 
         found = true; 
         break; 
       }
@@ -108,7 +114,9 @@ class Ghost extends character{
       for (Node neighbor : neighbors){
         if (!neighbor.TREADED){
           neighbor.TREADED = true; 
-          neighbor.parent = coordinate; 
+          neighbor.seq = coordinate.seq + 1; 
+          // System.out.println(neighbor.seq); 
+          // neighbor.parent = coordinate; 
           PATH.add(neighbor);
         }
       }
@@ -117,21 +125,31 @@ class Ghost extends character{
     ArrayList<Node> bestPath = new ArrayList<Node> (); 
     if (found){
       Node node = target; 
-      while (node != currNode){
+      while (node.seq > 1){
         bestPath.add(0, node); 
-        node = node.parent; 
+        ArrayList<Node> neighbors = node.getNeighbors();
+        // picks the next node in the previous sequence based on sequence number
+        for (Node n : neighbors){
+          if (n.seq == max - 1){
+            System.out.println(node.seq); 
+            node = n; 
+            max = n.seq; 
+          }
+        }
+        // node = node.parent; 
       }
     }
+    // Statement below is just to highlight the path in green 
     for (Node n : bestPath){
       n.pathPart = true; 
     }
-    // System.out.println(bestPath); 
+    System.out.println(bestPath); 
     return bestPath; 
   }
   
   void update(){
     //This method updates the ghost mode and position
-    Node bestNext = null; 
+    Node bestNext; 
     if (currNode == nodeGrid[11][10]) {
       // the ghost has returned home
       MODE = CHASE;
@@ -208,8 +226,11 @@ class Ghost extends character{
     }
     // System.out.println(ticks); 
     if (millis() < 10000 && !vulnerable){
-      target = nodeGrid[8][10]; 
-      MODE = SCATTER;
+      if (millis() < 2000){
+        target = nodeGrid[8][11]; 
+      }
+        target = nodeGrid[8][10]; 
+        MODE = SCATTER;
     }
     else if(MODE != RETURNING){
       MODE = CHASE; 

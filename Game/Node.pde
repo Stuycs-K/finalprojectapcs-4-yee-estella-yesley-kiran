@@ -7,7 +7,7 @@ class Node{
   
   int seq = 0; 
   boolean TREADED = false;
-  Node parent = null; 
+  // Node parent = null; 
   
   boolean pathPart = false; 
   
