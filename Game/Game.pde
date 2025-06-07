@@ -193,7 +193,7 @@ public void draw(){
         g.ghostImg = g.icon;
       }
     }
-    g.update(); 
+    g.update();  //<>//
     g.display();
   }
   

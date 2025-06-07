@@ -17,7 +17,7 @@ class Ghost extends character{
   Node VulMove;
   chaseFrontier chaser = new chaseFrontier(); 
   
-  ArrayList<Node> ghostNodes; 
+  // ArrayList<Node> ghostNodes; 
   // pac targetChar; 
   
   Ghost(Node start, Node target, PImage img, ArrayList<Node> nodeArrays){
@@ -25,7 +25,7 @@ class Ghost extends character{
      ghostImg = icon = img; 
      this.target = target; 
      MODE = SCATTER;
-     ghostNodes = nodeArrays;
+     // ghostNodes = nodeArrays;
      
      speed = 1.5; 
      // vulnearbleimg = loadImage("VulnerableGhost.png");
@@ -63,7 +63,7 @@ class Ghost extends character{
     if (path != null && path.size() > 0 && !run){
     //  System.out.println( " the nonvuln is running");
       System.out.println("Path: " + path); 
-      return path.get(0); 
+      return path.remove(0); 
     }
     // if there is no best path, it should return a random one); 
     else if(currNode == nodeGrid[10][10]) return nodeGrid[10][9];
@@ -108,9 +108,9 @@ class Ghost extends character{
       }
       // For every neighbor the currNode has as a valid option, add it to the frontier 
       ArrayList<Node> neighbors = coordinate.getNeighbors(); 
-      if (coordinate == currNode && prevNode != null){
-        neighbors.remove(prevNode); 
-      }
+      //if (coordinate == currNode && prevNode != null){
+        //neighbors.remove(prevNode); 
+      //}
       for (Node neighbor : neighbors){
         if (!neighbor.TREADED){
           neighbor.TREADED = true; 
@@ -125,18 +125,24 @@ class Ghost extends character{
     ArrayList<Node> bestPath = new ArrayList<Node> (); 
     if (found){
       Node node = target; 
+      int currSeq = max; 
       while (node.seq > 1){
         bestPath.add(0, node); 
         ArrayList<Node> neighbors = node.getNeighbors();
+        System.out.println(neighbors); 
+        boolean foundPrev = false; 
         // picks the next node in the previous sequence based on sequence number
         for (Node n : neighbors){
-          if (n.seq == max - 1){
+          if (n.seq == currSeq - 1){
             System.out.println(node.seq); 
             node = n; 
-            max = n.seq; 
+            currSeq = n.seq; 
+            foundPrev = true; 
+            break; 
           }
         }
         // node = node.parent; 
+        if (!foundPrev) System.out.println("was not able to find a valid path"); 
       }
     }
     // Statement below is just to highlight the path in green 
@@ -220,24 +226,21 @@ class Ghost extends character{
     target = node; 
   }
   
-  void timeGhosts(){
+
+ void timeGhosts(){
     if (vulnerable && millis() - blueTime > 10000){
       setVulnerable(false); 
     }
     // System.out.println(ticks); 
     if (millis() < 10000 && !vulnerable){
-      if (millis() < 2000){
-        target = nodeGrid[8][11]; 
-      }
-        target = nodeGrid[8][10]; 
-        MODE = SCATTER;
+      target = nodeGrid[8][10]; 
+      MODE = SCATTER;
     }
     else if(MODE != RETURNING){
       MODE = CHASE; 
     } 
   }
-  // void move(int targetx, int targety){
-   //}
+
    
  void reset(){
     // setTarget(nodeGrid[11][10]); // Ghosts are having a lot of trouble finding their way back to the base... 
