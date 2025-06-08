@@ -331,7 +331,7 @@ class Ghost extends character{
     if (MODE == GhostMode.VULNERABLE && millis() - blueTime > 8000){
       setVulnerable(false); 
     }
-    else if (millis() < 10000 && (MODE != GhostMode.VULNERABLE) && (MODE != GhostMode.RETURNING)){
+    else if (millis() < restartTime + 10000 && (MODE != GhostMode.VULNERABLE) && (MODE != GhostMode.RETURNING)){
       MODE = GhostMode.SCATTER;
     }
     else if(MODE != GhostMode.RETURNING && MODE != GhostMode.VULNERABLE){
