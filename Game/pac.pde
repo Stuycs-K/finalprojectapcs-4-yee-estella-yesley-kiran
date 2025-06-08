@@ -1,3 +1,5 @@
+import java.util.*; 
+
 class Pac extends character{
   boolean UP =false;
   boolean DOWN = false;
@@ -28,7 +30,7 @@ class Pac extends character{
   void inch(){
     super.inch(); 
     // only change directions once pacman gets to the center of a node 
-    if (abs ( x - currNode.x) < 0.1 && abs(y - currNode.y) < 0.1){
+    if (abs ( x - currNode.x) < 0.25 && abs(y - currNode.y) < 0.25){
       update(); 
     }
   }
@@ -53,6 +55,7 @@ class Pac extends character{
       score++;
     }
     else{
+ //     System.out.println( "is this run?");
     if (UP){
       move(-1, 0); 
       icon = pacUp; 
@@ -87,11 +90,7 @@ class Pac extends character{
   }
   
   void move(String dir){
-    //int[] next = new int[2]; 
-    //int[][] directions = {
-    //  {-1, 0}, {1, 0}, {0, -1}, {0, 1} // UP, DOWN, LEFT, RIGHT 
-    //}; 
-    // for (Node n : currNode.getNeighbors()){
+    System.out.println( "is this even running");
       if (dir.equals("up") && (nextNode == null || checkNeighbor(-1, 0)) ){
         UP = true; 
         DOWN = RIGHT = LEFT = false; 
@@ -100,31 +99,39 @@ class Pac extends character{
         DOWN = true; 
         UP = RIGHT = LEFT = false; 
       }
-      else if (dir.equals("left") && (nextNode == null ||checkNeighbor(0, -1))){
+      else if (dir.equals("left") && (nextNode == null || checkNeighbor(0, -1))){
         LEFT = true;
         UP = RIGHT = DOWN = false;  
       }
-      else if (dir.equals("right") && (nextNode == null ||checkNeighbor(0, 1))){
+      else if (dir.equals("right") && (nextNode == null || checkNeighbor(0, 1))){
         RIGHT = true; 
         UP = DOWN = LEFT = false;
       }
-    // }
+      else{
+        // System.out.println(Arrays.deepToString(nodeGrid)); 
+        System.out.println(currNode.getNeighbors()); 
+        System.out.println("next Direction node is NULL");  //<>//
+        System.out.println(Arrays.deepToString(nodeGrid)); 
+      }
   }
   
   boolean checkNeighbor( int dr ,int dc){
-    /*
-    for (Node neighbor : currNode.neighbors){ 
-     if (neighbor.row == currNode.row + dr && neighbor.col == currNode.col + dc)return true; 
-     System.out.println( neighbor.row + ", " + (currNode.row + dr) + ", " + neighbor.col + ", " + (currNode.col + dc));
-    }
-    */
+    System.out.println(currNode);
+    System.out.println(nextNode);
+    nextNode.printNeighbors();
     for (Node neighbor : nextNode.neighbors){ 
+//     System.out.println(neighbor);
      if (neighbor.row == nextNode.row + dr && neighbor.col == nextNode.col + dc){
-       return true; 
+       System.out.println(" TRUE");    
+       return true;        
      }
      // System.out.println( neighbor.row + ", " + (nextNode.row + dr) + ", " + neighbor.col + ", " + (nextNode.col + dc));
     }
-    return false;
+    //for (Node neighbor : nextNode.neighbors){ 
+    //  System.out.println(neighbor);
+    //}
+    System.out.println(" FALSE");
+    return false;  
   }
   
   void subHealth(){
@@ -162,4 +169,26 @@ class Pac extends character{
     }
     return false;
   }
+  
+  void display(){
+    super.display(); 
+    //if (nextNode != null){
+    //  text("Next Node: " + nextNode, x, y+15); 
+    //} 
+    //else {
+    //  text("NULL", x, y+15); 
+    //}
+  }
+  
+  public void printStatus(){
+    System.out.println(
+          "Pacman:" +
+          " | Position: (" + x + ", " + y + ")" +
+          " | Current Node: " + (currNode != null ? currNode.row + "," + currNode.col : "null") +
+          " | Next Node: " + (nextNode != null ? nextNode.row + "," + nextNode.col : "null") +
+          " | PrevNode: " + (prevNode != null ? prevNode.row + "," + prevNode.col : "null") +
+          " | Speed: " + speed 
+      );
+  }
+  
 }
