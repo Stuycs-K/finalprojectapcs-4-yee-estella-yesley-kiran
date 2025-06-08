@@ -60,3 +60,7 @@ This document must be updated daily every time you finish a work session.
 
 ## 2025-06-07 
 - rewrote the BFS method, created an enum for modes, fixed small one line errors that changed game functionality entirely - 4 hours 
+
+## 2025-05-08 
+- Completely fixed Pacman movement (I think) - 2 hours
+- Fixed the hallway bug  - 1 hour
