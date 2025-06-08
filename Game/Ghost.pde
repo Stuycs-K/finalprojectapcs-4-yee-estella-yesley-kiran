@@ -109,7 +109,8 @@ class Ghost extends character{
       // For every neighbor the currNode has as a valid option, add it to the frontier 
       ArrayList<Node> neighbors = coordinate.getNeighbors(); 
       //if (coordinate == currNode && prevNode != null){
-        //neighbors.remove(prevNode); 
+      //  System.out.println("removing the prevNode"); 
+      //  neighbors.remove(prevNode); 
       //}
       for (Node neighbor : neighbors){
         if (!neighbor.TREADED){
@@ -129,7 +130,7 @@ class Ghost extends character{
       while (node.seq > 1){
         bestPath.add(0, node); 
         ArrayList<Node> neighbors = node.getNeighbors();
-        System.out.println(neighbors); 
+        // System.out.println(neighbors); 
         boolean foundPrev = false; 
         // picks the next node in the previous sequence based on sequence number
         for (Node n : neighbors){
