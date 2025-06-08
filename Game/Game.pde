@@ -153,9 +153,9 @@ public void draw(){
   }
   // System.out.println("before ghosts" + millis());
   for (Ghost g : ghosts){
-    System.out.println(g);
+    g.printStatus();
     g.timeGhosts(); 
-    if (g.MODE == g.SCATTER){
+    if (g.MODE == GhostMode.SCATTER){
       System.out.println("scatter");
       if (g == blinky){
         g.target = nodeGrid[3][19]; 
@@ -167,18 +167,17 @@ public void draw(){
         g.target = nodeGrid[18][1]; 
       }
     }
-    else if (g.MODE == g.CHASE){
-            System.out.println("CHAse");
-      g.setTarget(Pacman.currNode); 
+    else if (g.MODE == GhostMode.CHASE){
+            g.setTarget(Pacman.currNode); 
     }
-    else if (g.MODE == g.RETURNING){
+    else if (g.MODE == GhostMode.RETURNING){
             System.out.println("returning");
       g.target = nodeGrid[11][10]; 
       g.speed = 5; 
       g.ghostImg = Eyes; 
       if (g.currNode == nodeGrid[11][10]) {
          // the ghost has returned home
-        g.MODE = g.CHASE;
+        g.MODE = GhostMode.CHASE;
         g.ghostImg = g.icon;
         g.speed = 1.5;
         
@@ -202,12 +201,9 @@ public void draw(){
       System.out.println("BLUE MODE: " + g.target); 
      }
     */
-        System.out.println(" running?");
     g.update(); 
-    System.out.println("is update running?");
     g.display();
   }
-    System.out.println("after ghosts" + millis());
   
   checkContact();
   timers();
@@ -258,13 +254,13 @@ void drawSquares(int[][] map){
 void checkContact(){ 
   for (Ghost g : ghosts){
     if (g.currNode == Pacman.currNode){ 
-       if(g.MODE == g.VULNERABLE ){
+       if(g.MODE == GhostMode.VULNERABLE ){
           g.reset(); // Right now Pacman is dying even when ghosts are in blue mode
           Pacman.addtoScore(100);
           fresh =true; //add a timer to this but for now its just so incredibly unlikely a ghost kills u near to when u kill a ghost 
           freshtime =  millis();
       }
-      else if(!(g.MODE == g.RETURNING) && !fresh && Pacman.reset()) 
+      else if(!(g.MODE == GhostMode.RETURNING) && !fresh && Pacman.reset()) 
         GameOver(); //<>//
     }
   }

@@ -22,28 +22,31 @@ class character{
  }
  
  // updates the characters x and y and node only once it's in the center of the node
- void inch(){
-   //move(dy, dx); 
-   //x += dx * SQUARESIZE/4; 
-   //y += dy * SQUARESIZE/4; 
-   // System.out.println(nextNode); 
-   if (nextNode != null){
-     float dx = nextNode.x - x; 
-     float dy = nextNode.y - y; 
-     float dist = sqrt(dx*dx + dy*dy); 
-     if (dist > 0){       
-       x += (dx/dist) * speed; 
-       y += (dy/dist) * speed; // SPEED DOES NOT WORK!!! Still goes too fast
-     }
-     // actual updating of the node position 
-     if (abs(x - nextNode.x) <= 1 && abs(y - nextNode.y) <= 1){
-       prevNode = currNode; 
-       currNode = nextNode; 
-       x = currNode.x; 
-       y = currNode.y; 
-     }
-   }
- }
+void inch(){
+  if (nextNode != null){
+    float dx = nextNode.x - x;
+    float dy = nextNode.y - y;
+    float dist = sqrt(dx*dx + dy*dy);
+
+    // If the distance is less than the speed, just move to the node.
+    if (dist < speed) {
+      x = nextNode.x;
+      y = nextNode.y;
+    }
+    // Otherwise, move normally.
+    else if (dist > 0){
+      x += (dx/dist) * speed;
+      y += (dy/dist) * speed;
+    }
+
+    if (abs(x - nextNode.x) <= 1 && abs(y - nextNode.y) <= 1){
+      prevNode = currNode;
+      currNode = nextNode;
+      x = currNode.x;
+      y = currNode.y;
+    }
+  }
+}
  
  void printNode( Node x ){
     System.out.println( x.row+" "+x.col); 
