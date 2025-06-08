@@ -23,7 +23,7 @@ boolean fresh = false;
 int freshtime =0;
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
-  size(21*25, 21*25 + 75); //<>//
+  size(21*25, 21*25 + 75); //<>// //<>//
   map = new int[][]{
   {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
   {-1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1},
@@ -163,7 +163,7 @@ public void draw(){
  //   g.printStatus();
     g.timeGhosts(); 
     if (g.MODE == GhostMode.SCATTER){
-      System.out.println("scatter");
+     // System.out.println("scatter");
       if (g == blinky){
         g.target = nodeGrid[3][19]; 
         // g.target = Pacman.currNode; 
@@ -182,7 +182,7 @@ public void draw(){
             g.setTarget(Pacman.currNode); 
     }
     else if (g.MODE == GhostMode.RETURNING){
-            System.out.println("returning");
+          //  System.out.println("returning");
       g.target = nodeGrid[11][10]; 
       g.speed = 5; 
       g.ghostImg = Eyes; 
@@ -193,7 +193,7 @@ public void draw(){
         g.speed = 1.5;
         
       }
-      // System.out.println("end of returning"); //<>// //<>//
+   //   System.out.println("end of returning"); 
 
     }
     
@@ -275,7 +275,7 @@ void checkContact(){
           freshtime =  millis();
       }
       else if(!(g.MODE == GhostMode.RETURNING) && !fresh && Pacman.reset()) 
-        GameOver(); //<>//
+        GameOver(); //<>// //<>//
     }
   }
 }
@@ -285,7 +285,7 @@ void timers(){
 }
 
 void GameOver(){
-  fill(0); //<>//
+  fill(0); //<>// //<>//
   rect(0,0, 21 * SQUARESIZE , 21 * SQUARESIZE);
   fill(255,255,255);
   textSize(25);
