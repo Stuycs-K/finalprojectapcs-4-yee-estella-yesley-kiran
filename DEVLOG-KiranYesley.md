@@ -53,3 +53,10 @@ This document must be updated daily every time you finish a work session.
 - dealt with a terrible silly merge conflict and then reset everything entirely and began the art of branching - 2 hours
 - fixed a bug with vulnerable movement - 30 miuntes
 - created a vulnerable mode so that the code was cleaner and easier to debug (and in the process fixed a different bug for vulnerable mode) - 1 hour
+
+## 2025-06-06
+- debugging our many bugs --> was working on vulnerable ghosts glitches and using print statments and debugger to debug - 1 hour
+- created a debug branch to do intense rewriting and began the process - 30 minutes 
+
+## 2025-06-07 
+- rewrote the BFS method, created an enum for modes, fixed small one line errors that changed game functionality entirely - 4 hours 
