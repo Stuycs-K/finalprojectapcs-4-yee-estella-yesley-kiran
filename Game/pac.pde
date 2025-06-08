@@ -124,8 +124,8 @@ class Pac extends character{
      }
      // System.out.println( neighbor.row + ", " + (nextNode.row + dr) + ", " + neighbor.col + ", " + (nextNode.col + dc));
     }
+    // System.out.println("returning false");
     return false;
-    System.out.println("returning false");
   }
   
   void subHealth(){
@@ -184,4 +184,5 @@ class Pac extends character{
           " | Speed: " + speed 
       );
   }
+  
 }

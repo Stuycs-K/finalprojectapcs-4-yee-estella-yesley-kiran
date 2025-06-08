@@ -120,9 +120,9 @@ public void connectNodes(){
 }
 
 // POINT SYSTEM 
-public void calcPoints(){
+//public void calcPoints(){
   
-}
+// }
 
 public void displayPoints(){
   fill(255,255,255);
@@ -193,7 +193,7 @@ public void draw(){
         g.speed = 1.5;
         
       }
-      System.out.println("end of returning"); //<>//
+      // System.out.println("end of returning"); //<>// //<>//
 
     }
     
