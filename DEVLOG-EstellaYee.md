@@ -59,3 +59,8 @@ Expanded description including how much time was spent on task.
 - Made new ghost classes (Blinky, Inky, Pinky) to update setTarget methods so that each ghost has a different target mechanism. Worked on Pinky first - 1 hour 
 - Tried to merge with Kiran's debugging and freaked out because it completely broke out code... discovered branching, freaked out more because we hadn't been doing that, reverted back to our version before I had made the ghost classes and branched from there. - 2 hours
 
+### 2025-06-06-08
+- figured out how to branch properly 
+- spent hours and hours trying to find the bug in our code that makes pacman unable to move - 5 hours (I dreamt about it)
+- Wrote a new BFS searching mechanism that uses a sequence of numbers instead - 1 hour 
+
