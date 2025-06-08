@@ -28,7 +28,7 @@ class Pac extends character{
   void inch(){
     super.inch(); 
     // only change directions once pacman gets to the center of a node 
-    if (abs ( x - currNode.x) < 0.1 && abs(y - currNode.y) < 0.1){
+    if (abs ( x - currNode.x) < 0.25 && abs(y - currNode.y) < 0.25){
       update(); 
     }
   }
@@ -87,11 +87,6 @@ class Pac extends character{
   }
   
   void move(String dir){
-    //int[] next = new int[2]; 
-    //int[][] directions = {
-    //  {-1, 0}, {1, 0}, {0, -1}, {0, 1} // UP, DOWN, LEFT, RIGHT 
-    //}; 
-    // for (Node n : currNode.getNeighbors()){
       if (dir.equals("up") && (nextNode == null || checkNeighbor(-1, 0)) ){
         UP = true; 
         DOWN = RIGHT = LEFT = false; 
@@ -108,7 +103,12 @@ class Pac extends character{
         RIGHT = true; 
         UP = DOWN = LEFT = false;
       }
-    // }
+      else{
+        // System.out.println(Arrays.deepToString(nodeGrid)); 
+        System.out.println(currNode.getNeighbors()); 
+        System.out.println("next Direction node is NULL");  //<>//
+        System.out.println(Arrays.deepToString(nodeGrid)); 
+      }
   }
   
   boolean checkNeighbor( int dr ,int dc){
@@ -162,4 +162,15 @@ class Pac extends character{
     }
     return false;
   }
+  
+  void display(){
+    super.display(); 
+    if (nextNode != null){
+      text("Next Node: " + nextNode, x, y+15); 
+    } 
+    else {
+      text("NULL", x, y+15); 
+    }
+  }
+  
 }
