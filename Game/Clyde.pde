@@ -1,7 +1,7 @@
 public class Clyde extends Ghost{
 
-  public Clyde(Node start, Node target, PImage img, ArrayList<Node> nodesArray){
-      super(start, target, img, nodesArray); 
+  public Clyde(Node start, Node target, PImage img){
+      super(start, target, img); 
     }
     
   private float distanceToTarget(Node node) {

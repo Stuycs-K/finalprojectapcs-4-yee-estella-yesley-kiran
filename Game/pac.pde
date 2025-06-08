@@ -153,7 +153,7 @@ class Pac extends character{
   boolean reset(){
     System.out.println("pacman is being reset");
     subHealth();
-    if(getLives() < 0) return true;
+    if(getLives() <= 0) return true;
     else {
       UP =DOWN = LEFT = RIGHT = false;
       int currtime = second();
