@@ -20,4 +20,6 @@ public class Pinky extends Ghost{
     // System.out.println("Pinky's target: " + target); 
   }
   
+  
+  
 }
