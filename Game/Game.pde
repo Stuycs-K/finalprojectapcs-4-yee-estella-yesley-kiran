@@ -160,7 +160,7 @@ public void draw(){
   }
   // System.out.println("before ghosts" + millis());
   for (Ghost g : ghosts){
-    g.printStatus();
+ //   g.printStatus();
     g.timeGhosts(); 
     if (g.MODE == GhostMode.SCATTER){
       System.out.println("scatter");
@@ -196,6 +196,7 @@ public void draw(){
       System.out.println("end of returning"); //<>//
 
     }
+    
     /*
     else if (g.MODE == g.VULNERABLE){
       
@@ -216,6 +217,8 @@ public void draw(){
     g.display();
   }
   
+  
+  Pacman.printStatus();
   checkContact();
   timers();
   System.out.println("timers" + millis());

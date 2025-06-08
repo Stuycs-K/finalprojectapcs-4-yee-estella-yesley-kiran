@@ -95,11 +95,11 @@ class Pac extends character{
         DOWN = true; 
         UP = RIGHT = LEFT = false; 
       }
-      else if (dir.equals("left") && (nextNode == null ||checkNeighbor(0, -1))){
+      else if (dir.equals("left") && (nextNode == null || checkNeighbor(0, -1))){
         LEFT = true;
         UP = RIGHT = DOWN = false;  
       }
-      else if (dir.equals("right") && (nextNode == null ||checkNeighbor(0, 1))){
+      else if (dir.equals("right") && (nextNode == null || checkNeighbor(0, 1))){
         RIGHT = true; 
         UP = DOWN = LEFT = false;
       }
@@ -125,6 +125,7 @@ class Pac extends character{
      // System.out.println( neighbor.row + ", " + (nextNode.row + dr) + ", " + neighbor.col + ", " + (nextNode.col + dc));
     }
     return false;
+    System.out.println("returning false");
   }
   
   void subHealth(){
@@ -173,4 +174,14 @@ class Pac extends character{
     }
   }
   
+  public void printStatus(){
+    System.out.println(
+          "Pacman:" +
+          " | Position: (" + x + ", " + y + ")" +
+          " | Current Node: " + (currNode != null ? currNode.row + "," + currNode.col : "null") +
+          " | Next Node: " + (nextNode != null ? nextNode.row + "," + nextNode.col : "null") +
+          " | PrevNode: " + (prevNode != null ? prevNode.row + "," + prevNode.col : "null") +
+          " | Speed: " + speed 
+      );
+  }
 }
