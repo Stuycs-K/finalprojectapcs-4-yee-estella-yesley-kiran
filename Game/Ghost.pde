@@ -26,9 +26,7 @@ class Ghost extends character{
   Node target;
   Node VulMove;
   chaseFrontier chaser = new chaseFrontier(); 
-  
-  // ArrayList<Node> ghostNodes; 
-  // pac targetChar; 
+
   
   Ghost(Node start, Node target, PImage img, ArrayList<Node> nodeArrays){
      super(start, img);
@@ -48,19 +46,19 @@ class Ghost extends character{
 
   
   Node pickNextMove(boolean run){
-    System.out.println("in pickNextMove");
+   // System.out.println("in pickNextMove");
     ArrayList<Node> path = findShortestPath(currNode, target);
     // ArrayList<Node> path = selectBestPath(); 
 
     if (path != null && path.size() > 0 && !run){
     //  System.out.println( " the nonvuln is running");
-      System.out.println("Path: " + path); 
+ //     System.out.println("Path: " + path); 
       return path.remove(0); 
     }
     // if there is no best path, the ghost should standstill because something is terribly wrong
     else {
     //  System.out.println("b?");
-      ArrayList<Node> neighbors = currNode.getNeighbors(); 
+      ArrayList<Node> neighbors = new ArrayList<>(currNode.getNeighbors()); 
       if (prevNode != null && neighbors.size() > 1){
         neighbors.remove(prevNode); 
       }
@@ -99,7 +97,7 @@ class Ghost extends character{
             }
             
             // Get the list of neighbors to check how many options we have.
-            ArrayList<Node> neighbors = current.getNeighbors();
+            ArrayList<Node> neighbors = new ArrayList<>(currNode.getNeighbors());
             boolean isDeadEnd = (neighbors.size() == 1);
 
             for (Node neighbor : current.getNeighbors()) {
@@ -136,9 +134,9 @@ class Ghost extends character{
 
   
   // BREADTH FIRST SEARCHING ALGORITHM 
-  ArrayList<Node> selectBestPath(){ //<>//
+  ArrayList<Node> selectBestPath(){ 
     
-    // reset visited & parent nodes each turn 
+    // reset visited & parent nodes each turn  //<>//
     for (Node n : nodes){
         n.TREADED = false; // tracks what nodes have been visited 
         // n.parent = null; // tracks the node it came from 
@@ -160,7 +158,7 @@ class Ghost extends character{
         break; 
       }
       // For every neighbor the currNode has as a valid option, add it to the frontier 
-      ArrayList<Node> neighbors = coordinate.getNeighbors(); 
+      ArrayList<Node> neighbors = new ArrayList<>(currNode.getNeighbors()); 
       //if (coordinate == currNode && prevNode != null){
       //  System.out.println("removing the prevNode"); 
       //  neighbors.remove(prevNode); 
@@ -182,7 +180,7 @@ class Ghost extends character{
       int currSeq = max; 
       while (node.seq > 1){
         bestPath.add(0, node); 
-        ArrayList<Node> neighbors = node.getNeighbors();
+        ArrayList<Node> neighbors = new ArrayList<>(currNode.getNeighbors());
         // System.out.println(neighbors); 
         boolean foundPrev = false; 
         // picks the next node in the previous sequence based on sequence number
@@ -273,7 +271,7 @@ class Ghost extends character{
             speed = 1.5;
           }
         } else if (MODE == GhostMode.VULNERABLE) {
-          ArrayList<Node> neighbors = currNode.getNeighbors();
+          ArrayList<Node> neighbors = new ArrayList<>(currNode.getNeighbors());
           if (prevNode != null && neighbors.size() > 1) {
             neighbors.remove(prevNode);
           }
@@ -367,8 +365,8 @@ class Ghost extends character{
     System.out.println("ghost is being reset");
     MODE = GhostMode.RETURNING; //<>//
     ghostImg = eyesghost;
-    target = nodeGrid[11][10]; //home base
-    speed = 5; 
+    target = nodeGrid[11][10]; //home base //<>//
+    speed = 3; 
     System.out.println("ghost is being reset");
     if (currNode.row >= 9 && currNode.row <= 11 && currNode.col >= 9 && currNode.col <= 11){
       speed = 1.5;  
@@ -378,9 +376,9 @@ class Ghost extends character{
    
  void display(){
      image(ghostImg, x, y);
-     fill(255); 
-     text("MODE: " + MODE, x, y); 
-     text("target:" + target, x , y +15);
+     //fill(255); 
+     //text("MODE: " + MODE, x, y); 
+     //text("target:" + target, x , y +15);
  }
    
    /* NOTES: 

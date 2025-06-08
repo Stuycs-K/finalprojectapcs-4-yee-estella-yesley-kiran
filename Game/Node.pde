@@ -45,7 +45,15 @@ class Node{
   }
   
   public String toString(){
-    return "" + row + ", " + col + " , " + value;
+    return "row:" + row + ", col:" + col + " , value:" + value;
+  }
+  
+  public void printNeighbors(){
+    int num =0;
+    for(Node n:neighbors){
+      System.out.println("Node" + num +"  " + n.toString());
+      num++;
+    }
   }
   
 }

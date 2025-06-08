@@ -6,7 +6,7 @@ public class Pinky extends Ghost{
   
   void setTarget(Node targ){ // Targets the node four tiles ahead of Pacman (selects a random node from its valid neighbors)
     Node temp = targ; 
-    ArrayList<Node> neighbors = temp.getNeighbors(); 
+    ArrayList<Node> neighbors = new ArrayList<>(temp.getNeighbors()); 
     if (prevNode != null && neighbors.size() > 0)
       neighbors.remove(prevNode);
     for (int i = 1; i <= 4; i ++){
