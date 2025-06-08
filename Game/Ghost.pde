@@ -1,14 +1,24 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
+enum GhostMode {
+    SCATTER,
+    CHASE,
+    RETURNING,
+    VULNERABLE
+}
+
 class Ghost extends character{
-  PImage ghostImg; 
-  int MODE = 0;
-  int SCATTER = 1; // spreads out to the corners 
-  int CHASE = 2 ; // chase Pacman
-  int RETURNING = 3; // return to base after being eaten
+  PImage ghostImg;
+
+  // Define the enum for ghost modes
+  GhostMode MODE;
   
   chaseFrontier PATH; 
   boolean found = false; 
   
-  boolean vulnerable = false;
+  //boolean vulnerable = false;
   int blueTime = 0; 
   PImage blueghost; 
   PImage eyesghost;
@@ -22,10 +32,9 @@ class Ghost extends character{
      super(start, img);
      ghostImg = icon = img; 
      this.target = target; 
-     MODE = SCATTER;
+     MODE = GhostMode.SCATTER;
      
      speed = 1.5; 
-     // vulnearbleimg = loadImage("VulnerableGhost.png");
   }
  
 
@@ -35,164 +44,158 @@ class Ghost extends character{
       return (float) Math.sqrt(dx * dx + dy * dy);
   }
 
-  Node oldPickNextMove(boolean run) {
-      //run = true, means you are running away from your target
-      //run = false means you are running towards your target
-      Node bestNext = null;
-      float bestDist;
-      if (run) bestDist = Float.MAX_VALUE ;
-      else bestDist =Float.MIN_VALUE;
-      
-      for (Node neighbor : currNode.getNeighbors()) {
-          if (neighbor == prevNode) continue;
-          
-          float dist = distanceToTarget(neighbor);
-          if ((run && dist < bestDist) || (!run && dist > bestDist)) {
-              bestNext = neighbor;
-              bestDist = dist;
-          }
-      }
-      return bestNext;
-  }
   
   Node pickNextMove(boolean run){
-    ArrayList<Node> path = selectBestPath(); 
+    System.out.println("in pickNextMove");
+    ArrayList<Node> path = findShortestPath(currNode, target);
+
     if (path != null && path.size() > 0 && !run){
     //  System.out.println( " the nonvuln is running");
       return path.get(0); 
     }
-    // if there is no best path, it should return a random one); 
-    else if(currNode == nodeGrid[10][10]) return nodeGrid[10][9];
-    else if(VulMove != null && currNode != VulMove) return VulMove;
+    // if there is no best path, the ghost should standstill because something is terribly wrong
     else {
+    //  System.out.println("b?");
       ArrayList<Node> neighbors = currNode.getNeighbors(); 
       if (prevNode != null && neighbors.size() > 1){
         neighbors.remove(prevNode); 
       }
+   //   System.out.println("c?");
       if (neighbors.size() > 0){
         VulMove = neighbors.get((int)random(neighbors.size()));
         return VulMove;
       }
+      //System.out.println("d?");
     }
-    return currNode; 
+    return currNode;
   }
+      
+    // BREADTH FIRST SEARCHING ALGORITHM 
+    ArrayList<Node> findShortestPath(Node start, Node target) {
+        // Reset pathfinding data for all nodes
+        for (Node n : nodes) {
+            n.parent = null;
+            n.TREADED = false;
+        }
+        
+        Queue<Node> frontier = new LinkedList<>();
+        
+        start.TREADED = true;
+        frontier.add(start);
+
+        Node current = null;
+        boolean targetFound = false;
+
+        // BFS main loop
+        while (!frontier.isEmpty()) {
+            current = frontier.poll();
+            if (current == target) {
+                targetFound = true;
+                break;
+            }
+            
+            // Get the list of neighbors to check how many options we have.
+            ArrayList<Node> neighbors = current.getNeighbors();
+            boolean isDeadEnd = (neighbors.size() == 1);
+
+            for (Node neighbor : current.getNeighbors()) {
+                // Do not allow ghosts to reverse direction on the first step of the search
+                if (!isDeadEnd && current == start && neighbor == prevNode) {
+                    continue;
+                }
+                if (!neighbor.TREADED) {
+                    neighbor.TREADED = true;
+                    neighbor.parent = current;
+                    frontier.add(neighbor);
+                }
+            }
+        }
+        
+        // Reconstruct path if the target was found
+        if (targetFound) {
+            ArrayList<Node> path = new ArrayList<>();
+            Node step = target;
+            // Backtrack from target to start
+            while (step != null && step.parent != start) {
+                path.add(0, step); // Add to the beginning of the list
+                step = step.parent;
+                if (step == null) return null; // Should not happen with correct logic
+            }
+             if (step != null) {
+                path.add(0, step);
+            }
+            return path;
+        }
+        
+        return null; // No path found
+    }
 
   
-  // BREADTH FIRST SEARCHING ALGORITHM 
-  ArrayList<Node> selectBestPath(){
-    
-    // reset visited & parent nodes each turn 
-    for (Node n : nodes){
-      n.TREADED = false; // tracks what nodes have been visited 
-      n.parent = null; // tracks the node it came from 
-    }
-    
-    PATH = new chaseFrontier(); 
-    PATH.add(currNode); 
-    currNode.TREADED = true; 
-    
-    while (PATH.size() > 0){
-      Node coordinate = PATH.remove(); 
-      if (coordinate == target){
-        found = true; 
-        break; 
+  
+    void update() {
+      // Go to the next step
+      super.inch();
+  
+      // have arrived at a destination?
+      // If we are at a crossroads (or just started), THEN make a decision.
+      if (currNode == nextNode || nextNode == null) {
+        Node bestNext = null;
+  
+        if (MODE == GhostMode.RETURNING) {
+          target = nodeGrid[11][10];
+          bestNext = pickNextMove(false);
+          speed = 5;
+          ghostImg = eyesghost;
+          // Check if we have arrived home AFTER making a move.
+          if (currNode == target) {
+            MODE = GhostMode.CHASE;
+            ghostImg = icon;
+            speed = 1.5;
+          }
+        } else if (MODE == GhostMode.VULNERABLE) {
+          ArrayList<Node> neighbors = currNode.getNeighbors();
+          if (prevNode != null && neighbors.size() > 1) {
+            neighbors.remove(prevNode);
+          }
+          if (neighbors.size() > 0) {
+              bestNext = neighbors.get((int)random(neighbors.size()));
+          } else {
+              bestNext = currNode; // Stay put if no options
+          }
+        } else { // This covers CHASE and SCATTER
+            // TUNNEL LOGIC --> LOWK Should put this in the selectbestpath method 
+            if (currNode.col == 0 && target.col > 15){
+                x =  500;
+                bestNext = nodeGrid[currNode.row][20];
+            }
+            else if (currNode.col == 20 && target.col < 5){
+                x =  500;
+                bestNext = nodeGrid[currNode.row][0];
+            }
+            else bestNext = pickNextMove( false );  //not in tunnel
       }
-      // For every neighbor the currNode has as a valid option, add it to the frontier 
-      ArrayList<Node> neighbors = coordinate.getNeighbors(); 
-      if (coordinate == currNode && prevNode != null){
-        neighbors.remove(prevNode); 
-      }
-      for (Node neighbor : neighbors){
-        if (!neighbor.TREADED){
-          neighbor.TREADED = true; 
-          neighbor.parent = coordinate; 
-          PATH.add(neighbor);
-        }
+  
+      // Now assign the new destination.
+      if (bestNext != null){
+         nextNode = bestNext; 
       }
     }
-    // grab the best path
-    ArrayList<Node> bestPath = new ArrayList<Node> (); 
-    if (found){
-      Node node = target; 
-      while (node != currNode){
-        bestPath.add(0, node); 
-        node = node.parent; 
-      }
-    }
-    for (Node n : bestPath){
-      n.pathPart = true; 
-    }
-    // System.out.println(bestPath); 
-    return bestPath; 
   }
   
-  void update(){
-    //This method updates the ghost mode and position
-    Node bestNext = null; 
-    if (currNode == nodeGrid[11][10]) {
-      // the ghost has returned home
-      MODE = CHASE;
-      ghostImg = icon;
-      speed = 1.5;
-    }
-    if (MODE == RETURNING) {
-       bestNext = pickNextMove( false );
-       speed = 5; 
-       System.out.print("Return Mode ");
-       printNode( target );
-       printNode( bestNext );
-    }
-    else{   
-      //the ghost is in Chase mode
-      // System.out.println("Ghost is chasing");
-      // TUNNEL LOGIC 
-      if (currNode.col == 0 && target.col > 15){
-          x =  500;
-          bestNext = nodeGrid[currNode.row][20];
-          //  nextNode = nodeGrid[currNode.row][19];
-      }
-      else if (currNode.col == 20 && target.col < 5){
-          x =  500;
-          bestNext = nodeGrid[currNode.row][0];
-          //  nextNode = nodeGrid[currNode.row][19];
-      }
-      else{
-        //not in the tunnel
-        if( vulnerable ){
-          bestNext = pickNextMove( true );
-        }
-        else
-        {
-          bestNext = pickNextMove( false ); 
-        }
 
-      }
-    }
-    if (bestNext != null){
-      nextNode = bestNext; 
-    }
-  
-    super.inch(); 
-  }
-  
   void setVulnerable(boolean isVulnerable){
+    System.out.println("in setVulnerable "+isVulnerable );
     if (isVulnerable){
-      vulnerable = true; 
+      MODE = GhostMode.VULNERABLE; 
       ghostImg = blueghost;
       blueTime = millis(); 
-      // MODE = BLUE; 
       speed = 1.2; 
     } else {
-      MODE = CHASE;
+      MODE = GhostMode.CHASE;
       ghostImg = icon; 
-      vulnerable = false; 
       speed = 1.5; 
     }
 
-  }
-   
-  int getMode(){     
-    return MODE;
   }
    
   void setTarget(Node node){
@@ -200,31 +203,56 @@ class Ghost extends character{
   }
   
   void timeGhosts(){
-    if (vulnerable && millis() - blueTime > 10000){
+    if (MODE == GhostMode.VULNERABLE && millis() - blueTime > 8000){
       setVulnerable(false); 
     }
-    // System.out.println(ticks); 
-    if (millis() < 10000 && !vulnerable){
-      target = nodeGrid[8][10]; 
-      MODE = SCATTER;
+    else if (millis() < 10000 && (MODE != GhostMode.VULNERABLE) && (MODE != GhostMode.RETURNING)){
+      MODE = GhostMode.SCATTER;
     }
-    else if(MODE != RETURNING){
-      MODE = CHASE; 
+    else if(MODE != GhostMode.RETURNING && MODE != GhostMode.VULNERABLE){
+      MODE = GhostMode.CHASE; 
     } 
   }
-  // void move(int targetx, int targety){
-   //}
+
+  public void printStatus() {
+      String modeStr = MODE.toString(); 
+  
+      //String ghostName = "Ghost"; // A default or placeholder name
+      String ghostName = this.getClass().getSimpleName();
+      if (icon != null && icon.toString().contains("blinky")) { // Example check
+          ghostName = "Blinky";
+      } else if (icon != null && icon.toString().contains("pinky")) {
+          ghostName = "Pinky";
+      } else if (icon != null && icon.toString().contains("inky")) {
+          ghostName = "Inky";
+      } else if (icon != null && icon.toString().contains("clyde")) {
+          ghostName = "Clyde";
+      }
+  
+  
+      System.out.println(
+          "Ghost: " + ghostName +
+          " | Mode: " + modeStr +
+          " | Position: (" + x + ", " + y + ")" +
+          " | Current Node: " + (currNode != null ? currNode.row + "," + currNode.col : "null") +
+          " | Next Node: " + (nextNode != null ? nextNode.row + "," + nextNode.col : "null") +
+          " | Target: " + (target != null ? target.row + "," + target.col : "null") +
+          " | Speed: " + speed +
+          (MODE == GhostMode.VULNERABLE ? " | Vulnerable Time Left: " + Math.max(0, 8000 - (millis() - blueTime)) / 1000.0 + "s" : "")
+      );
+  }
+
+
+
+
    
  void reset(){
-    // setTarget(nodeGrid[11][10]); // Ghosts are having a lot of trouble finding their way back to the base... 
     System.out.println("ghost is being reset");
-    MODE = RETURNING;
+    MODE = GhostMode.RETURNING; //<>//
     ghostImg = eyesghost;
-    target = nodeGrid[11][10];
+    target = nodeGrid[11][10]; //home base
     speed = 5; 
-    vulnerable = false;
-    // setVulnerable(false); 
-    //   chase(); 
+    System.out.println("ghost is being reset");
     if (currNode.row >= 9 && currNode.row <= 11 && currNode.col >= 9 && currNode.col <= 11){
       speed = 1.5;  
     }
@@ -235,6 +263,7 @@ class Ghost extends character{
      image(ghostImg, x, y);
      fill(255); 
      text("MODE: " + MODE, x, y); 
+     text("target:" + target, x , y +15);
  }
    
    /* NOTES: 
