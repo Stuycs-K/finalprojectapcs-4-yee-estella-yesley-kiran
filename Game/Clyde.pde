@@ -16,9 +16,14 @@ public class Clyde extends Ghost{
     }
     else {
       ArrayList<Node> neighbors = currNode.getNeighbors(); 
-      neighbors.remove(prevNode); 
-      int select = (int) random(neighbors.size()); 
-      target = neighbors.get(select); 
+      if (prevNode != null && neighbors.size() > 1)
+        neighbors.remove(prevNode); 
+      if (neighbors.size() <= 0)
+        target = currNode; 
+      else {
+        int select = (int) random(neighbors.size()); 
+        target = neighbors.get(select); 
+      }
     }
     // System.out.println("Clyde's target: " + target); 
   }
