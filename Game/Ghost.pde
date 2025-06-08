@@ -28,7 +28,7 @@ class Ghost extends character{
   chaseFrontier chaser = new chaseFrontier(); 
 
   
-  Ghost(Node start, Node target, PImage img, ArrayList<Node> nodeArrays){
+  Ghost(Node start, Node target, PImage img){
      super(start, img);
      ghostImg = icon = img; 
      this.target = target; 
@@ -83,7 +83,7 @@ class Ghost extends character{
         Queue<Node> frontier = new LinkedList<>();
         
         start.TREADED = true;
-        frontier.add(start);
+        frontier.add(start); //<>//
 
         Node current = null;
         boolean targetFound = false;

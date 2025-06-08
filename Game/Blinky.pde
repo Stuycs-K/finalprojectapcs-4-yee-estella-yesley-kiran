@@ -1,7 +1,7 @@
 public class Blinky extends Ghost{
  
-  public Blinky(Node start, Node target, PImage img, ArrayList<Node> nodesArray){
-    super(start, target, img, nodesArray); 
+  public Blinky(Node start, Node target, PImage img){
+    super(start, target, img); 
   }
   
   void setTarget(Node targ){

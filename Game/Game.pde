@@ -15,9 +15,9 @@ Clyde clyde;
 Pac Pacman; 
 PImage pacman; 
 
-int totalPoints = 0; 
-int highScore = totalPoints;
-// boolean vulnerable = false; 
+int score = 0; 
+int highScore;
+boolean gameOver = false; 
 
 boolean fresh = false;
 int freshtime =0;
@@ -54,6 +54,7 @@ void setup(){
   pacman = loadImage("PacRight.png");       
   Node start = nodeGrid[13][10]; 
   Pacman = new Pac(start, pacman); 
+  
   redG = loadImage("RedGhost.png");
   purpG = loadImage("PurpleGhost.png"); 
   greenG = loadImage("GreenGhost.png"); 
@@ -63,10 +64,10 @@ void setup(){
   
   
   
-  blinky = new Blinky(nodeGrid[11][9], nodeGrid[3][19], redG, nodes); 
-  pinky = new Pinky(nodeGrid[11][10], nodeGrid[3][3], purpG, nodes); 
-  inky = new Inky(nodeGrid[11][11], nodeGrid[19][3], greenG, nodes); 
-  clyde = new Clyde(nodeGrid[10][11], nodeGrid[19][19], orangeG, nodes); 
+  blinky = new Blinky(nodeGrid[11][9], nodeGrid[3][19], redG); 
+  pinky = new Pinky(nodeGrid[11][10], nodeGrid[3][3], purpG); 
+  inky = new Inky(nodeGrid[11][11], nodeGrid[19][3], greenG); 
+  clyde = new Clyde(nodeGrid[10][11], nodeGrid[19][19], orangeG); 
   
   ghosts.add(blinky); 
   ghosts.add(pinky); 
@@ -128,7 +129,7 @@ public void displayPoints(){
   fill(255,255,255);
   textSize(25);
   text("High Score: " + highScore, (21 * 25) /3 , (21 * 25) + 30);
-  text( "Current Score: " + totalPoints , (21 * 25) /3 , (21 * 25) +55);
+  text( "Current Score: " + score , (21 * 25) /3 , (21 * 25) +55);
 
 }
 
@@ -192,7 +193,7 @@ public void draw(){
         g.ghostImg = g.icon;
         g.speed = 1.5;
         
-      }
+      } //<>//
    //   System.out.println("end of returning"); 
 
     }
@@ -223,8 +224,8 @@ public void draw(){
   timers();
   System.out.println("timers" + millis());
   displayPoints(); 
-  totalPoints = Pacman.getScore();
-  if (highScore < totalPoints) highScore = totalPoints;
+  score = Pacman.getScore();
+  if (highScore < score) highScore = score;
   displayPoints();
   displayLives();
   System.out.println(millis());
@@ -285,15 +286,46 @@ void timers(){
 }
 
 void GameOver(){
-  fill(0); //<>// //<>//
+  fill(0); 
   rect(0,0, 21 * SQUARESIZE , 21 * SQUARESIZE);
   fill(255,255,255);
   textSize(25);
   text("GAME OVER", (21 * SQUARESIZE) / 3 , (21 * SQUARESIZE) /2 );
+  gameOver = true; 
   noLoop();
 }
 
+void tryAgain(){
+  score = 0; 
+  
+  Pacman = new Pac(nodeGrid[13][10], pacman); 
+  for (Node n : nodes){
+    n.eaten = false;
+  }
+  
+  ghosts = new ArrayList<Ghost>();
+  blinky = new Blinky(nodeGrid[11][9], nodeGrid[3][19], redG); 
+  pinky = new Pinky(nodeGrid[11][10], nodeGrid[3][3], purpG); 
+  inky = new Inky(nodeGrid[11][11], nodeGrid[19][3], greenG); 
+  clyde = new Clyde(nodeGrid[10][11], nodeGrid[19][19], orangeG); 
+  
+  ghosts.add(blinky); 
+  ghosts.add(pinky); 
+  ghosts.add(inky); 
+  ghosts.add(clyde); 
+  for (Ghost g : ghosts){
+    g.blueghost = Blue; 
+    g.eyesghost = Eyes;
+  }
+  gameOver = false; 
+  loop(); 
+  
+}
+
 public void keyPressed(){
+   if (gameOver && key == ENTER){ // Press enter to restart
+    tryAgain(); 
+  }
   if (key == CODED){
     if (keyCode == UP) {
       Pacman.move("up");

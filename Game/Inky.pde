@@ -1,7 +1,7 @@
 public class Inky extends Ghost{
 
-  public Inky(Node start, Node target, PImage img, ArrayList<Node> nodesArray){
-      super(start, target, img, nodesArray); 
+  public Inky(Node start, Node target, PImage img){
+      super(start, target, img); 
     }
     
   void setTarget(Node targ){ // chooses the node 180 degrees from where the red's position is

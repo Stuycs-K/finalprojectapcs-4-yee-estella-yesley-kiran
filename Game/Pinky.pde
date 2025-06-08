@@ -1,7 +1,7 @@
 public class Pinky extends Ghost{
   
-  Pinky(Node start, Node target, PImage img, ArrayList<Node> nodesArray){
-    super(start, target, img, nodesArray); 
+  Pinky(Node start, Node target, PImage img){
+    super(start, target, img); 
   }
   
   void setTarget(Node targ){ // Targets the node four tiles ahead of Pacman (selects a random node from its valid neighbors)
