@@ -1,3 +1,5 @@
+import java.util.*; 
+
 class Pac extends character{
   boolean UP =false;
   boolean DOWN = false;
@@ -53,6 +55,7 @@ class Pac extends character{
       score++;
     }
     else{
+ //     System.out.println( "is this run?");
     if (UP){
       move(-1, 0); 
       icon = pacUp; 
@@ -87,6 +90,7 @@ class Pac extends character{
   }
   
   void move(String dir){
+    System.out.println( "is this even running");
       if (dir.equals("up") && (nextNode == null || checkNeighbor(-1, 0)) ){
         UP = true; 
         DOWN = RIGHT = LEFT = false; 
@@ -112,20 +116,22 @@ class Pac extends character{
   }
   
   boolean checkNeighbor( int dr ,int dc){
-    /*
-    for (Node neighbor : currNode.neighbors){ 
-     if (neighbor.row == currNode.row + dr && neighbor.col == currNode.col + dc)return true; 
-     System.out.println( neighbor.row + ", " + (currNode.row + dr) + ", " + neighbor.col + ", " + (currNode.col + dc));
-    }
-    */
+    System.out.println(currNode);
+    System.out.println(nextNode);
+    nextNode.printNeighbors();
     for (Node neighbor : nextNode.neighbors){ 
+//     System.out.println(neighbor);
      if (neighbor.row == nextNode.row + dr && neighbor.col == nextNode.col + dc){
-       return true; 
+       System.out.println(" TRUE");    
+       return true;        
      }
      // System.out.println( neighbor.row + ", " + (nextNode.row + dr) + ", " + neighbor.col + ", " + (nextNode.col + dc));
     }
-    return false;
-    System.out.println("returning false");
+    //for (Node neighbor : nextNode.neighbors){ 
+    //  System.out.println(neighbor);
+    //}
+    System.out.println(" FALSE");
+    return false;  
   }
   
   void subHealth(){
@@ -166,12 +172,12 @@ class Pac extends character{
   
   void display(){
     super.display(); 
-    if (nextNode != null){
-      text("Next Node: " + nextNode, x, y+15); 
-    } 
-    else {
-      text("NULL", x, y+15); 
-    }
+    //if (nextNode != null){
+    //  text("Next Node: " + nextNode, x, y+15); 
+    //} 
+    //else {
+    //  text("NULL", x, y+15); 
+    //}
   }
   
   public void printStatus(){

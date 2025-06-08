@@ -15,7 +15,7 @@ public class Clyde extends Ghost{
       super.setTarget(targ); 
     }
     else {
-      ArrayList<Node> neighbors = currNode.getNeighbors(); 
+      ArrayList<Node> neighbors = new ArrayList<>(currNode.getNeighbors());
       neighbors.remove(prevNode); 
       int select = (int) random(neighbors.size()); 
       target = neighbors.get(select); 
