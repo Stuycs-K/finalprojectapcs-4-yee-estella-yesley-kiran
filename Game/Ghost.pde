@@ -258,6 +258,22 @@ class Ghost extends character{
       // If we are at a crossroads (or just started), THEN make a decision.
       if (currNode == nextNode || nextNode == null) {
         Node bestNext = null;
+        
+        // TUNNEL LOGIC --> LOWK Should put this in the selectbestpath method 
+            if (currNode.col == 0){
+                x =  500;
+                prevNode = currNode;
+                currNode = nodeGrid[currNode.row][20];
+                nextNode = nodeGrid[currNode.row][19];
+                return;
+            }
+            else if (currNode.col == 20 ){
+                x =  0;
+                prevNode = currNode;
+                currNode = nodeGrid[currNode.row][0];
+                nextNode = nodeGrid[currNode.row][1];
+                return;
+            }
   
         if (MODE == GhostMode.RETURNING) {
           target = nodeGrid[11][10];
@@ -281,16 +297,7 @@ class Ghost extends character{
               bestNext = currNode; // Stay put if no options
           }
         } else { // This covers CHASE and SCATTER
-            // TUNNEL LOGIC --> LOWK Should put this in the selectbestpath method 
-            if (currNode.col == 0 && target.col > 15){
-                x =  500;
-                bestNext = nodeGrid[currNode.row][20];
-            }
-            else if (currNode.col == 20 && target.col < 5){
-                x =  500;
-                bestNext = nodeGrid[currNode.row][0];
-            }
-            else bestNext = pickNextMove( false );  //not in tunnel
+            bestNext = pickNextMove( false );  //not in tunnel
       }
   
       // Now assign the new destination.
