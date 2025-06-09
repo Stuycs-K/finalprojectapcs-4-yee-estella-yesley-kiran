@@ -6,6 +6,7 @@
     - :o: Pellet: 1 Point each 
     - :red_circle: Super Pellet: 10 Points each 
     - :ghost: Ghosts: 100 Points each 
+    - :cherry: Cherry: 30 Points
 - :video_game: How to Play:
     - :arrow_up: :arrow_down: :arrow_left: :arrow_right: keys to move Pacman 
     - :spaghetti: To make the Ghosts edible you must eat Super Pellets. After you eat a Super Pellet the Ghosts will be edible for only 8 seconds so you must act fast!
@@ -21,9 +22,11 @@
 
 ### Extra Working Features
 - :ballot_box_with_check: Several different ghost chasing algorithms for each ghost 
+- :ballot_box_with_check: Added music and death sound effects 
+- :ballot_box_with_check: Added cherry bonus item
 
 ### Partially Working Features
--  :question: 
+-  :question: death sound effects glitch but only sometimes 
  
 ### Not Working Features
 - :x: 
