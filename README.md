@@ -8,7 +8,7 @@
     - :ghost: Ghosts: 100 Points each 
     - :cherry: Cherry: 30 Points
 - :video_game: How to Play:
-    - :arrow_up: :arrow_down: :arrow_left: :arrow_right: keys to move Pacman 
+    - :arrow_up: :arrow_down: :arrow_left: :arrow_right: OR WASD keys to move Pacman 
     - :spaghetti: To make the Ghosts edible you must eat Super Pellets. After you eat a Super Pellet the Ghosts will be edible for only 8 seconds so you must act fast!
 
 ## Features
