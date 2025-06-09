@@ -18,7 +18,10 @@ PImage pacman;
 
 int score = 0; 
 int highScore;
-boolean gameOver = false; 
+final int start = 0; 
+final int game = 1;
+final int gameOver = 2; 
+int gameState = start; 
 
 boolean fresh = false;
 int freshtime =0;
@@ -142,6 +145,10 @@ public void displayLives(){
 }
 
 public void draw(){
+  if (gameState == start){
+    drawStartScreen(); 
+  }
+  else{
   background(0); 
   drawSquares(map);
   //for(Node n: nodes){
@@ -186,7 +193,7 @@ public void draw(){
     else if (g.MODE == GhostMode.RETURNING){
           //  System.out.println("returning");
       g.target = nodeGrid[11][10]; 
-      g.speed = 5; 
+      g.speed = 5;  //<>//
       g.ghostImg = Eyes; 
       if (g.currNode == nodeGrid[11][10]) {
          // the ghost has returned home
@@ -219,7 +226,6 @@ public void draw(){
     g.display();
   }
   
-  
   Pacman.printStatus();
   checkContact();
   timers();
@@ -230,6 +236,7 @@ public void draw(){
   displayPoints();
   displayLives();
   System.out.println(millis());
+}
 }
 
 /* Draw the walls, points, etc 
@@ -297,8 +304,19 @@ void GameOver(){
   text("GAME OVER", (21 * SQUARESIZE) / 3 , (21 * SQUARESIZE) /2 );
   
   text("PRESS ENTER TO TRY AGAIN", (21* SQUARESIZE) / 4, (21 * SQUARESIZE) / 2 + 50); 
-  gameOver = true; 
+  gameState = gameOver; 
   noLoop();
+}
+
+void drawStartScreen(){
+ fill(0); 
+  rect(0,0, 21 * SQUARESIZE , 21 * SQUARESIZE);
+  fill(255,255,255);
+  textSize(25);
+  fill (0, 0, 255); 
+  rect((21 * SQUARESIZE) / 3 - 15, (21 * SQUARESIZE) / 2 - 30, 200, 50); 
+  fill(255); 
+  text("CLICK ENTER TO START", (21 * SQUARESIZE) / 3 , (21 * SQUARESIZE) /2 );
 }
 
 void tryAgain(){
@@ -325,13 +343,16 @@ void tryAgain(){
     g.MODE = GhostMode.SCATTER; 
     restartTime = millis(); 
   }
-  gameOver = false; 
+  gameState = game; 
   loop(); 
   
 }
 
 public void keyPressed(){
-   if (gameOver && key == ENTER){ // Press enter to restart
+  if (gameState == start && key == ENTER){
+    gameState = game; 
+  }
+  if (gameState == gameOver && key == ENTER){ // Press enter to restart
     tryAgain(); 
   }
   if (key == CODED){
