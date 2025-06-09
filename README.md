@@ -15,7 +15,7 @@
 
 ### Working Features
 - :white_check_mark: Pacman movement
-- :white_check_mark: Ghost targeting nodes and pacman
+- :white_check_mark: Ghost targeting nodes and pacman in BFS 
 - :white_check_mark: Ghost Vulnerable/Edible mode 
 - :white_check_mark: returning to home base 
 - :white_check_mark: Hallway to the Other side of the map 
