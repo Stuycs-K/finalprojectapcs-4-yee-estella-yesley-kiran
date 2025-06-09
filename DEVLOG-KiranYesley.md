@@ -64,3 +64,5 @@ This document must be updated daily every time you finish a work session.
 ## 2025-05-08 
 - Completely fixed Pacman movement (I think) - 2 hours
 - Fixed the hallway bug  - 1 hour
+- added some extra stuff like cherries and music - 2 hours
+- creating video, read me, and redoing uml - 1 hour
