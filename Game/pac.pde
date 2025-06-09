@@ -137,6 +137,7 @@ class Pac extends character{
       int currtime = second();
       while(second() != currtime + 2){
         if(music.isPlaying())music.pause();
+        deathsfx.amp(0.2);
         if (!deathsfx.isPlaying()) deathsfx.play();
       }
       this.setCurrNode(nodeGrid[13][10], pacRight);
