@@ -23,7 +23,7 @@ int highScore;
 final int start = 0;
 final int game = 1;
 final int gameOver = 2;
-int gameState = start; //<>//
+int gameState = start; //<>// //<>//
 
 boolean fresh = false;
 int freshtime =0;
@@ -193,7 +193,7 @@ public void draw() {
           g.MODE = GhostMode.CHASE;
           g.ghostImg = g.icon;
           g.speed = 1.5;
-        } //<>//
+        } //<>// //<>//
       }
       g.update();
       g.display();
@@ -275,7 +275,7 @@ void timers() {
   if (millis() - freshtime > 5000) fresh= false;
 }
 
-void GameOver() { //<>//
+void GameOver() { //<>// //<>//
   image(GAMEOVER, 0, 0);
   music.pause();
   deathsfx.play();
@@ -285,7 +285,7 @@ void GameOver() { //<>//
 }
 
 void drawStartScreen() {
-  image(START, 0, 0); //<>//
+  image(START, 0, 0); //<>// //<>//
 }
 
 void tryAgain() {
@@ -324,7 +324,16 @@ public void keyPressed() {
   if (gameState == gameOver && key == ENTER) { // Press enter to restart
     tryAgain();
   }
-  if (key == CODED) {
+    if (key == 'W' || key == 'w') {
+      Pacman.move("up");
+    } else if (key == 'S' || key == 's') {
+      Pacman.move("down");
+    } else if (key == 'D' || key == 'd') {
+      Pacman.move("right");
+    } else if (key == 'A' || key == 'a') {
+      Pacman.move("left");
+    }
+  else if (key == CODED) {
     if (keyCode == UP) {
       Pacman.move("up");
     } else if (keyCode == DOWN) {
