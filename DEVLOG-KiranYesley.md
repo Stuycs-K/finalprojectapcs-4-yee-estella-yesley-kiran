@@ -66,3 +66,5 @@ This document must be updated daily every time you finish a work session.
 - Fixed the hallway bug  - 1 hour
 - added some extra stuff like cherries and music - 2 hours
 - creating video, read me, and redoing uml - 1 hour
+
+I believe this document accurately reflects the contributions of my teamate. - Estella Yee 
