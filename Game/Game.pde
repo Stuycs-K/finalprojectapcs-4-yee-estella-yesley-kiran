@@ -286,9 +286,8 @@ void timers(){
 
 void GameOver(){
   image(GAMEOVER,0,0); //<>//
-   music.pause();
-   deathsfx.play();
-  
+  music.pause();
+  deathsfx.play();
   gameState = gameOver; 
 
   noLoop();
@@ -306,12 +305,12 @@ void drawStartScreen(){
 }
 
 void tryAgain(){
-  if(gameState != gameOver){
   score = 0; 
   
-  Pacman = new Pac(nodeGrid[13][10], pacman); 
+  Pacman = new Pac(nodeGrid[13][10], pacman);
+  
   for (Node n : nodes){
-    if(n.value > 0) n.eaten = false;
+    n.eaten = false;
   }
   
   ghosts = new ArrayList<Ghost>();
@@ -332,8 +331,7 @@ void tryAgain(){
   }
   gameState = game; 
   loop(); 
-  }
-}
+ }
 
 public void keyPressed(){
   if (gameState == start && key == ENTER){
