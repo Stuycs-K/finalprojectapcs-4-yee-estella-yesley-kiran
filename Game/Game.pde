@@ -1,4 +1,4 @@
-import processing.sound.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+import processing.sound.*; 
 int[][] map;
 int SQUARESIZE = 25;
 
@@ -23,7 +23,7 @@ int highScore;
 final int start = 0;
 final int game = 1;
 final int gameOver = 2;
-int gameState = start;
+int gameState = start; //<>// //<>//
 
 boolean fresh = false;
 int freshtime =0;
@@ -68,7 +68,7 @@ void setup() {
   orangeG = loadImage("OrangeGhost.png");
   Eyes = loadImage("DeadGhostEyes.png");
   
-  START = loadImage("startScreen.jpg"); 
+  START = loadImage("START.jpg"); 
   GAMEOVER = loadImage("GameOver.jpg");
   cherry = loadImage("CHERRY.png");
 
@@ -193,7 +193,7 @@ public void draw() {
           g.MODE = GhostMode.CHASE;
           g.ghostImg = g.icon;
           g.speed = 1.5;
-        }
+        } //<>// //<>//
       }
       g.update();
       g.display();
@@ -275,7 +275,7 @@ void timers() {
   if (millis() - freshtime > 5000) fresh= false;
 }
 
-void GameOver() {
+void GameOver() { //<>// //<>//
   image(GAMEOVER, 0, 0);
   music.pause();
   deathsfx.play();
@@ -285,13 +285,7 @@ void GameOver() {
 }
 
 void drawStartScreen() {
-  /*fill(0);
-   rect(0,0, 21 * SQUARESIZE , 21 * SQUARESIZE);
-   textSize(25);
-   fill(255);
-   text("CLICK ENTER TO START", (21 * SQUARESIZE) / 3 , (21 * SQUARESIZE) /2 );
-   */
-  image(GAMEOVER, 0, 0);
+  image(START, 0, 0); //<>// //<>//
 }
 
 void tryAgain() {
