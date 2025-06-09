@@ -15,7 +15,7 @@ public class Clyde extends Ghost{
       super.setTarget(targ); 
     }
     else {
-      ArrayList<Node> neighbors = currNode.getNeighbors(); 
+      ArrayList<Node> neighbors = new ArrayList<>(currNode.getNeighbors());
       if (prevNode != null && neighbors.size() > 1)
         neighbors.remove(prevNode); 
       if (neighbors.size() <= 0)

@@ -110,7 +110,7 @@ class Pac extends character{
       else{
         // System.out.println(Arrays.deepToString(nodeGrid)); 
         System.out.println(currNode.getNeighbors()); 
-        System.out.println("next Direction node is NULL");  //<>//
+        System.out.println("next Direction node is NULL");  //<>// //<>//
         System.out.println(Arrays.deepToString(nodeGrid)); 
       }
   }
@@ -157,12 +157,9 @@ class Pac extends character{
     else {
       UP =DOWN = LEFT = RIGHT = false;
       int currtime = second();
-      int updatetime = currtime - 1;
       while(second() != currtime + 2){
-        if( second() != updatetime ){
-          updatetime = second();
-          icon = deathseq.get(updatetime - currtime);
-        }
+        if(music.isPlaying())music.pause();
+        if (!deathsfx.isPlaying()) deathsfx.play();
       }
       this.setCurrNode(nodeGrid[13][10], pacRight);
       nextNode = null;
