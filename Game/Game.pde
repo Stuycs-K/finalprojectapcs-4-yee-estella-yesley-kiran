@@ -213,6 +213,7 @@ public void draw() {
 
 void playSounds() {
   if (gameState != gameOver) {
+    music.amp(0.1);
     if (!music.isPlaying()) music.play();
   } else music.pause();
 }
