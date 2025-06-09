@@ -25,7 +25,6 @@ public class Clyde extends Ghost{
         target = neighbors.get(select); 
       }
     }
-    // System.out.println("Clyde's target: " + target); 
   }
   
 }

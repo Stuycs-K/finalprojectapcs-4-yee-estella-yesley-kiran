@@ -53,31 +53,15 @@ void inch(){
  }
  
  void move(int dr, int dc){
-  // if(currNode.col + dc < 0) nextNode = nodeGrid[currNode.row][20];
-   //else if(currNode.col + dc > 20) nextNode = nodeGrid[currNode.row][0];
-   //else{
    for (Node neighbor : currNode.neighbors){ // check through all the neighbors to find the right one to move to
      if (neighbor.row == currNode.row + dr && neighbor.col == currNode.col + dc){
        nextNode = neighbor; 
      }
    }
-     /*
-     if (neighbor.row == 10 && neighbor.col == 0){
-       nextNode = nodeGrid[10][map.length-2]; 
-     }
-     if (neighbor.row == 10 && neighbor.col == map.length-1){
-       nextNode = nodeGrid[10][1]; 
-     }
-     */
- //  }
  }
  
  void display(){
    image(icon, x, y);
    fill(255); 
-  // text("x: " + x + "y: " + y, x, y); 
-   // text("col: " + currNode.col + "row: " + currNode.row, x, y+15); 
-   // text("col: " + nextNode.col + "row: " + nextNode.row, x, y+15); 
-   // text("speed: " + speed, x, y  + 15);
  }
 }

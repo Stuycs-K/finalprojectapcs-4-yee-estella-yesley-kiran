@@ -23,7 +23,7 @@ int highScore;
 final int start = 0; 
 final int game = 1;
 final int gameOver = 2; 
-int gameState = start; 
+int gameState = start;  //<>//
 
 boolean fresh = false;
 int freshtime =0; //<>//
@@ -193,27 +193,20 @@ public void draw(){
       g.target = nodeGrid[11][10]; 
       g.speed = 5;  //<>//
       g.ghostImg = Eyes; 
-      if (g.currNode == nodeGrid[11][10]) {
+      if (g.currNode == nodeGrid[11][10]) { //<>//
          // the ghost has returned home
         g.MODE = GhostMode.CHASE;
         g.ghostImg = g.icon;
         g.speed = 1.5;
       }
     }
-     //<>//
     g.update(); 
     g.display();
   }
   
-<<<<<<< HEAD
-  
-  
   playSounds();
-=======
-  Pacman.printStatus();
->>>>>>> 8f7d5b815ff1e88a189be495d50d20c2ee2f7c09
-  checkContact();
   checkPoints();
+  checkContact();
   timers();
   displayPoints(); 
   score = Pacman.getScore();
@@ -224,7 +217,7 @@ public void draw(){
 }
 
 void playSounds(){
-  if(!gameOver){
+  if(gameState != gameOver){
     if(!music.isPlaying()) music.play();
   }
   else music.pause();
@@ -234,12 +227,9 @@ void playSounds(){
 void checkPoints(){
   for(Node n: nodes){
     if(n.eaten == false){
-      System.out.println(n);
       return;
     }
   }
-  // then reset 
-    System.out.println("here!!");
   for(Node n: nodes){
     if(n.value > 0) n.eaten = false;
   }
@@ -279,15 +269,15 @@ void checkContact(){
   for (Ghost g : ghosts){
     if (g.currNode == Pacman.currNode){ 
        if(g.MODE == GhostMode.VULNERABLE ){
-          g.reset(); // Right now Pacman is dying even when ghosts are in blue mode
+         g.reset(); 
           Pacman.addtoScore(100);
-          fresh =true; //add a timer to this but for now its just so incredibly unlikely a ghost kills u near to when u kill a ghost 
+          fresh =true;  
           freshtime =  millis();
       }
       else if(!(g.MODE == GhostMode.RETURNING) && !fresh && Pacman.reset()) 
-        GameOver();
+        GameOver(); //<>//
     }
-  } //<>//
+  } 
 }
 
 void timers(){
@@ -295,16 +285,12 @@ void timers(){
 }
 
 void GameOver(){
-  image(GAMEOVER,0,0);
+  image(GAMEOVER,0,0); //<>//
    music.pause();
-   deathsfx.play(); //<>//
+   deathsfx.play();
   
-<<<<<<< HEAD
-  gameOver = true; 
-=======
-  text("PRESS ENTER TO TRY AGAIN", (21* SQUARESIZE) / 4, (21 * SQUARESIZE) / 2 + 50); 
   gameState = gameOver; 
->>>>>>> 8f7d5b815ff1e88a189be495d50d20c2ee2f7c09
+
   noLoop();
 }
 
@@ -320,7 +306,7 @@ void drawStartScreen(){
 }
 
 void tryAgain(){
-  if(gameOver){
+  if(gameState != gameOver){
   score = 0; 
   
   Pacman = new Pac(nodeGrid[13][10], pacman); 

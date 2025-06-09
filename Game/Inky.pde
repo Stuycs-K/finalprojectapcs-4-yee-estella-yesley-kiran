@@ -4,10 +4,8 @@ public class Inky extends Ghost{
       super(start, target, img); 
     }
     
-  void setTarget(Node targ){ // chooses the node 180 degrees from where the red's position is
-    // System.out.println("This statement is being reached"); 
+  void setTarget(Node targ){ 
     Node redPos = blinky.currNode; 
-    System.out.println("Blinky's pos: " + redPos); 
     int targRow = 2 * targ.row - redPos.row; 
     int targCol = 2 * targ.col - redPos.col; 
     
@@ -16,10 +14,8 @@ public class Inky extends Ghost{
     targCol = max(0, min(nodeGrid[0].length-1, targCol)); 
     if (nodeGrid[targRow][targCol] != null){
       target = nodeGrid[targRow][targCol]; 
-      System.out.println("target was set 180 degrees"); 
     }
     else {
-      // System.out.println("Target was invalid, setting to something new"); 
       int[][] dir = {
         {-1, 0}, {1, 0}, {0, -1}, {0, 1}
       }; 
@@ -29,12 +25,10 @@ public class Inky extends Ghost{
         if (nextR >= 0 && nextR < map.length && nextC >= 0 && nextC < map.length && nodeGrid[nextR][nextC] != null){
           target = nodeGrid[nextR][nextC];
         }
-        // else{
-        //   target = targ; 
-        // }
+
       }
     }
-    // System.out.println("Inky's target: " + target); 
+
   }
   
   

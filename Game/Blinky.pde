@@ -6,7 +6,7 @@ public class Blinky extends Ghost{
   
   void setTarget(Node targ){
     super.setTarget(targ); 
-    // System.out.println("Blinky's target: " + target); 
+
   }
 
 }

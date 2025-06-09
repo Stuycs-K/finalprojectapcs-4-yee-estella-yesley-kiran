@@ -17,7 +17,6 @@ public class Pinky extends Ghost{
      temp = neighbors.get(select); 
     }
     target = temp; 
-    // System.out.println("Pinky's target: " + target); 
   }
   
   
