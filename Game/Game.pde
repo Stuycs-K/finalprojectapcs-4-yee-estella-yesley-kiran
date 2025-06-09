@@ -84,8 +84,8 @@ void setup() {
 
   ghosts.add(blinky);
   ghosts.add(pinky);
-  ghosts.add(inky);
-  ghosts.add(clyde);
+  //ghosts.add(inky);
+  //ghosts.add(clyde);
   for (Ghost g : ghosts) {
     g.blueghost = Blue;
     g.eyesghost = Eyes;
