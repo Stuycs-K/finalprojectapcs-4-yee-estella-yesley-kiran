@@ -33,6 +33,7 @@ Make sure you have the sound library downloaded. If it's not downloaded:
 
 ### Partially Working Features
 -  :question: death sound effects glitch but only sometimes 
+-  :question: ghost collisions 
  
 ### Not Working Features
 - :x: 
