@@ -1,4 +1,4 @@
-import processing.sound.*; //<>// //<>// //<>// //<>// //<>// //<>//
+import processing.sound.*; //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>// //<>//
 int[][] map;
 int SQUARESIZE = 25;
 
@@ -291,7 +291,7 @@ void drawStartScreen() {
    fill(255);
    text("CLICK ENTER TO START", (21 * SQUARESIZE) / 3 , (21 * SQUARESIZE) /2 );
    */
-  image(START, 0, 0);
+  image(GAMEOVER, 0, 0);
 }
 
 void tryAgain() {
@@ -330,7 +330,16 @@ public void keyPressed() {
   if (gameState == gameOver && key == ENTER) { // Press enter to restart
     tryAgain();
   }
-  if (key == CODED) {
+    if (key == 'W' || key == 'w') {
+      Pacman.move("up");
+    } else if (key == 'S' || key == 's') {
+      Pacman.move("down");
+    } else if (key == 'D' || key == 'd') {
+      Pacman.move("right");
+    } else if (key == 'A' || key == 'a') {
+      Pacman.move("left");
+    }
+  else if (key == CODED) {
     if (keyCode == UP) {
       Pacman.move("up");
     } else if (keyCode == DOWN) {
