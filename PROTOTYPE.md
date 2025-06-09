@@ -46,7 +46,9 @@ Extra Features:
 # Project Design
 
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together:
-
+New Diagram:
+![Alt text](UML.png?raw=true "Title" ) 
+Old diagram:
 ![Alt text](UML.jpg?raw=true "Title" ) 
 
 MAP diagram plan:

@@ -55,7 +55,6 @@ class Pac extends character{
       score++;
     }
     else{
- //     System.out.println( "is this run?");
     if (UP){
       move(-1, 0); 
       icon = pacUp; 
@@ -76,12 +75,7 @@ class Pac extends character{
       if(currNode.value == 10){
          for (Ghost g : ghosts){
            g.setVulnerable(true);
-           // System.out.println("Vulnerable state activated"); 
          }
-      //  for(Ghost g: ghosts) 
-      //    g.setVulnerable(true); 
-      //    System.out.println("Transition into Blue State"); 
-      //    System.out.println(g.getMode()); 
       }
       currNode.eaten = true;
       score+=currNode.value;
@@ -90,7 +84,6 @@ class Pac extends character{
   }
   
   void move(String dir){
-    System.out.println( "is this even running");
       if (dir.equals("up") && (nextNode == null || checkNeighbor(-1, 0)) ){
         UP = true; 
         DOWN = RIGHT = LEFT = false; 
@@ -108,29 +101,15 @@ class Pac extends character{
         UP = DOWN = LEFT = false;
       }
       else{
-        // System.out.println(Arrays.deepToString(nodeGrid)); 
-        System.out.println(currNode.getNeighbors()); 
-        System.out.println("next Direction node is NULL");  //<>//
-        System.out.println(Arrays.deepToString(nodeGrid)); 
       }
   }
   
   boolean checkNeighbor( int dr ,int dc){
-    System.out.println(currNode);
-    System.out.println(nextNode);
-    nextNode.printNeighbors();
     for (Node neighbor : nextNode.neighbors){ 
-//     System.out.println(neighbor);
      if (neighbor.row == nextNode.row + dr && neighbor.col == nextNode.col + dc){
-       System.out.println(" TRUE");    
        return true;        
      }
-     // System.out.println( neighbor.row + ", " + (nextNode.row + dr) + ", " + neighbor.col + ", " + (nextNode.col + dc));
     }
-    //for (Node neighbor : nextNode.neighbors){ 
-    //  System.out.println(neighbor);
-    //}
-    System.out.println(" FALSE");
     return false;  
   }
   
@@ -151,18 +130,14 @@ class Pac extends character{
   }
   
   boolean reset(){
-    System.out.println("pacman is being reset");
     subHealth();
     if(getLives() <= 0) return true;
     else {
       UP =DOWN = LEFT = RIGHT = false;
       int currtime = second();
-      int updatetime = currtime - 1;
       while(second() != currtime + 2){
-        if( second() != updatetime ){
-          updatetime = second();
-          icon = deathseq.get(updatetime - currtime);
-        }
+        if(music.isPlaying())music.pause();
+        if (!deathsfx.isPlaying()) deathsfx.play();
       }
       this.setCurrNode(nodeGrid[13][10], pacRight);
       nextNode = null;
@@ -172,12 +147,6 @@ class Pac extends character{
   
   void display(){
     super.display(); 
-    //if (nextNode != null){
-    //  text("Next Node: " + nextNode, x, y+15); 
-    //} 
-    //else {
-    //  text("NULL", x, y+15); 
-    //}
   }
   
   public void printStatus(){

@@ -1,3 +1,4 @@
+import processing.sound.*;
 int[][] map; 
 int SQUARESIZE = 25; 
 
@@ -5,14 +6,15 @@ ArrayList<Node> nodes = new ArrayList<Node>();
 Node[][] nodeGrid;
 
 ArrayList<Ghost> ghosts = new ArrayList<Ghost>(); // change to 4 later
-PImage redG, purpG, greenG, Blue,Eyes, orangeG; 
+PImage redG, purpG, greenG, Blue,Eyes, orangeG, GAMEOVER,cherry; 
 Blinky blinky; 
 Pinky pinky; 
 Inky inky; 
 Clyde clyde; 
+SoundFile music;
+SoundFile deathsfx;
 
 float restartTime = 0; 
-//Pacman main; 
 Pac Pacman; 
 PImage pacman; 
 
@@ -21,13 +23,13 @@ int highScore;
 final int start = 0; 
 final int game = 1;
 final int gameOver = 2; 
-int gameState = start; 
+int gameState = start;  //<>//
 
 boolean fresh = false;
-int freshtime =0;
+int freshtime =0; //<>//
 // setup the map, value of -1 is a wall, value of 1 is a point, value of 0 is an empty space
 void setup(){
-  size(21*25, 21*25 + 75); //<>// //<>//
+  size(21*25, 21*25 + 75); 
   map = new int[][]{
   {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
   {-1, -1, -1, -1, -1, -1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, -1},
@@ -65,6 +67,11 @@ void setup(){
   Blue = loadImage("VulnerableGhost.png");
   orangeG = loadImage("OrangeGhost.png");
   Eyes = loadImage("DeadGhostEyes.png");
+  GAMEOVER = loadImage("GameOver.jpg");
+  cherry = loadImage("CHERRY.png");
+  
+  music = new SoundFile(this, "MUSIC.mp3");
+  deathsfx = new SoundFile(this, "Pac-Man Death.mp3"); 
   
   
   
@@ -90,6 +97,7 @@ boolean isWalkable(int r, int c){
 }
 
 void genNodes(){
+  randomCherry();
   nodeGrid = new Node[map.length][map[0].length];
   for( int r = 0; r < map.length; r++){
     for(int c = 0; c < map[0].length; c++){
@@ -100,6 +108,16 @@ void genNodes(){
       }
     }
   }
+}
+
+void randomCherry(){
+  int val4 = (int) random(4);
+  map[1][13] = map[16][1] = map[19][14] = map[8][19] = 1;
+  if(val4 == 0) map[1][16] = 30;
+  if(val4 == 1) map[13][1] = 30;
+  if(val4 == 2) map[19][14] = 30;
+  if(val4 == 3) map[8][19] = 30;
+  
 }
 
 public void connectNodes(){
@@ -124,11 +142,6 @@ public void connectNodes(){
   }
 }
 
-// POINT SYSTEM 
-//public void calcPoints(){
-  
-// }
-
 public void displayPoints(){
   fill(255,255,255);
   textSize(25);
@@ -151,31 +164,17 @@ public void draw(){
   else{
   background(0); 
   drawSquares(map);
-  //for(Node n: nodes){
-  //  n.displayNodes();
-  //  n.displayEdges();
-  //}
   
   Pacman.inch();
   Pacman.display();
-  // System.out.println(Arrays.deepToString(nodeGrid)); 
-  // System.out.println(nodes); 
-  // GHOST MODES  
-  
-  // To visualize the paths: 
-  
   for (Node n : nodes){
     n.pathPart = false; 
   }
-  // System.out.println("before ghosts" + millis());
   for (Ghost g : ghosts){
- //   g.printStatus();
     g.timeGhosts(); 
     if (g.MODE == GhostMode.SCATTER){
-     // System.out.println("scatter");
       if (g == blinky){
         g.target = nodeGrid[3][19]; 
-        // g.target = Pacman.currNode; 
       }
       if (g == pinky){
         g.target = nodeGrid[2][1]; 
@@ -191,59 +190,52 @@ public void draw(){
             g.setTarget(Pacman.currNode); 
     }
     else if (g.MODE == GhostMode.RETURNING){
-          //  System.out.println("returning");
       g.target = nodeGrid[11][10]; 
       g.speed = 5;  //<>//
       g.ghostImg = Eyes; 
-      if (g.currNode == nodeGrid[11][10]) {
+      if (g.currNode == nodeGrid[11][10]) { //<>//
          // the ghost has returned home
         g.MODE = GhostMode.CHASE;
         g.ghostImg = g.icon;
         g.speed = 1.5;
-         //<>//
       }
-   //   System.out.println("end of returning"); 
-
     }
-    
-    /*
-    else if (g.MODE == g.VULNERABLE){
-      
-      ArrayList<Node> neighbors = g.currNode.getNeighbors();
-      neighbors.remove(g.prevNode); 
-      if (neighbors.size() == 0 && g.prevNode != null){
-        g.target = g.prevNode; 
-      }else {
-        
-      int temp = (int)random(neighbors.size()); 
-      g.target = neighbors.get(temp); 
-      
-      }
-      System.out.println("BLUE MODE: " + g.target); 
-     }
-    */
     g.update(); 
     g.display();
   }
   
-  Pacman.printStatus();
+  playSounds();
+  checkPoints();
   checkContact();
   timers();
-  System.out.println("timers" + millis());
   displayPoints(); 
   score = Pacman.getScore();
   if (highScore < score) highScore = score;
   displayPoints();
   displayLives();
-  System.out.println(millis());
 }
 }
 
-/* Draw the walls, points, etc 
-For later: 
- - add in different pixels for each fruit/point 
- - make this actually look good 
-*/ 
+void playSounds(){
+  if(gameState != gameOver){
+    if(!music.isPlaying()) music.play();
+  }
+  else music.pause();
+
+}
+
+void checkPoints(){
+  for(Node n: nodes){
+    if(n.eaten == false){
+      return;
+    }
+  }
+  for(Node n: nodes){
+    if(n.value > 0) n.eaten = false;
+  }
+}
+
+
 void drawSquares(int[][] map){
   for (int rows = 0; rows < map.length; rows ++){
     for (int cols = 0; cols < map[0].length; cols ++){
@@ -251,11 +243,6 @@ void drawSquares(int[][] map){
         fill (0, 0, 255); 
         rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
       }
-      // checks the pathfinding mechanism of ghost
-      //if (nodeGrid[rows][cols] != null && nodeGrid[rows][cols].pathPart == true){
-      //  fill(0, 255, 0); 
-      //  rect(cols * SQUARESIZE, rows * SQUARESIZE, SQUARESIZE, SQUARESIZE); 
-      //}
       else {
         fill (255);
         if (map[rows][cols] == 1){
@@ -268,7 +255,11 @@ void drawSquares(int[][] map){
           if(!current.eaten)
           circle(cols * SQUARESIZE + SQUARESIZE/2, rows * SQUARESIZE + SQUARESIZE/2, SQUARESIZE/2); 
         }
-        
+        if (map[rows][cols] == 30){
+          Node current = nodeGrid[rows][cols];
+          if(!current.eaten)
+            image(cherry,cols * SQUARESIZE,  rows * SQUARESIZE);
+        }
       }
     }
   }
@@ -278,15 +269,15 @@ void checkContact(){
   for (Ghost g : ghosts){
     if (g.currNode == Pacman.currNode){ 
        if(g.MODE == GhostMode.VULNERABLE ){
-          g.reset(); // Right now Pacman is dying even when ghosts are in blue mode
+         g.reset(); 
           Pacman.addtoScore(100);
-          fresh =true; //add a timer to this but for now its just so incredibly unlikely a ghost kills u near to when u kill a ghost 
+          fresh =true;  
           freshtime =  millis();
       }
       else if(!(g.MODE == GhostMode.RETURNING) && !fresh && Pacman.reset()) 
-        GameOver();
+        GameOver(); //<>//
     }
-  }
+  } 
 }
 
 void timers(){
@@ -294,17 +285,12 @@ void timers(){
 }
 
 void GameOver(){
-  fill(0); 
-  rect(0,0, 21 * SQUARESIZE , 21 * SQUARESIZE);
-  fill(255,255,255);
-  textSize(25);
-  fill (0, 0, 255); 
-  rect((21 * SQUARESIZE) / 3 - 15, (21 * SQUARESIZE) / 2 - 30, 200, 50); 
-  fill(255); 
-  text("GAME OVER", (21 * SQUARESIZE) / 3 , (21 * SQUARESIZE) /2 );
+  image(GAMEOVER,0,0); //<>//
+   music.pause();
+   deathsfx.play();
   
-  text("PRESS ENTER TO TRY AGAIN", (21* SQUARESIZE) / 4, (21 * SQUARESIZE) / 2 + 50); 
   gameState = gameOver; 
+
   noLoop();
 }
 
@@ -320,11 +306,12 @@ void drawStartScreen(){
 }
 
 void tryAgain(){
+  if(gameState != gameOver){
   score = 0; 
   
   Pacman = new Pac(nodeGrid[13][10], pacman); 
   for (Node n : nodes){
-    n.eaten = false;
+    if(n.value > 0) n.eaten = false;
   }
   
   ghosts = new ArrayList<Ghost>();
@@ -345,7 +332,7 @@ void tryAgain(){
   }
   gameState = game; 
   loop(); 
-  
+  }
 }
 
 public void keyPressed(){

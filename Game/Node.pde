@@ -17,7 +17,8 @@ class Node{
     x = col* SQUARESIZE;
     y = row * SQUARESIZE;
     value = val; 
-    eaten = false;
+    if (value > 0)eaten = false;
+    else eaten = true;
   }
   
   public void addNeighbor(Node n){
