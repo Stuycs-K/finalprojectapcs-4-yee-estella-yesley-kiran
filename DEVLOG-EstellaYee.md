@@ -63,4 +63,8 @@ Expanded description including how much time was spent on task.
 - figured out how to branch properly 
 - spent hours and hours trying to find the bug in our code that makes pacman unable to move - 5 hours (I dreamt about it)
 - Wrote a new BFS searching mechanism that uses a sequence of numbers instead - 1 hour 
+- Added in the start screen and game over screen, also the restart mechanism that allows for the game to be played over and over again - 30 minutes
+- made original art for the start and game over screens - 20 minutes 
+
+
 
